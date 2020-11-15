@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#9D152C"
-        app:title="Nome do Personagem"
+        app:title="Jarvis DB"
         app:titleTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:navigationIcon="@drawable/ic_menu_navigation"

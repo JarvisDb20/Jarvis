@@ -8,5 +8,14 @@
         android:id="@+id/exibePersonagemFragment2"
         android:name="com.e.jarvis.ExibePersonagemFragment"
         android:label="fragment_exibe_personagem"
-        tools:layout="@layout/fragment_exibe_personagem" />
+        tools:layout="@layout/fragment_exibe_personagem" >
+        <action
+            android:id="@+id/action_exibePersonagemFragment2_to_exibeSeriesFragement"
+            app:destination="@id/exibeSeriesFragement" />
+    </fragment>
+    <fragment
+        android:id="@+id/exibeSeriesFragement"
+        android:name="com.e.jarvis.ExibeSeriesFragement"
+        android:label="fragment_exibe_series_fragement"
+        tools:layout="@layout/fragment_exibe_series_fragment" />
 </navigation>
