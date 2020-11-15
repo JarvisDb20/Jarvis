@@ -2,4 +2,6 @@
     <string name="app_name">Jarvis</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favoritar">btn_favoritar</string>
+    <string name="btn_share">share</string>
 </resources>
