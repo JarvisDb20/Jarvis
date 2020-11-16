@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Jarvis</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nome_personagem">Wolverine</string>
+    <string name="personagens_encontrados">Personagens encontrados...</string>
+    <string name="top_personagens">Personagens mais procurados...</string>
 </resources>

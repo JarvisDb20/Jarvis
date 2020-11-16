@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!--Cores Tema Ant-Man-->
+    <color name="blood_orange">#D30026</color>
+    <color name="vivid_burgundy">#9D152C</color>
+    <color name="chinese_silver">#C5CFD1</color>
+    <color name="roman_silver">#868A93</color>
+    <color name="cadet">#5E6674</color>
+
+
+
 </resources>
