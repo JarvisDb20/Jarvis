@@ -4,10 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ExibeSeriesFragment">
+    tools:context=".ExibeComicsFragment">
+
 
     <ImageView
-        android:id="@+id/frag_series_img"
+        android:id="@+id/frag_comics_img"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,27 +17,27 @@
 
 
     <LinearLayout
-        android:id="@+id/frag_series_linearLayoutbuttons"
+        android:id="@+id/frag_comics_linearLayoutbuttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frag_series_img">
+        app:layout_constraintTop_toBottomOf="@id/frag_comics_img">
 
         <Button
-            android:id="@+id/frag_series_btn_char"
+            android:id="@+id/frag_comics_btn_char"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/black"
-            android:drawableTop="@drawable/ic_btn_series"
-            android:text="Char"
-            android:textColor="@color/white" />
+            android:drawableTop="@drawable/ic_btn_personagem"
+            android:textColor="@color/white"
+            android:text="Char" />
 
         <Button
-            android:id="@+id/frag_series_btn_series"
+            android:id="@+id/frag_comics_btn_series"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,7 +47,7 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/frag_series_btn_comics"
+            android:id="@+id/frag_comics_btn_comics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -56,7 +57,7 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/frag_series_btn_stories"
+            android:id="@+id/frag_comics_btn_stories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -78,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frag_series_linearLayoutbuttons">
+        app:layout_constraintTop_toBottomOf="@id/frag_comics_linearLayoutbuttons">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,23 +87,23 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/frag_series_tv_titulo"
+                android:id="@+id/frag_comics_tv_titulo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:layout_marginStart="15dp"
                 android:gravity="center"
-                android:text="Séries"
+                android:text="Nome da Comic"
                 android:textColor="#5E6674"
                 android:textSize="24sp" />
 
 
             <TextView
-                android:id="@+id/frag_series_tv_descricao"
+                android:id="@+id/frag_comics_tv_descricao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:text="Descrição das séries"
+                android:text="texto descrição"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
