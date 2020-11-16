@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Jarvis</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <!-- <string name="hello_blank_fragment">Hello blank fragment</string>-->
+
+    <!--Tela de Login-->
+
+    <string name="prompt_email">Username or Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="button_login">LOG IN</string>
+    <string name="button_new_user">CREATE NEW USER</string>
+    <string name="button_facebook">LOGIN WITH FACEBOOK</string>
+    <string name="button_twitter">LOGIN WITH TWITTER</string>
+    <string name="button_google">LOGIN WITH GOOGLE</string>
+
+    <!--Tela de Cadastro-->
+
+    <string name="prompt_confirm_password">Confirm password</string>
+    <string name="prompt_birthday">Birthday</string>
+    <string name="prompt_register">REGISTER USER</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
