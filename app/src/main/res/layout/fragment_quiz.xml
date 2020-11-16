@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg1"
     tools:context=".UI.QuizFragment">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
+        android:background="@drawable/bkg1"
         android:scaleType="fitXY" />
 
     <LinearLayout
@@ -151,6 +151,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <Button
+            android:id="@+id/btnQuiz"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
