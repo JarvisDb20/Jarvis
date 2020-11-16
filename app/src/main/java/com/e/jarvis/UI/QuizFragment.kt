@@ -17,9 +17,7 @@ class QuizFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater!!.inflate(R.layout.fragment_quiz, container, false)
-        view.btnQuiz.setOnClickListener{
-            findNavController().navigate(R.id.action_quizFragment_to_questionFragment)
-        }
+        
         return view
 
     }

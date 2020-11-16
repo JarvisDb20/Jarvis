@@ -6,15 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-<<<<<<< HEAD
 class ExibeSeriesFragement : Fragment() {
-=======
-class ExibeSeriesFragment : Fragment() {
->>>>>>> Ferraz
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

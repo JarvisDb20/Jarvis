@@ -24,5 +24,6 @@
     <string name="nome_personagem">Wolverine</string>
     <string name="personagens_encontrados">Personagens encontrados...</string>
     <string name="top_personagens">Personagens mais procurados...</string>
+    <string name="QuizIntro">teste</string>
 
 </resources>

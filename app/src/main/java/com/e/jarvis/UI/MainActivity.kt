@@ -24,29 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(homeToolbar)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainFragment) as NavHostFragment
-        navController = navHostFragment.navController
-
-
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-
-        setupActionBarWithNavController(navController,appBarConfiguration)
-        findViewById<Toolbar>(R.id.homeToolbar)
-            .setupWithNavController(navController, appBarConfiguration)
-
-
-        //drawerLayout = drawer
-        //appBarConfiguration = AppBarConfiguration(navController.graph,drawerLayout)
-        //nvMenu.setupWithNavController(navController)
-        //homeToolbar.setupWithNavController(navController,appBarConfiguration)
 
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.mainFragment)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
 }
