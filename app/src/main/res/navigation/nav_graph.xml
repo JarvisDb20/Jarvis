@@ -18,4 +18,5 @@
         android:name="com.e.jarvis.ExibeSeriesFragement"
         android:label="fragment_exibe_series_fragement"
         tools:layout="@layout/fragment_exibe_series_fragment" />
+
 </navigation>
