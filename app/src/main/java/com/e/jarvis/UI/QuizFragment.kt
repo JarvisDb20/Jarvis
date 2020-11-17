@@ -16,7 +16,7 @@ class QuizFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater!!.inflate(R.layout.fragment_quiz, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_quiz, container, false)
         
         return view
 

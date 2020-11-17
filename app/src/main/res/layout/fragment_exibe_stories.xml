@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/frag_stories_img"
+        android:id="@+id/iv_frag_stories"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,17 +17,17 @@
 
 
     <LinearLayout
-        android:id="@+id/frag_stories_linearLayoutbuttons"
+        android:id="@+id/ll_frag_stories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/black"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frag_stories_img">
+        app:layout_constraintTop_toBottomOf="@id/iv_frag_stories">
 
         <Button
-            android:id="@+id/frag_stories_btn_char"
+            android:id="@+id/btn_frag_stories_char"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -37,7 +37,7 @@
             android:text="Char" />
 
         <Button
-            android:id="@+id/frag_stories_btn_series"
+            android:id="@+id/btn_frag_stories_series"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -47,17 +47,17 @@
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/frag_stories_btn_comics"
+            android:id="@+id/btn_frag_stories_comics"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/black"
             android:drawableTop="@drawable/ic_btn_stories"
-            android:text="stories"
+            android:text="Comics"
             android:textColor="@color/white" />
 
         <Button
-            android:id="@+id/frag_stories_btn_stories"
+            android:id="@+id/btn_frag_stories_stories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -79,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frag_stories_linearLayoutbuttons">
+        app:layout_constraintTop_toBottomOf="@id/ll_frag_stories">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -87,7 +87,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/frag_stories_tv_titulo"
+                android:id="@+id/tv_titulo_frag_stories"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
@@ -99,7 +99,7 @@
 
 
             <TextView
-                android:id="@+id/frag_stories_tv_descricao"
+                android:id="@+id/tv_descricao_frag_stories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

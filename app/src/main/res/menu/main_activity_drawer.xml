@@ -14,5 +14,4 @@
         android:title="btn_share"
         app:showAsAction="always" />
 
-
 </menu>
