@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.e.jarvis.ui.home.HomeFragment"
+        android:label="JARVIS DB"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/navigate_to_pesquisa_fragment"
+            app:destination="@id/pesquisaFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_gallery"
+        android:name="com.e.jarvis.ui.gallery.GalleryFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_nav_gallery_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_slideshow"
+        android:name="com.e.jarvis.ui.slideshow.SlideshowFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/exibePersonagemFragment"
+        android:name="com.e.jarvis.ExibePersonagemFragment"
+        android:label="NOME DO PERSONAGEM"
+        tools:layout="@layout/fragment_exibe_personagem" >
+        <action
+            android:id="@+id/navigate_personagem_to_exibe_series_fragment"
+            app:destination="@id/exibeSeriesFragement" />
+        <action
+            android:id="@+id/navigate_personagem_to_exibe_comics_fragment"
+            app:destination="@id/exibeComicsFragment" />
+        <action
+            android:id="@+id/navigate_personagem_to_exibe_stories_fragment"
+            app:destination="@id/exibeStoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exibeComicsFragment"
+        android:name="com.e.jarvis.ExibeComicsFragment"
+        android:label="NOME DO PERSONAGEM"
+        tools:layout="@layout/fragment_exibe_comics" >
+        <action
+            android:id="@+id/navigate_comics_to_personagem"
+            app:destination="@id/exibePersonagemFragment" />
+        <action
+            android:id="@+id/navigate_comics_to_series"
+            app:destination="@id/exibeSeriesFragement" />
+        <action
+            android:id="@+id/navigate_comics_to_stories"
+            app:destination="@id/exibeStoriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exibeStoriesFragment"
+        android:name="com.e.jarvis.ExibeStoriesFragment"
+        android:label="NOME DO PERSONAGEM"
+        tools:layout="@layout/fragment_exibe_stories" >
+        <action
+            android:id="@+id/navigate_stories_to_personagem_fragment"
+            app:destination="@id/exibePersonagemFragment" />
+        <action
+            android:id="@+id/navigate_stories_to_series_fragment"
+            app:destination="@id/exibeSeriesFragement" />
+        <action
+            android:id="@+id/navigate_stories_to_comics_fragment"
+            app:destination="@id/exibeComicsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pesquisaFragment"
+        android:name="com.e.jarvis.PesquisaFragment"
+        android:label="JARVIS DB"
+        tools:layout="@layout/fragment_pesquisa" >
+        <action
+            android:id="@+id/navigate_to_exibe_personagem_fragment"
+            app:destination="@id/exibePersonagemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exibeSeriesFragement"
+        android:name="com.e.jarvis.ExibeSeriesFragement"
+        android:label="NOME DO PERSONAGEM" >
+        <action
+            android:id="@+id/navigate_series_to_personagem_fragment"
+            app:destination="@id/exibePersonagemFragment" />
+        <action
+            android:id="@+id/navigate_series_to_comics_fragment"
+            app:destination="@id/exibeComicsFragment" />
+        <action
+            android:id="@+id/navigate_series_to_stories_fragment"
+            app:destination="@id/exibeStoriesFragment" />
+    </fragment>
+</navigation>
