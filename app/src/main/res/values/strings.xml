@@ -25,5 +25,8 @@
     <string name="personagens_encontrados">Personagens encontrados...</string>
     <string name="top_personagens">Personagens mais procurados...</string>
     <string name="QuizIntro">teste</string>
+    <string name="seus_favoritos">Seus favoritos</string>
+    <string name="nome_hq">X-FORCE</string>
+
 
 </resources>
