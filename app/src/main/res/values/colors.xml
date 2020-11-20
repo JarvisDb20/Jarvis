@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -8,8 +9,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#9D152C</color>
+    <color name="colorPrimaryDark">#5E6674</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTool">#9D152C</color>
@@ -21,8 +22,6 @@
     <color name="chinese_silver">#C5CFD1</color>
     <color name="roman_silver">#868A93</color>
     <color name="cadet">#5E6674</color>
-
-
-
+  
 
 </resources>

@@ -10,8 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Jarvis">
           <activity
-            android:name=".MainActivityDrawer"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar">
+            android:name=".MainActivityDrawer" >
+<!--            android:theme="@style/Theme.MaterialComponents.NoActionBar"-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
