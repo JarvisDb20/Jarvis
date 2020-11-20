@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="fontePrincipal" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/font_norwester</item>
+    </style>
+
+    <style name="fonteSecundaria" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/chewy</item>
+    </style>
+
+    <style name="fonteLeitura" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+
+</resources>
