@@ -16,25 +16,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.e.jarvis.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" >
-        <action
-            android:id="@+id/action_nav_gallery_to_nav_home"
-            app:destination="@id/nav_home" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.e.jarvis.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
         android:id="@+id/exibePersonagemFragment"
         android:name="com.e.jarvis.ExibePersonagemFragment"
         android:label="NOME DO PERSONAGEM"
-        tools:layout="@layout/fragment_exibe_personagem" >
+        tools:layout="@layout/fragment_exibe_personagem">
         <action
             android:id="@+id/navigate_personagem_to_exibe_series_fragment"
             app:destination="@id/exibeSeriesFragement" />
@@ -98,4 +83,19 @@
             android:id="@+id/navigate_series_to_stories_fragment"
             app:destination="@id/exibeStoriesFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.e.jarvis.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.e.jarvis.ui.quiz.QuizFragment"
+        android:label="fragment_quiz"
+        tools:layout="@layout/fragment_quiz" />
+    <fragment
+        android:id="@+id/favoritosPersonagemFragment"
+        android:name="com.e.jarvis.FavoritosPersonagemFragment"
+        android:label="fragment_favoritos_personagem"
+        tools:layout="@layout/fragment_favoritos_personagem" />
 </navigation>

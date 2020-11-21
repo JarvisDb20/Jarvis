@@ -3,189 +3,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg9"
+    android:background="@drawable/bkg5"
     tools:context=".LoginFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <FrameLayout
+        <!-- TODO: Update blank fragment layout -->
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".MainActivity">
 
             <EditText
                 android:id="@+id/editTextTextEmailAddress"
+                style="@style/fonteSecundaria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="11dp"
-                android:layout_marginTop="100dp"
-                android:textColor="@color/colorWhite"
-                android:backgroundTint="@color/colorWhite"
+                android:backgroundTint="@color/white"
                 android:ems="10"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
-                android:textColorHint="@color/colorWhite"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="83dp" />
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="20dp"
+                />
 
             <EditText
                 android:id="@+id/editTextTextPassword"
+                style="@style/fonteSecundaria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="11dp"
-                android:layout_marginTop="170dp"
+                android:backgroundTint="@color/white"
                 android:ems="10"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
-                android:textColorHint="@color/colorWhite"
-                android:backgroundTint="@color/colorWhite"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteY="147dp" />
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:textSize="20dp"/>
 
             <Button
                 android:id="@+id/blogin"
+                style="@style/fontePrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginStart="11dp"
-                android:layout_marginTop="250dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="11dp"
                 android:backgroundTint="#47525E"
                 android:hint="@string/button_login"
-                android:textColorHint="@color/colorWhite"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="212dp" />
+                android:textColorHint="@color/white"
+                />
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="196dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:text="OR"
-                    android:textColor="@color/colorWhite"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <View
-                    android:id="@+id/divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="250dp"
-                    android:layout_marginLeft="200dp"
-                    android:background="?android:attr/listDivider"
-                    android:backgroundTint="@color/colorWhite"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="-142dp"
-                    tools:layout_editor_absoluteY="14dp" />
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginEnd="230dp"
-                    android:background="?android:attr/listDivider"
-                    android:backgroundTint="@color/colorWhite"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="142dp"
-                    tools:layout_editor_absoluteY="14dp" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="370dp"
-                android:orientation="vertical"
-                android:layout_marginTop="370dp">
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/bnewuser"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#3D4858"
-                    android:drawableLeft="@drawable/ic_new_user"
-                    android:hint="@string/button_new_user"
-                    android:paddingLeft="10dp"
-                    android:paddingEnd="20dp"
-                    android:textColorHint="@color/colorWhite"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="355dp" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="@color/white" />
 
-                <Button
-                    android:id="@+id/bfacebook"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#3C4858"
-                    android:drawableLeft="@drawable/ic_facebook"
-                    android:hint="@string/button_facebook"
+                <TextView
+                    android:id="@+id/or"
+                    style="@style/fontePrincipal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center"
                     android:paddingLeft="10dp"
-                    android:paddingEnd="20dp"
-                    android:textColorHint="@color/colorWhite"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="430dp" />
+                    android:paddingRight="10dp"
+                    android:text="@string/Or"
+                    android:textColor="@color/white" />
 
-                <Button
-                    android:id="@+id/btwitter"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#8492A6"
-                    android:drawableLeft="@drawable/ic_twitter"
-                    android:hint="@string/button_twitter"
-                    android:paddingLeft="10dp"
-                    android:paddingEnd="20dp"
-                    android:textColorHint="@color/colorWhite"
-                    tools:layout_editor_absoluteX="11dp"
-                    tools:layout_editor_absoluteY="504dp" />
-
-                <Button
-                    android:id="@+id/bgoogle"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginStart="11dp"
-                    android:layout_marginEnd="11dp"
-                    android:layout_marginBottom="10dp"
-                    android:backgroundTint="#C0CCDA"
-                    android:drawableLeft="@drawable/ic_google"
-                    android:hint="@string/button_google"
-                    android:paddingLeft="10dp"
-                    android:paddingEnd="20dp"
-                    android:textColorHint="@color/colorWhite"
-                    tools:layout_editor_absoluteX="0dp"
-                    tools:layout_editor_absoluteY="579dp" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="@color/white" />
             </LinearLayout>
-        </FrameLayout>
-    </LinearLayout>
 
+            <Button
+                android:id="@+id/bnewuser"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#3D4858"
+                android:drawableLeft="@drawable/ic_new_user"
+                android:hint="@string/button_new_user"
+                android:paddingLeft="10dp"
+                android:paddingEnd="20dp"
+                android:textColorHint="@color/white"
+                 />
+
+            <Button
+                android:id="@+id/bfacebook"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#3C4858"
+                android:drawableLeft="@drawable/ic_facebook"
+                android:hint="@string/button_facebook"
+                android:paddingLeft="10dp"
+                android:paddingEnd="20dp"
+                android:textColorHint="@color/white"
+                 />
+
+            <Button
+                android:id="@+id/btwitter"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#8492A6"
+                android:drawableLeft="@drawable/ic_twitter"
+                android:hint="@string/button_twitter"
+                android:paddingLeft="10dp"
+                android:paddingEnd="20dp"
+                android:textColorHint="@color/white"
+                />
+
+            <Button
+                android:id="@+id/bgoogle"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#C0CCDA"
+                android:drawableLeft="@drawable/ic_google"
+                android:hint="@string/button_google"
+                android:paddingLeft="10dp"
+                android:paddingEnd="20dp"
+                android:textColorHint="@color/white"
+                 />
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

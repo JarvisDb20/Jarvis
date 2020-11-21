@@ -46,8 +46,14 @@ class MainActivityDrawer : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.exibePersonagemFragment,
-                R.id.exibeComicsFragment, R.id.exibeStoriesFragment, R.id.pesquisaFragment, R.id.exibeSeriesFragement
+                R.id.nav_home,
+
+                R.id.exibePersonagemFragment,
+                R.id.exibeComicsFragment,
+                R.id.exibeStoriesFragment,
+                R.id.pesquisaFragment,
+                R.id.exibeSeriesFragement,
+                R.id.quizFragment
 
             ), drawerLayout
         )
