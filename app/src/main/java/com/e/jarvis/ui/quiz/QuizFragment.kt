@@ -18,7 +18,7 @@ class QuizFragment : Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_quiz, container, false)
         //abre pesguntas do quiz
-        view.btnQuiz.setOnClickListener {
+        view.btn_quiz.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_quizFragment_to_questionFragment)
         }
         return view

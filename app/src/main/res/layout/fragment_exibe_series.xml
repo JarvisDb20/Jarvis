@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -21,25 +22,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
-                android:id="@+id/tv_titulo_frag_comics"
-                style="@style/fontePrincipal"
+                android:id="@+id/tv_titulo_frag_series"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
                 android:gravity="center"
-                android:text="Nome da Comic"
+                android:text="Series"
                 android:textColor="@color/titleColor"
+                style="@style/fontePrincipal"
                 android:textSize="24sp" />
+
+
             <TextView
-                android:id="@+id/tv_descricao_frag_comics"
-                style="@style/fonteLeitura"
+                android:id="@+id/tv_descricao_frag_series"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:text="texto descrição"
+                android:text="Descrição das séries"
                 android:textColor="@color/black"
+                style="@style/fonteLeitura"
                 android:textSize="16sp" />
+
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

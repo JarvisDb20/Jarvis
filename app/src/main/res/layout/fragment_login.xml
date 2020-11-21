@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- TODO: Update blank fragment layout -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,7 +18,7 @@
             tools:context=".MainActivity">
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress"
+                android:id="@+id/et_login_email"
                 style="@style/fonteSecundaria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -36,7 +35,7 @@
                 />
 
             <EditText
-                android:id="@+id/editTextTextPassword"
+                android:id="@+id/et_login_password"
                 style="@style/fonteSecundaria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
                 android:textSize="20sp"/>
 
             <Button
-                android:id="@+id/blogin"
+                android:id="@+id/btn_login"
                 style="@style/fontePrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -80,7 +79,6 @@
                     android:backgroundTint="@color/white" />
 
                 <TextView
-                    android:id="@+id/or"
                     style="@style/fontePrincipal"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
@@ -99,7 +97,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/bnewuser"
+                android:id="@+id/btn_login_newUser"
                 style="@style/fontePrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -114,7 +112,7 @@
                  />
 
             <Button
-                android:id="@+id/bfacebook"
+                android:id="@+id/btn_login_facebook"
                 style="@style/fontePrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -129,7 +127,7 @@
                  />
 
             <Button
-                android:id="@+id/btwitter"
+                android:id="@+id/btn_login_twitter"
                 style="@style/fontePrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -144,7 +142,7 @@
                 />
 
             <Button
-                android:id="@+id/bgoogle"
+                android:id="@+id/btn_login_google"
                 style="@style/fontePrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -157,7 +155,6 @@
                 android:paddingStart="20dp"
                 android:textColorHint="@color/white"
                  />
-
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

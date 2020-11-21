@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.e.jarvis.R
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.fragment_pesquisa.view.*
 
 class HomeFragment : Fragment() {
 
@@ -22,18 +23,18 @@ class HomeFragment : Fragment() {
     ): View? {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
         //val textView: TextView = root.findViewById(R.id.text_home)
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
           //  textView.text = it
         })
 
         //abre PesquisaFragment
-        root.barra_pesquisa1.setOnClickListener {
-            Navigation.findNavController(root).navigate(R.id.navigate_to_pesquisa_fragment)
+        view.sv_home.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.navigate_to_pesquisa_fragment)
         }
 
 
-        return root
+        return view
     }
 }

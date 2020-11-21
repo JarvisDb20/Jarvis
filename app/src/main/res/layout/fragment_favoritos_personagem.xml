@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:background="@drawable/q1_bw"
-    tools:context=".FavoritosPersonagemFragment">
+    tools:context=".ui.favorites.FavoritosPersonagemFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

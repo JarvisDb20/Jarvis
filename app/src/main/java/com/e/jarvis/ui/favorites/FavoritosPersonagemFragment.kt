@@ -1,4 +1,4 @@
-package com.e.jarvis.ui.exibe
+package com.e.jarvis.ui.favorites
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,16 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.e.jarvis.R
 
-class ExibeFragment : Fragment() {
+
+class FavoritosPersonagemFragment : Fragment() {
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_exibe, container, false)
-
-        return view
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_favoritos_personagem, container, false)
     }
 
-
+    companion object {}
 }

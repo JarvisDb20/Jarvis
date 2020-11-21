@@ -1,101 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg9"
-    tools:context=".ExibeStoriesFragment">
+    android:background="@drawable/bkg1"
+    android:orientation="vertical">
 
 
-    <ImageView
-        android:id="@+id/iv_frag_stories"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <LinearLayout
-        android:id="@+id/ll_frag_stories"
+    <include layout="@layout/item_exibe" />
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_frag_stories">
-
-        <Button
-            android:id="@+id/btn_frag_stories_char"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/black"
-            android:drawableTop="@drawable/ic_btn_personagem"
-            android:textColor="@color/white"
-            android:text="Char" />
-
-        <Button
-            android:id="@+id/btn_frag_stories_series"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/black"
-            android:drawableTop="@drawable/ic_btn_series"
-            android:text="Séries"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/btn_frag_stories_comics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/black"
-            android:drawableTop="@drawable/ic_btn_stories"
-            android:text="Comics"
-            android:textColor="@color/white" />
-
-        <Button
-            android:id="@+id/btn_frag_stories_stories"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:backgroundTint="@color/black"
-            android:drawableTop="@drawable/ic_btn_stories"
-            android:text="Stories"
-            android:textColor="@color/white" />
-
-    </LinearLayout>
-
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
         android:layout_margin="10dp"
-
-        android:backgroundTint="#C5CFD1"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_frag_stories">
-
+        app:cardBackgroundColor="#C5CFD1"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="3dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
                 android:id="@+id/tv_titulo_frag_stories"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
-                android:layout_marginStart="15dp"
                 android:gravity="center"
-                android:text="Nome da Storie"
-                android:textColor="#5E6674"
+                android:text="Story"
+                android:textColor="@color/titleColor"
+                style="@style/fontePrincipal"
                 android:textSize="24sp" />
 
 
@@ -103,14 +38,12 @@
                 android:id="@+id/tv_descricao_frag_stories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="20dp"
                 android:text="texto descrição"
                 android:textColor="@color/black"
+                style="@style/fonteLeitura"
                 android:textSize="16sp" />
 
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>
