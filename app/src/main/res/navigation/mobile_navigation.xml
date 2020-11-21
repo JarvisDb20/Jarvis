@@ -105,7 +105,7 @@
         android:id="@+id/favoritosPersonagemFragment"
         android:name="com.e.jarvis.ui.favorites.FavoritosPersonagemFragment"
         android:label="Favoritos"
-        tools:layout="@layout/fragment_favoritos_personagem" />
+        tools:layout="@layout/fragment_favoritos" />
     <fragment
         android:id="@+id/cadastroFragment"
         android:name="com.e.jarvis.ui.cadastro.CadastroFragment"

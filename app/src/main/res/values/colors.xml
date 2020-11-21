@@ -24,4 +24,6 @@
 
     <color name="titleColor">#47525E</color>
 
+    <color name="black_transp">#AA000000</color>
+
 </resources>

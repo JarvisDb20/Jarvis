@@ -40,6 +40,10 @@
     <string name="StartQuiz">Start!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="stories_fav">Stories</string>
+    <string name="series_fav">Series</string>
+    <string name="comics_fav">Comics</string>
+    <string name="personagens_fav">Characters</string>
 
 
 </resources>
