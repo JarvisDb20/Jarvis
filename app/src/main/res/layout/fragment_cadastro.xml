@@ -3,92 +3,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg2"
-    tools:context=".CadastroFragment">
+    android:background="@drawable/bkg2">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".Cadastro"
-        android:orientation="vertical"
-        >
+        android:layout_height="match_parent">
 
-        <FrameLayout
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
             <EditText
                 android:id="@+id/editTextTextEmailAddressCadastro"
+                style="@style/fonteSecundaria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginEnd="11dp"
+                android:backgroundTint="@color/white"
                 android:ems="10"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
-                android:textColorHint="@color/colorWhite"
-                android:backgroundTint="@color/colorWhite"
-                android:layout_marginTop="110dp"
-                />
+                android:textColorHint="@color/white" />
+
             <EditText
                 android:id="@+id/editTextTextPasswordCadastro"
+                style="@style/fonteSecundaria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
+                android:backgroundTint="@color/white"
                 android:ems="10"
                 android:hint="@string/prompt_password"
                 android:inputType="textPassword"
-                android:textColorHint="@color/colorWhite"
-                android:backgroundTint="@color/colorWhite"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="200dp" />
+                android:textColorHint="@color/white" />
 
             <EditText
                 android:id="@+id/editTextTextConfirmPasswordCadastro"
+                style="@style/fonteSecundaria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
+                android:backgroundTint="@color/white"
                 android:ems="10"
                 android:hint="@string/prompt_confirm_password"
                 android:inputType="textPassword"
-                android:textColorHint="@color/colorWhite"
-                android:backgroundTint="@color/colorWhite"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="290dp" />
+                android:textColorHint="@color/white" />
 
             <EditText
                 android:id="@+id/editTextDate"
+                style="@style/fonteSecundaria"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
+                android:backgroundTint="@color/white"
                 android:ems="10"
                 android:hint="@string/prompt_birthday"
-                android:textColorHint="@color/colorWhite"
-                android:backgroundTint="@color/colorWhite"
                 android:inputType="date"
-                android:layout_marginTop="380dp"/>
+                android:textColorHint="@color/white" />
 
             <Button
                 android:id="@+id/register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
-                android:layout_marginTop="550dp"
                 android:layout_marginEnd="11dp"
                 android:backgroundTint="#5DB44F"
                 android:hint="@string/prompt_register"
-                android:textColorHint="@color/colorWhite" />
-
-        </FrameLayout>
-
-    </LinearLayout>
-
-
+                android:textColorHint="@color/white"
+                style="@style/fontePrincipal"
+                />
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

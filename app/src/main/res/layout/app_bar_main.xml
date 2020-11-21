@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:titleTextAppearance="@style/fonteToolbar"
             app:popupTheme="@style/Theme.Jarvis.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg5"
-    tools:context=".LoginFragment">
+    android:background="@drawable/bkp11"
+    >
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <!-- TODO: Update blank fragment layout -->
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -33,7 +32,7 @@
                 android:inputType="textEmailAddress"
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 />
 
             <EditText
@@ -50,7 +49,7 @@
                 android:inputType="textPassword"
                 android:textColorHint="@color/white"
                 android:textColor="@color/white"
-                android:textSize="20dp"/>
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/blogin"
@@ -90,7 +89,6 @@
                     android:paddingRight="10dp"
                     android:text="@string/Or"
                     android:textColor="@color/white" />
-
                 <View
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -110,8 +108,8 @@
                 android:backgroundTint="#3D4858"
                 android:drawableLeft="@drawable/ic_new_user"
                 android:hint="@string/button_new_user"
-                android:paddingLeft="10dp"
                 android:paddingEnd="20dp"
+                android:paddingStart="20dp"
                 android:textColorHint="@color/white"
                  />
 
@@ -122,11 +120,11 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="11dp"
                 android:layout_marginEnd="11dp"
-                android:backgroundTint="#3C4858"
+                android:backgroundTint="#667080"
                 android:drawableLeft="@drawable/ic_facebook"
                 android:hint="@string/button_facebook"
-                android:paddingLeft="10dp"
                 android:paddingEnd="20dp"
+                android:paddingStart="20dp"
                 android:textColorHint="@color/white"
                  />
 
@@ -140,8 +138,8 @@
                 android:backgroundTint="#8492A6"
                 android:drawableLeft="@drawable/ic_twitter"
                 android:hint="@string/button_twitter"
-                android:paddingLeft="10dp"
                 android:paddingEnd="20dp"
+                android:paddingStart="20dp"
                 android:textColorHint="@color/white"
                 />
 
@@ -155,10 +153,11 @@
                 android:backgroundTint="#C0CCDA"
                 android:drawableLeft="@drawable/ic_google"
                 android:hint="@string/button_google"
-                android:paddingLeft="10dp"
                 android:paddingEnd="20dp"
+                android:paddingStart="20dp"
                 android:textColorHint="@color/white"
                  />
+
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bkg1"
-    tools:context=".ExibeComicsFragment">
-
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/iv_frag_comics"
@@ -14,8 +13,10 @@
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/wolverine"
+        android:scaleType="fitXY"
+        />
 
     <LinearLayout
         android:id="@+id/ll_frag_comics"
@@ -29,26 +30,29 @@
 
         <Button
             android:id="@+id/btn_frag_comics_char"
+            style="@style/fontePrincipal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/black"
             android:drawableTop="@drawable/ic_btn_personagem"
-            android:textColor="@color/white"
-            android:text="Char" />
+            android:text="Char."
+            android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_frag_comics_series"
+            style="@style/fontePrincipal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/black"
             android:drawableTop="@drawable/ic_btn_series"
-            android:text="Séries"
+            android:text="Series"
             android:textColor="@color/white" />
 
         <Button
             android:id="@+id/btn_frag_comics_comics"
+            style="@style/fontePrincipal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -59,6 +63,7 @@
 
         <Button
             android:id="@+id/btn_frag_comics_stories"
+            style="@style/fontePrincipal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -68,50 +73,37 @@
             android:textColor="@color/white" />
 
     </LinearLayout>
-
-
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
-
-        android:backgroundTint="#C5CFD1"
-        app:cardCornerRadius="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ll_frag_comics">
-
+        app:cardBackgroundColor="#C5CFD1"
+        app:cardCornerRadius="20dp"
+        app:strokeColor="@color/black"
+        app:strokeWidth="3dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <TextView
                 android:id="@+id/tv_titulo_frag_comics"
+                style="@style/fontePrincipal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="15dp"
-                android:layout_marginStart="15dp"
                 android:gravity="center"
                 android:text="Nome da Comic"
-                android:textColor="#5E6674"
+                android:textColor="@color/titleColor"
                 android:textSize="24sp" />
-
-
             <TextView
                 android:id="@+id/tv_descricao_frag_comics"
+                style="@style/fonteLeitura"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:fontFamily="roboto"
+                android:layout_margin="20dp"
                 android:text="texto descrição"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
-
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</LinearLayout>

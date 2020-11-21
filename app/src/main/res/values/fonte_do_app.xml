@@ -3,14 +3,15 @@
     <style name="fontePrincipal" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/font_norwester</item>
     </style>
-
     <style name="fonteSecundaria" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/chewy</item>
     </style>
-
     <style name="fonteLeitura" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">sans-serif</item>
     </style>
-
+    <style name="fonteToolbar" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/font_norwester</item>
+        <item name="android:textSize">20sp</item>
+    </style>
 
 </resources>

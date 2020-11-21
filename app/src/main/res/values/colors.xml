@@ -12,7 +12,6 @@
     <color name="colorPrimary">#9D152C</color>
     <color name="colorPrimaryDark">#5E6674</color>
     <color name="colorAccent">#03DAC5</color>
-    <color name="colorWhite">#FFFFFF</color>
     <color name="colorTool">#9D152C</color>
 
 
@@ -22,6 +21,7 @@
     <color name="chinese_silver">#C5CFD1</color>
     <color name="roman_silver">#868A93</color>
     <color name="cadet">#5E6674</color>
-  
+
+    <color name="titleColor">#47525E</color>
 
 </resources>

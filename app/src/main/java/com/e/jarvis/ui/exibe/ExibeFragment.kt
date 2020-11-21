@@ -1,10 +1,11 @@
-package com.e.jarvis
+package com.e.jarvis.ui.exibe
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.e.jarvis.R
 
 class ExibeFragment : Fragment() {
 

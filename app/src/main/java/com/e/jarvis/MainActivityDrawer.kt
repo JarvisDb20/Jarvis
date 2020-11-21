@@ -33,21 +33,16 @@ class MainActivityDrawer : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        //T: PARTE DO NAVCONTROLLER
-        navController = findNavController(R.id.nav_host_fragment)
-
-
 
         //T: ESSA PARTE TODA VEIO PRONTA SÓ MEXEMOS NO SETOF
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-       val navView: NavigationView = findViewById(R.id.nav_view)
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_home,
-
                 R.id.exibePersonagemFragment,
                 R.id.exibeComicsFragment,
                 R.id.exibeStoriesFragment,
@@ -58,7 +53,7 @@ class MainActivityDrawer : AppCompatActivity() {
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-       navView.setupWithNavController(navController)
+        navView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,13 +63,9 @@ class MainActivityDrawer : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
+        navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
-
-
-
-
 
 
 }
