@@ -36,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/font_norwester"
+                    style="@style/fontePrincipal"
                     android:text="@string/personagens_fav"
                     android:textColor="@color/white"
                     android:textSize="25sp" />
@@ -73,8 +73,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/comics_fav"
-                    android:fontFamily="@font/font_norwester"
                     android:textColor="@color/white"
+                    style="@style/fontePrincipal"
                     android:textSize="25sp" />
 
             </LinearLayout>
@@ -109,8 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/series_fav"
-                    android:fontFamily="@font/font_norwester"
-                    android:textColor="@color/white"
+                    style="@style/fontePrincipal"                    android:textColor="@color/white"
                     android:textSize="25sp" />
 
             </LinearLayout>
@@ -147,8 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/stories_fav"
-                    android:fontFamily="@font/font_norwester"
-                    android:textColor="@color/white"
+                    style="@style/fontePrincipal"                    android:textColor="@color/white"
                     android:textSize="25sp" />
 
             </LinearLayout>
