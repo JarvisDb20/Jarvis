@@ -20,7 +20,7 @@
             android:icon="@drawable/ic_baseline_view_carousel_24"
             android:title="@string/Quiz" />
         <item
-            android:id="@+id/favoritosPersonagemFragment"
+            android:id="@+id/favoritosFragment"
             android:icon="@drawable/ic_baseline_star_border_24"
             android:title="@string/Favoritos" />
     </group>

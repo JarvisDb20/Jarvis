@@ -48,7 +48,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.exibeStoriesFragment,
                 R.id.pesquisaFragment,
                 R.id.exibeSeriesFragement,
-                R.id.quizFragment
+                R.id.quizFragment,
+                R.id.favoritosFragment,
 
             ), drawerLayout
         )

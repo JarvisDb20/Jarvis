@@ -102,11 +102,6 @@
             app:destination="@id/questionFragment" />
     </fragment>
     <fragment
-        android:id="@+id/favoritosPersonagemFragment"
-        android:name="com.e.jarvis.ui.favorites.FavoritosPersonagemFragment"
-        android:label="Favoritos"
-        tools:layout="@layout/fragment_favoritos" />
-    <fragment
         android:id="@+id/cadastroFragment"
         android:name="com.e.jarvis.ui.cadastro.CadastroFragment"
         android:label="New user"
@@ -116,4 +111,9 @@
         android:name="com.e.jarvis.ui.question.QuestionFragment"
         android:label="fragment_question"
         tools:layout="@layout/fragment_question" />
+    <fragment
+        android:id="@+id/favoritosFragment"
+        android:name="com.e.jarvis.ui.favorites.FavoritosFragment"
+        android:label="My favorites"
+        tools:layout="@layout/fragment_favoritos" />
 </navigation>

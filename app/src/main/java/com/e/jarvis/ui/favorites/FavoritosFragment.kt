@@ -5,21 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.e.jarvis.R
+import kotlinx.android.synthetic.main.fragment_quiz.view.*
 
 
 class FavoritosFragment : Fragment() {
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos, container, false)
+        val view = inflater.inflate(R.layout.fragment_favoritos, container, false)
+        return view
     }
 
-    companion object {}
+
 }
+
+
+
+
