@@ -1,5 +1,6 @@
 package com.e.jarvis.ui.exibe.comic
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ class ExibeComicsFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_exibe_comics, container, false)
+
+        view.btn_exibe_comics.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_char.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.navigate_comics_to_personagem)

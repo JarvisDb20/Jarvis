@@ -1,5 +1,6 @@
 package com.e.jarvis.ui.exibe.chars
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,8 @@ class ExibeCharFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_exibe_char, container, false)
+
+       view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_series.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.navigate_personagem_to_exibe_series_fragment)
