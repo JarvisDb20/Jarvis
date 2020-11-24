@@ -2,10 +2,8 @@ package com.e.jarvis.ui.exibe.serie
 
 import android.graphics.Color
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.e.jarvis.R
 import kotlinx.android.synthetic.main.item_exibe.view.*
@@ -32,9 +30,11 @@ class ExibeSeriesFragement : Fragment() {
         view.btn_exibe_stories.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.navigate_series_to_stories_fragment)
         }
-
+        setHasOptionsMenu(true)
         return view
     }
-
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_activity_drawer, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 }

@@ -2,9 +2,7 @@ package com.e.jarvis.ui.exibe.chars
 
 import android.graphics.Color
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.e.jarvis.R
@@ -34,8 +32,12 @@ class ExibeCharFragment : Fragment() {
         view.btn_exibe_stories.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.navigate_personagem_to_exibe_stories_fragment)
         }
+        setHasOptionsMenu(true)
         return view
     }
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_activity_drawer, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
 }
