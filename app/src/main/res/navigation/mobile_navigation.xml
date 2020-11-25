@@ -109,7 +109,7 @@
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.e.jarvis.ui.question.QuestionFragment"
-        android:label="fragment_question"
+        android:label="Quiz"
         tools:layout="@layout/fragment_question" />
     <fragment
         android:id="@+id/favoritosFragment"
