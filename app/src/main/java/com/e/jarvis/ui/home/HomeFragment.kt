@@ -37,8 +37,8 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        viewModel.getAllChars("1011334")
-        viewModel.todosPersonagens.observe(viewLifecycleOwner, {
+        viewModel.getChar("1011334")
+        viewModel.personagem.observe(viewLifecycleOwner, {
             Log.i("MainActivity", it.toString())
         })
 

@@ -16,12 +16,13 @@ class HomeViewModel(service: Service) : ViewModel() {
     val hash = KeyHash( "bacf6559c29f05132ea07020962d41a65dcd3304",
         "f28a07f38dc7090aa24b3e50496e6ac6")
 
-    val todosPersonagens = MutableLiveData<List<Results>>()
+    val personagem = MutableLiveData<List<Results>>()
 
-    fun getAllChars(id : String) {
+    fun getChar(id : String) {
         viewModelScope.launch {
-            todosPersonagens.value = service.getAllCharsRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+            personagem.value = service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
         }
+
 
     }
 

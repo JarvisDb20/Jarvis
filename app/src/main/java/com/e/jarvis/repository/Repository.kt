@@ -12,8 +12,9 @@ import retrofit2.http.Query
 
 interface Service {
 
+    //pega um char especifico pelo id dele
     @GET("characters/{id}")
-    suspend fun getAllCharsRepo(
+    suspend fun getCharRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
