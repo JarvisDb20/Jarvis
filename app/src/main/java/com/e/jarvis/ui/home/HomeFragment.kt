@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.viewModels
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -13,13 +14,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import com.e.jarvis.R
+import com.e.jarvis.models.chars.Results
 import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.fragment_pesquisa.view.*
 
 class HomeFragment : Fragment() {
-
-//    private lateinit var homeViewModel: HomeViewModel
 
     private val viewModel by viewModels<HomeViewModel> {
         object : ViewModelProvider.Factory {
@@ -29,6 +29,7 @@ class HomeFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,15 +38,12 @@ class HomeFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        viewModel.getChar("1011334")
-        viewModel.personagem.observe(viewLifecycleOwner, {
-            Log.i("MainActivity", it.toString())
-        })
 
 
         //abre PesquisaFragment
         view.sv_home.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigate_to_pesquisa_fragment)
+            Navigation.findNavController(view)
+                .navigate(R.id.navigate_to_pesquisa_fragment)
         }
 
 

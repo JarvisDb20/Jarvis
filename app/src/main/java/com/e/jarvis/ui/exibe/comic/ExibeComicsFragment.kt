@@ -18,6 +18,22 @@ class ExibeComicsFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_exibe_comics, container, false)
 
+
+        //pegando os comics do char:
+
+//        viewModel.listComicsChar.observe(viewLifecycleOwner, {
+//            Log.i("LISTANDOCOMICS", it.toString() )
+//        })
+//        viewModel.getComicsChar("1009351")
+
+
+
+
+
+
+
+
+
         view.btn_exibe_comics.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_char.setOnClickListener {

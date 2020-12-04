@@ -15,13 +15,13 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Results (
 
-	@SerializedName("id") val id : Int,
+	@SerializedName("id") val id : String,
 	@SerializedName("title") val title : String,
 	@SerializedName("description") val description : String,
 	@SerializedName("resourceURI") val resourceURI : String,
 	@SerializedName("urls") val urls : List<Urls>,
-	@SerializedName("startYear") val startYear : Int,
-	@SerializedName("endYear") val endYear : Int,
+	@SerializedName("startYear") val startYear : String,
+	@SerializedName("endYear") val endYear : String,
 	@SerializedName("rating") val rating : String,
 	@SerializedName("type") val type : String,
 	@SerializedName("modified") val modified : String,

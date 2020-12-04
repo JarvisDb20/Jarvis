@@ -15,7 +15,7 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Results (
 
-	@SerializedName("id") val id : Int,
+	@SerializedName("id") val id : String,
 	@SerializedName("title") val title : String,
 	@SerializedName("description") val description : String,
 	@SerializedName("resourceURI") val resourceURI : String,

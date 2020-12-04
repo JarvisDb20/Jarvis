@@ -13,6 +13,7 @@ import retrofit2.http.Query
 interface Service {
 
     //pega um char especifico pelo id dele
+
     @GET("characters/{id}")
     suspend fun getCharRepo(
         @Path("id") id: String,
@@ -22,9 +23,19 @@ interface Service {
     ): CharWrapper
 
 
+//    //pega os comics do char
+//    @GET("characters/{id}/comics")
+//    suspend fun getComicsRepo(
+//        @Path("id") id: String,
+//        @Query("ts") ts: String,
+//        @Query("apikey") apikey: String,
+//        @Query("hash") hash: String
+//    ): ComicsWrapper
+
+
 }
 
-val retrofit = Retrofit.Builder().baseUrl("https://gateway.marvel.com/v1/public/")
+val retrofit = Retrofit.Builder().baseUrl("http://gateway.marvel.com/v1/public/")
     .addConverterFactory(GsonConverterFactory.create()).build()
 
 val service: Service = retrofit.create(Service::class.java)

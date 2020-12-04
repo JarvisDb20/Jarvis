@@ -1,5 +1,6 @@
 package com.e.jarvis.models.comics
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /*
 Copyright (c) 2020 Kotlin Data Classes Generated from JSON powered by http://www.json2kotlin.com
@@ -16,5 +17,5 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 data class Prices (
 
 	@SerializedName("type") val type : String,
-	@SerializedName("price") val price : Int
-)
+	@SerializedName("price") val price : String
+) : Serializable

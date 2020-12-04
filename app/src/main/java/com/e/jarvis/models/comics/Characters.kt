@@ -15,8 +15,8 @@ For support, please feel free to contact me at https://www.linkedin.com/in/syeda
 
 data class Characters (
 
-	@SerializedName("available") val available : Int,
+	@SerializedName("available") val available : String,
 	@SerializedName("collectionURI") val collectionURI : String,
-	@SerializedName("items") val items : List<String>,
-	@SerializedName("returned") val returned : Int
+	@SerializedName("items") val items : List<Items>,
+	@SerializedName("returned") val returned : String
 )
