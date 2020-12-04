@@ -44,6 +44,9 @@
         <action
             android:id="@+id/navigate_comics_to_stories"
             app:destination="@id/exibeStoriesFragment" />
+        <argument
+            android:name="idChar"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/exibeStoriesFragment"

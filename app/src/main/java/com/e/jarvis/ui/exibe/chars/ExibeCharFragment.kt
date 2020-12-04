@@ -46,13 +46,13 @@ class ExibeCharFragment : Fragment() {
 
         viewModel.getChar(id)
         viewModel.char.observe(viewLifecycleOwner, {
-            view.tv_titulo_frag_char.text = it.get(0).name
-            view.tv_descricao_frag_char.text = it.get(0).description
+            view.tv_titulo_frag_char.text = it[0].name
+            view.tv_descricao_frag_char.text = it[0].description
             val imageUrl =
-                it.get(0).thumbnail.path + "/landscape_medium." + it.get(0).thumbnail.extension
+                it[0].thumbnail.path + "/landscape_medium." + it[0].thumbnail.extension
             picasso.load(imageUrl).into(iv_exibe_menu)
 
-            Log.i("EXIBECHARFRAGMENT", it.get(0).thumbnail.toString())
+            Log.i("EXIBECHARFRAGMENT", it[0].thumbnail.toString())
         })
 
 
@@ -70,7 +70,7 @@ class ExibeCharFragment : Fragment() {
        view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_series.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigate_personagem_to_exibe_series_fragment)
+            Navigation.findNavController(view).navigate(R.id.navigate_personagem_to_exibe_series_fragment, )
         }
 
         view.btn_exibe_comics.setOnClickListener {
