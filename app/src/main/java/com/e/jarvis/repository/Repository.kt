@@ -21,6 +21,13 @@ interface Service {
         @Query("apikey") apikey: String,
         @Query("hash") hash: String
     ): CharWrapper
+    @GET("comics/{id}/characters")
+    suspend fun getComicsCharRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): CharWrapper
 
 
 //    //pega os comics do char

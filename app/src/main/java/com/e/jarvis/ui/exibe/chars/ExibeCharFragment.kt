@@ -9,16 +9,33 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.chars.Results
+import com.e.jarvis.models.utils.ItemImage
+import com.e.jarvis.models.utils.apiObject
 import com.e.jarvis.repository.service
+import com.e.jarvis.ui.home.HomeAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
 import kotlinx.android.synthetic.main.item_exibe.*
 import kotlinx.android.synthetic.main.item_exibe.view.*
+import me.relex.circleindicator.CircleIndicator3
 
 
-class ExibeCharFragment : Fragment() {
+class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
+    val args: ExibeCharFragmentArgs by navArgs()
+    lateinit var listChar:ArrayList<Results>
+
+    //viriaveis para o viewpager
+    var layoutStarted = false
+    lateinit var listImages : ArrayList<ItemImage>
+    lateinit var adapter: ExibeCharAdapter
+    lateinit var gManager: GridLayoutManager
+
 
     private val viewModel by viewModels<ExibeCharViewModel> {
         object : ViewModelProvider.Factory {
@@ -36,56 +53,94 @@ class ExibeCharFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_exibe_char, container, false)
 
-
-        //estou usando esse id para testes como se ele tivesse sido passado pra cá atraves do fragment pesquisa
-        val id = "1009351"
-
-
-        val picasso = Picasso.get()
-
-
-        viewModel.getChar(id)
-        viewModel.char.observe(viewLifecycleOwner, {
-            view.tv_titulo_frag_char.text = it[0].name
-            view.tv_descricao_frag_char.text = it[0].description
-            val imageUrl =
-                it[0].thumbnail.path + "/landscape_medium." + it[0].thumbnail.extension
-            picasso.load(imageUrl).into(iv_exibe_menu)
-
-            Log.i("EXIBECHARFRAGMENT", it[0].thumbnail.toString())
-        })
-
-
-
-
-
-
-
-
-
-
-
-
-
-       view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
-
-        view.btn_exibe_series.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigate_personagem_to_exibe_series_fragment, )
-        }
-
-        view.btn_exibe_comics.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigate_personagem_to_exibe_comics_fragment)
-        }
-
-        view.btn_exibe_stories.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigate_personagem_to_exibe_stories_fragment)
-        }
         setHasOptionsMenu(true)
         return view
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_activity_drawer, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val charInfo = args.apiObj
+        val vp = view.findViewById<ViewPager2>(R.id.vp_images)
+
+
+        when (charInfo.tipoId) {
+            "char" -> {
+                viewModel.getChar(charInfo.id)
+            }
+            "comic" ->{
+                viewModel.getCharComics(charInfo.id)
+            }
+        }
+        val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
+        viewModel.char.observe(viewLifecycleOwner, {
+            exibeInfo(view,it[0])
+            listChar = it
+            it.forEach {
+                linha ->
+                listImages.add(
+                    ItemImage(
+                        linha.thumbnail,
+                        apiObject(
+                            "char",
+                            linha.id
+                        )
+                    )
+                )
+            }
+            adapter.updateList(listImages)
+            indicator.setViewPager(vp)
+        })
+
+
+        // configurando o viewpager
+        if (!layoutStarted) {
+            listImages = arrayListOf()
+            adapter = ExibeCharAdapter(listImages, this)
+            layoutStarted = true
+        }
+        vp.adapter = adapter
+        vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        //quando trocar de pagina atualiza as informações
+        vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                exibeInfo(view,listChar[position])
+                super.onPageSelected(position)
+            }
+        })
+
+
+        view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
+        view.btn_exibe_series.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.navigate_personagem_to_exibe_series_fragment)
+        }
+
+        view.btn_exibe_comics.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.navigate_personagem_to_exibe_comics_fragment)
+        }
+
+        view.btn_exibe_stories.setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.navigate_personagem_to_exibe_stories_fragment)
+        }
+    }
+
+    override fun charsClick(position: Int) {
+        Log.i("click", listImages[position].toString())
+    }
+    fun exibeInfo(view : View,res :Results){
+        (activity as MainActivity).supportActionBar?.title = res.name
+        view.tv_titulo_frag_char.text = res.name
+        if (res.description == null || res.description == "" )
+            view.tv_descricao_frag_char.text = "No description found..."
+        else
+            view.tv_descricao_frag_char.text = res.description
+    }
 }

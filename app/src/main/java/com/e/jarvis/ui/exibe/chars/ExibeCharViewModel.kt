@@ -19,15 +19,19 @@ class ExibeCharViewModel(service: Service) : ViewModel() {
 
     //para testes vou usar o id do Hulk: 1009351
 
-    val char = MutableLiveData<List<Results>>()
+    val char = MutableLiveData<ArrayList<Results>>()
 
     fun getChar(id: String) {
         viewModelScope.launch {
             char.value =
                 service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
         }
-
-
+    }
+    fun getCharComics(id: String) {
+        viewModelScope.launch {
+            char.value =
+                service.getComicsCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+        }
     }
 
 
