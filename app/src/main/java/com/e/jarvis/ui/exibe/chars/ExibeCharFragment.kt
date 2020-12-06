@@ -76,6 +76,13 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
             "comic" ->{
                 viewModel.getCharComics(charInfo.id)
             }
+            "series" -> {
+                viewModel.getCharDaSerie(charInfo.id)
+            }
+            "stories" -> {
+                viewModel.getCharDaStories(charInfo.id)
+            }
+
         }
         val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
         viewModel.char.observe(viewLifecycleOwner, {

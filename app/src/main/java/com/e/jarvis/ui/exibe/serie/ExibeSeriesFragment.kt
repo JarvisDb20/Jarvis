@@ -17,6 +17,22 @@ class ExibeSeriesFragement : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_exibe_series, container, false)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         view.btn_exibe_series.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_char.setOnClickListener {
