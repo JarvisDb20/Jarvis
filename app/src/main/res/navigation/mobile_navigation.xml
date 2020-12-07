@@ -51,8 +51,9 @@
             android:id="@+id/navigate_comics_to_stories"
             app:destination="@id/exibeStoriesFragment" />
         <argument
-            android:name="idChar"
-            app:argType="string" />
+            android:name="apiObjeto"
+            app:argType="com.e.jarvis.models.utils.apiObject" />
+
     </fragment>
     <fragment
         android:id="@+id/exibeStoriesFragment"

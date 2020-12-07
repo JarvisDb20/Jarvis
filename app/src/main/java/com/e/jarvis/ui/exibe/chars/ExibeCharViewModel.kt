@@ -6,10 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.e.jarvis.models.chars.Results
 import com.e.jarvis.repository.KeyHash
 import com.e.jarvis.repository.Service
-import com.e.jarvis.repository.service
 import kotlinx.coroutines.launch
 
-class ExibeCharViewModel(service: Service) : ViewModel() {
+class ExibeCharViewModel(val service: Service) : ViewModel() {
 
 
     val hash = KeyHash(
@@ -29,7 +28,7 @@ class ExibeCharViewModel(service: Service) : ViewModel() {
     fun getCharComics(id: String) {
         viewModelScope.launch {
             char.value =
-                service.getComicsCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+                service.getCharComicRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
         }
     }
 
@@ -37,7 +36,7 @@ class ExibeCharViewModel(service: Service) : ViewModel() {
     fun getCharDaSerie(id: String) {
         viewModelScope.launch {
             char.value =
-                service.getCharDaSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+                service.getCharSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
         }
 
     }
@@ -45,7 +44,7 @@ class ExibeCharViewModel(service: Service) : ViewModel() {
 
     fun getCharDaStories(id: String) {
         viewModelScope.launch {
-            char.value = service.getCharDaStoriesRepo(
+            char.value = service.getCharStoriesRepo(
                 id,
                 hash.ts,
                 hash.publicKey,

@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
@@ -24,6 +23,8 @@ import me.relex.circleindicator.CircleIndicator3
 
 
 class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
+
+    //variavel que vai receber os args
     val args: ExibeCharFragmentArgs by navArgs()
     lateinit var listChar: ArrayList<Results>
 
@@ -31,7 +32,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     var layoutStarted = false
     lateinit var listImages: ArrayList<ItemImageChar>
     lateinit var adapter: ExibeCharAdapter
-    lateinit var gManager: GridLayoutManager
+
 
 
     private val viewModel by viewModels<ExibeCharViewModel> {
@@ -62,7 +63,9 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //args que o fragment char tá recebendo
         val charInfo = args.apiObj
+
         val vp = view.findViewById<ViewPager2>(R.id.vp_images)
 
 
@@ -119,19 +122,22 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
 
         view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
+
         view.btn_exibe_series.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.navigate_personagem_to_exibe_series_fragment)
+
+            val passaArgsChar = ExibeCharFragmentDirections.navigatePersonagemToExibeSeriesFragment( args.apiObj)
+            findNavController().navigate(passaArgsChar)
+
         }
 
         view.btn_exibe_comics.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.navigate_personagem_to_exibe_comics_fragment)
+            val passaArgsChar = ExibeCharFragmentDirections.navigatePersonagemToExibeComicsFragment( args.apiObj)
+            findNavController().navigate(passaArgsChar)
         }
 
         view.btn_exibe_stories.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.navigate_personagem_to_exibe_stories_fragment)
+//            val passaArgsChar = ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment( args.apiObj)
+//            findNavController().navigate(passaArgsChar)
         }
     }
 

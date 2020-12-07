@@ -1,5 +1,6 @@
 package com.e.jarvis.models.series
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /*
 Copyright (c) 2020 Kotlin Data Classes Generated from JSON powered by http://www.json2kotlin.com
@@ -30,7 +31,7 @@ data class Results (
 	@SerializedName("characters") val characters : Characters,
 	@SerializedName("stories") val stories : Stories,
 	@SerializedName("comics") val comics : Comics,
-	@SerializedName("events") val events : Events,
-	@SerializedName("next") val next : String,
-	@SerializedName("previous") val previous : String
-)
+	//@SerializedName("events") val events : Events,
+//	@SerializedName("next") val next : String,
+//	@SerializedName("previous") val previous : String
+) : Serializable

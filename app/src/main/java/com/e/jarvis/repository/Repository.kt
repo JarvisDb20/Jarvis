@@ -2,6 +2,7 @@ package com.e.jarvis.repository
 
 
 import com.e.jarvis.models.chars.CharWrapper
+import com.e.jarvis.models.comics.ComicsWrapper
 import com.e.jarvis.models.series.SeriesWrapper
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,7 +14,7 @@ import retrofit2.http.Query
 
 interface Service {
 
-    //RETORNAM CHARS
+    //RETORNAM CHARS:
 
     //pega um char especifico pelo id dele
     @GET("characters/{id}")
@@ -26,7 +27,7 @@ interface Service {
 
     //pega os chars do comic especifico
     @GET("comics/{id}/characters")
-    suspend fun getComicsCharRepo(
+    suspend fun getCharComicRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
@@ -35,16 +36,17 @@ interface Service {
 
     //pega os chars da serie especifica
     @GET("series/{id}/characters")
-    suspend fun getCharDaSeriesRepo(
+    suspend fun getCharSeriesRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String
+
     ): CharWrapper
 
     //pega os chars da storie especifica
     @GET("stories/{id}/characters")
-    suspend fun getCharDaStoriesRepo(
+    suspend fun getCharStoriesRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
@@ -52,7 +54,7 @@ interface Service {
     ): CharWrapper
 
 
-    //RETORNAM SERIES
+    //RETORNAM SERIES:
 
     //pega serie especifica pelo id
     @GET("series/{id}")
@@ -84,6 +86,43 @@ interface Service {
     ): SeriesWrapper
 
 
+    //RETORNAM COMICS:
+
+    //pega comic unico pelo id
+    @GET("comics/{id}")
+    suspend fun getComicRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): ComicsWrapper
+
+    //pega comics de um personagem especifico
+    @GET("character/{id}/comics")
+    suspend fun getComicsCharRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): ComicsWrapper
+
+    //pega comics de uma storie especifica
+    @GET("storie/{id}/comics")
+    suspend fun getComicStorieRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): ComicsWrapper
+
+    //pega comics de uma serie especifica
+    @GET("series/{id}/comics")
+    suspend fun getComicSeriesRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): ComicsWrapper
 
 
 
@@ -93,21 +132,6 @@ interface Service {
 
 
 
-
-
-
-
-
-
-
-//    //pega os comics do char
-//    @GET("characters/{id}/comics")
-//    suspend fun getComicsRepo(
-//        @Path("id") id: String,
-//        @Query("ts") ts: String,
-//        @Query("apikey") apikey: String,
-//        @Query("hash") hash: String
-//    ): ComicsWrapper
 
 
 }

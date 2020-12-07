@@ -8,14 +8,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.series.Results
-import com.e.jarvis.models.utils.ItemImageChar
+import com.e.jarvis.models.utils.ItemImageSerie
 import com.e.jarvis.models.utils.apiObject
 import com.e.jarvis.repository.service
+import com.e.jarvis.ui.exibe.comic.ExibeComicsFragmentDirections
 import kotlinx.android.synthetic.main.fragment_exibe_series.*
 import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
 import kotlinx.android.synthetic.main.item_exibe.view.*
@@ -37,7 +39,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
     //variaveis para o viewpager
     var layoutStarted = false
-    lateinit var listImages: ArrayList<ItemImageChar>
+    lateinit var listImages: ArrayList<ItemImageSerie>
     lateinit var adapter: ExibeSerieAdapter
     //lateinit var gManager: GridLayoutManager
 
@@ -52,15 +54,18 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         view.btn_exibe_series.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_char.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigate_series_to_personagem_fragment)
+            val passaArgsSeries = ExibeSeriesFragementDirections.navigateSeriesToPersonagemFragment(args.apiObj)
+            findNavController().navigate(passaArgsSeries)
         }
 
         view.btn_exibe_comics.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigate_series_to_comics_fragment)
+            val passaArgsSeries = ExibeSeriesFragementDirections.navigateSeriesToComicsFragment(args.apiObj)
+            findNavController().navigate(passaArgsSeries)
         }
 
         view.btn_exibe_stories.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.navigate_series_to_stories_fragment)
+//            val passaArgsSeries = ExibeSeriesFragementDirections.navigateSeriesToStoriesFragment(args.apiObj)
+//            findNavController().navigate(passaArgsSeries)
         }
         setHasOptionsMenu(true)
         return view
@@ -81,7 +86,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
         //recebendo os args
         val serieInfo = args.apiObj
-        when (serieInfo.id) {
+        when (serieInfo.tipoId) {
             "char" -> {
                 viewModel.getSeriesChar(serieInfo.id)
             }
@@ -104,13 +109,15 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         viewModel.serie.observe(viewLifecycleOwner, {
             exibeInfo(view, it[0])
             listSeries = it
-            it.forEach { linhaSerie ->
+
+            it.forEach { linha ->
                 listImages.add(
-                    ItemImageChar(
-                        linhaSerie.thumbnail,
+                    //objeto desse tipo, com esses atributos
+                    ItemImageSerie(
+                        linha.thumbnail,
                         apiObject(
                             "serie",
-                            linhaSerie.id
+                            linha.id
                         )
                     )
                 )
@@ -122,6 +129,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
 
         //Lucas, vc pode me explicar melhor essa coisa de flag por favor? :)
+        //só entra aqui uma vez, pq aqui que ele começa a existir
         if (!layoutStarted){
             listImages = arrayListOf()
             adapter = ExibeSerieAdapter(listImages, this)
@@ -131,9 +139,10 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         vp.adapter = adapter
         vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
-        //atualizar as info
+        //atualizar as info, girar página
         vp.registerOnPageChangeCallback(object  : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
+                exibeInfo(view, listSeries[position])
                 super.onPageSelected(position)
             }
 

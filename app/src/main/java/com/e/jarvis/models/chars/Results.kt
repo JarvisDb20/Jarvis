@@ -25,6 +25,6 @@ data class Results (
     @SerializedName("comics") val comics : Comics,
     @SerializedName("series") val series : Series,
     @SerializedName("stories") val stories : Stories,
-    @SerializedName("events") val events : Events,
+  //  @SerializedName("events") val events : Events,
     @SerializedName("urls") val urls : List<Urls>
 ) : Serializable

@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
-import com.e.jarvis.models.utils.ItemImageChar
+import com.e.jarvis.models.utils.ItemImageSerie
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_exibe_image.view.*
 
 class ExibeSerieAdapter(
-    var listImagensSeries: ArrayList<ItemImageChar>,
+    var listImagensSeries: ArrayList<ItemImageSerie>,
     val listener: serieOnClickListener
 ) : RecyclerView.Adapter<ExibeSerieAdapter.SerieViewHolder>() {
 
@@ -22,9 +22,9 @@ class ExibeSerieAdapter(
     }
 
     override fun onBindViewHolder(holder: SerieViewHolder, position: Int) {
-        val objetoSerie = listImagensSeries[position]
+        val serie = listImagensSeries[position]
         var picasso = Picasso.get()
-        picasso.load(listImagensSeries[position].thumb.path + "/landscape_incredible." + listImagensSeries[position].thumb.extension)
+        picasso.load(serie.thumbnailSeries.path + "/landscape_incredible." + serie.thumbnailSeries.extension)
             .into(holder.imagem)
 
         holder.itemView.setOnClickListener {
@@ -46,7 +46,7 @@ class ExibeSerieAdapter(
         fun serieClick(position: Int)
     }
 
-    fun updateList(list: ArrayList<ItemImageChar>){
+    fun updateList(list: ArrayList<ItemImageSerie>) {
         listImagensSeries = list
         notifyDataSetChanged()
     }
