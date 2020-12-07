@@ -9,14 +9,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.viewpager2.widget.ViewPager2
+import com.e.jarvis.MainActivity
 import com.e.jarvis.R
-import com.e.jarvis.models.chars.Results
-import com.e.jarvis.models.utils.ItemImage
+import com.e.jarvis.models.series.Results
+import com.e.jarvis.models.utils.ItemImageChar
+import com.e.jarvis.models.utils.apiObject
 import com.e.jarvis.repository.service
-import com.e.jarvis.ui.exibe.chars.ExibeCharAdapter
-import com.e.jarvis.ui.exibe.chars.ExibeCharFragmentArgs
-import com.e.jarvis.ui.exibe.chars.ExibeCharViewModel
+import kotlinx.android.synthetic.main.fragment_exibe_series.*
+import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
 import kotlinx.android.synthetic.main.item_exibe.view.*
 
 class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener {
@@ -30,14 +31,13 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
     }
 
     //classe do generated
-    val args: ExibeSeriesFragementDirections by navArgs()
-
+    val args: ExibeSeriesFragementArgs by navArgs()
 
     lateinit var listSeries: ArrayList<Results>
 
-    //viriaveis para o viewpager
+    //variaveis para o viewpager
     var layoutStarted = false
-    lateinit var listImages: ArrayList<ItemImage>
+    lateinit var listImages: ArrayList<ItemImageChar>
     lateinit var adapter: ExibeSerieAdapter
     //lateinit var gManager: GridLayoutManager
 
@@ -79,15 +79,76 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //recebendo os args
+        val serieInfo = args.apiObj
+        when (serieInfo.id) {
+            "char" -> {
+                viewModel.getSeriesChar(serieInfo.id)
+            }
+            "comic" -> {
+                tv_descricao_frag_series.setText("NOT FOUND. We don´t see this comming.")
+            }
+            "series" -> {
+                viewModel.getSerie(serieInfo.id)
+            }
+            "stories" -> {
+                viewModel.getSeriesStories(serieInfo.id)
+            }
+
+        }
+
+        //-----> não entendi essa parte direito e no linha do char e do serie tá vermelho
+        //configurando viewpager
+        val vp = view.vp_images
+        val indicator = view.ci_images
+        viewModel.serie.observe(viewLifecycleOwner, {
+            exibeInfo(view, it[0])
+            listSeries = it
+            it.forEach { linhaSerie ->
+                listImages.add(
+                    ItemImageChar(
+                        linhaSerie.thumbnail,
+                        apiObject(
+                            "serie",
+                            linhaSerie.id
+                        )
+                    )
+                )
+
+            }
+            adapter.updateList(listImages)
+            indicator.setViewPager(vp)
+        })
 
 
+        //Lucas, vc pode me explicar melhor essa coisa de flag por favor? :)
+        if (!layoutStarted){
+            listImages = arrayListOf()
+            adapter = ExibeSerieAdapter(listImages, this)
+            layoutStarted = true
+        }
+
+        vp.adapter = adapter
+        vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        //atualizar as info
+        vp.registerOnPageChangeCallback(object  : ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+            }
+
+        })
 
 
+    }
 
 
-
-
-
-
+    fun exibeInfo(view: View, res: Results) {
+        (activity as MainActivity).supportActionBar?.title = res.title
+        view.tv_titulo_frag_series.text = res.title
+        if (res.description == null || res.description == "")
+            view.tv_descricao_frag_series.text = "No description found..."
+        else
+            view.tv_descricao_frag_series.text = res.description
     }
 }

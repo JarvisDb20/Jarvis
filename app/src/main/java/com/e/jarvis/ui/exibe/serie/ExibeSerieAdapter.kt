@@ -6,12 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
-import com.e.jarvis.models.utils.ItemImage
+import com.e.jarvis.models.utils.ItemImageChar
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_exibe_image.view.*
 
 class ExibeSerieAdapter(
-    var listImagensSeries: ArrayList<ItemImage>,
+    var listImagensSeries: ArrayList<ItemImageChar>,
     val listener: serieOnClickListener
 ) : RecyclerView.Adapter<ExibeSerieAdapter.SerieViewHolder>() {
 
@@ -46,7 +46,7 @@ class ExibeSerieAdapter(
         fun serieClick(position: Int)
     }
 
-    fun updateList(list: ArrayList<ItemImage>){
+    fun updateList(list: ArrayList<ItemImageChar>){
         listImagensSeries = list
         notifyDataSetChanged()
     }

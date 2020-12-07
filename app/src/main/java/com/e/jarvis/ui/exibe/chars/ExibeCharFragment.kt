@@ -15,7 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.chars.Results
-import com.e.jarvis.models.utils.ItemImage
+import com.e.jarvis.models.utils.ItemImageChar
 import com.e.jarvis.models.utils.apiObject
 import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
@@ -29,7 +29,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
     //viriaveis para o viewpager
     var layoutStarted = false
-    lateinit var listImages: ArrayList<ItemImage>
+    lateinit var listImages: ArrayList<ItemImageChar>
     lateinit var adapter: ExibeCharAdapter
     lateinit var gManager: GridLayoutManager
 
@@ -87,7 +87,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
             listChar = it
             it.forEach { linha ->
                 listImages.add(
-                    ItemImage(
+                    ItemImageChar(
                         linha.thumbnail,
                         apiObject(
                             "char",

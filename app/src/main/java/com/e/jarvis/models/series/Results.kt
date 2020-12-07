@@ -25,7 +25,7 @@ data class Results (
 	@SerializedName("rating") val rating : String,
 	@SerializedName("type") val type : String,
 	@SerializedName("modified") val modified : String,
-	@SerializedName("thumbnail") val thumbnail : Thumbnail,
+	@SerializedName("thumbnail") val thumbnail : ThumbnailSeries,
 	@SerializedName("creators") val creators : Creators,
 	@SerializedName("characters") val characters : Characters,
 	@SerializedName("stories") val stories : Stories,

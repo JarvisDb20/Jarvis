@@ -1,4 +1,4 @@
-package com.e.jarvis.models.series
+package com.e.jarvis.models.chars
 import com.google.gson.annotations.SerializedName
 
 /*
@@ -13,7 +13,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 For support, please feel free to contact me at https://www.linkedin.com/in/syedabsar */
 
 
-data class Thumbnail (
+data class ThumbnailChar (
 
 	@SerializedName("path") val path : String,
 	@SerializedName("extension") val extension : String

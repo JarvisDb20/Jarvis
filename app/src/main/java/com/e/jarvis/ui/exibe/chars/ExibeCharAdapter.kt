@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
-import com.e.jarvis.models.utils.ItemImage
+import com.e.jarvis.models.utils.ItemImageChar
 import com.squareup.picasso.Picasso
 
 class ExibeCharAdapter(
-    var listImages: ArrayList<ItemImage>,
+    var listImages: ArrayList<ItemImageChar>,
     val listener: ExibeCharAdapter.onClickListener
 ) : RecyclerView.Adapter<ExibeCharAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -50,7 +50,7 @@ class ExibeCharAdapter(
     }
 
 
-    fun updateList(list: ArrayList<ItemImage>){
+    fun updateList(list: ArrayList<ItemImageChar>){
         listImages = list
         notifyDataSetChanged()
     }
