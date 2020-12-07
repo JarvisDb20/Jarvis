@@ -91,6 +91,9 @@
         <action
             android:id="@+id/navigate_series_to_stories_fragment"
             app:destination="@id/exibeStoriesFragment" />
+        <argument
+            android:name="apiObj"
+            app:argType="com.e.jarvis.models.utils.apiObject" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

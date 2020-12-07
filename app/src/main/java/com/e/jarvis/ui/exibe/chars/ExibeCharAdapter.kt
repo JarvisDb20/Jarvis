@@ -7,7 +7,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
 import com.e.jarvis.models.utils.ItemImage
-import com.e.jarvis.ui.home.HomeAdapter
 import com.squareup.picasso.Picasso
 
 class ExibeCharAdapter(
@@ -35,9 +34,9 @@ class ExibeCharAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var layoutItemRest = LayoutInflater.from(parent.context)
+        var layoutItem = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_exibe_image, parent, false)
-        return ViewHolder(layoutItemRest)
+        return ViewHolder(layoutItem)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

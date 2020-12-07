@@ -18,21 +18,18 @@ import com.e.jarvis.models.chars.Results
 import com.e.jarvis.models.utils.ItemImage
 import com.e.jarvis.models.utils.apiObject
 import com.e.jarvis.repository.service
-import com.e.jarvis.ui.home.HomeAdapter
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
-import kotlinx.android.synthetic.main.item_exibe.*
 import kotlinx.android.synthetic.main.item_exibe.view.*
 import me.relex.circleindicator.CircleIndicator3
 
 
-class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
+class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     val args: ExibeCharFragmentArgs by navArgs()
-    lateinit var listChar:ArrayList<Results>
+    lateinit var listChar: ArrayList<Results>
 
     //viriaveis para o viewpager
     var layoutStarted = false
-    lateinit var listImages : ArrayList<ItemImage>
+    lateinit var listImages: ArrayList<ItemImage>
     lateinit var adapter: ExibeCharAdapter
     lateinit var gManager: GridLayoutManager
 
@@ -73,7 +70,7 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
             "char" -> {
                 viewModel.getChar(charInfo.id)
             }
-            "comic" ->{
+            "comic" -> {
                 viewModel.getCharComics(charInfo.id)
             }
             "series" -> {
@@ -86,10 +83,9 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
         }
         val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
         viewModel.char.observe(viewLifecycleOwner, {
-            exibeInfo(view,it[0])
+            exibeInfo(view, it[0])
             listChar = it
-            it.forEach {
-                linha ->
+            it.forEach { linha ->
                 listImages.add(
                     ItemImage(
                         linha.thumbnail,
@@ -116,7 +112,7 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
         //quando trocar de pagina atualiza as informações
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                exibeInfo(view,listChar[position])
+                exibeInfo(view, listChar[position])
                 super.onPageSelected(position)
             }
         })
@@ -142,10 +138,11 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
     override fun charsClick(position: Int) {
         Log.i("click", listImages[position].toString())
     }
-    fun exibeInfo(view : View,res :Results){
+
+    fun exibeInfo(view: View, res: Results) {
         (activity as MainActivity).supportActionBar?.title = res.name
         view.tv_titulo_frag_char.text = res.name
-        if (res.description == null || res.description == "" )
+        if (res.description == null || res.description == "")
             view.tv_descricao_frag_char.text = "No description found..."
         else
             view.tv_descricao_frag_char.text = res.description
