@@ -1,7 +1,9 @@
 package com.e.jarvis.repository
 
 
-import com.e.jarvis.models.chars.CharWrapper
+
+import com.e.jarvis.models.generics.GenericWrapper
+
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -20,14 +22,39 @@ interface Service {
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String
-    ): CharWrapper
+    ): GenericWrapper
     @GET("comics/{id}/characters")
     suspend fun getComicsCharRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String
-    ): CharWrapper
+    ): GenericWrapper
+
+    @GET("comics")
+    suspend fun getComicsSearch(
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("titleStartsWith") startWith :String
+    ): GenericWrapper
+
+    @GET("series")
+    suspend fun getSeriesSearch(
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("titleStartsWith") startWith :String
+    ): GenericWrapper
+
+    @GET("characters")
+    suspend fun getCharSearch(
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("nameStartsWith") startWith :String
+    ): GenericWrapper
+
 
 
 //    //pega os comics do char

@@ -8,5 +8,5 @@ data class GenericData (
     val limit : Int,
     val total : Int,
     val count : Int,
-    val results : List<GenericResults>
+    val results : ArrayList<GenericResults>
     ) : Serializable

@@ -7,11 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
-import com.e.jarvis.models.chars.Results
+import com.e.jarvis.models.generics.GenericResults
 import com.squareup.picasso.Picasso
 
 class HomeAdapter (
-        private var chars: ArrayList<Results>,
+        private var chars: ArrayList<GenericResults>,
         val listener: onClickListener
         ): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
@@ -49,7 +49,7 @@ class HomeAdapter (
     override fun getItemCount(): Int {
         return chars.size
     }
-    fun updateChars(char: ArrayList<Results>){
+    fun updateChars(char: ArrayList<GenericResults>){
         chars = char
         notifyDataSetChanged()
     }

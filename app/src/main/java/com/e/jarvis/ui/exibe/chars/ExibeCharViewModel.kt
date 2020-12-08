@@ -3,13 +3,12 @@ package com.e.jarvis.ui.exibe.chars
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.e.jarvis.models.chars.Results
+import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.repository.KeyHash
 import com.e.jarvis.repository.Service
-import com.e.jarvis.repository.service
 import kotlinx.coroutines.launch
 
-class ExibeCharViewModel(service: Service) : ViewModel() {
+class ExibeCharViewModel(val service: Service) : ViewModel() {
 
 
     val hash = KeyHash(
@@ -19,7 +18,7 @@ class ExibeCharViewModel(service: Service) : ViewModel() {
 
     //para testes vou usar o id do Hulk: 1009351
 
-    val char = MutableLiveData<ArrayList<Results>>()
+    val char = MutableLiveData<ArrayList<GenericResults>>()
 
     fun getChar(id: String) {
         viewModelScope.launch {

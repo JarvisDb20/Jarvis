@@ -14,14 +14,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
-import com.e.jarvis.models.utils.apiObject
-import com.e.jarvis.models.chars.Results
+import com.e.jarvis.models.generics.GenericResults
+import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : Fragment() , HomeAdapter.onClickListener {
     var layoutStarted = false
-    lateinit var chars: ArrayList<Results>
+    lateinit var chars: ArrayList<GenericResults>
     lateinit var adapter: HomeAdapter
     lateinit var gManager: GridLayoutManager
     private val viewModel by viewModels<HomeViewModel> {
@@ -81,16 +81,16 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
 
     override fun charsClick(position: Int) {
         //65123
-        val api : apiObject
+        val api : ApiObject
 
         if (chars[position].id == "1010744"){
             // simulando pegar uma comic quando clicar no rocket
-            api = apiObject(
+            api = ApiObject(
                 "65123",
                 "comic"
             )
         }else {
-            api = apiObject(
+            api = ApiObject(
                 chars[position].id,
                 "char"
             )
