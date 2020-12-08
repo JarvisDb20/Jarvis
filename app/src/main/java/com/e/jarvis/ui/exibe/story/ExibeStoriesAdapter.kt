@@ -11,7 +11,7 @@ import com.squareup.picasso.Picasso
 
 class ExibeStoriesAdapter (
     var listImages: ArrayList<ItemImage>,
-    val listener: ExibeStoriesAdapter.onClickListener
+    val listener: onClickListener
 ) : RecyclerView.Adapter<ExibeStoriesAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {

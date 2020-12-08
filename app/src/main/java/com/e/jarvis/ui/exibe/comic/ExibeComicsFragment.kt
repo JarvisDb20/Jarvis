@@ -71,8 +71,8 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
         }
 
         view.btn_exibe_stories.setOnClickListener {
-//            val passaArgsComic = ExibeComicsFragmentDirections.navigateComicsToStories(args.apiObjeto)
-//            findNavController().navigate(passaArgsComic)
+            val passaArgsComic = ExibeComicsFragmentDirections.navigateComicsToStories(args.apiObj)
+            findNavController().navigate(passaArgsComic)
         }
 
         setHasOptionsMenu(true)

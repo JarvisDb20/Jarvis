@@ -1,5 +1,6 @@
 package com.e.jarvis.ui.exibe.story
 
+import android.content.ContentValues.TAG
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
@@ -17,6 +19,7 @@ import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import com.e.jarvis.repository.service
+import com.e.jarvis.ui.exibe.comic.ExibeComicsFragmentDirections
 import kotlinx.android.synthetic.main.fragment_exibe_stories.view.*
 import kotlinx.android.synthetic.main.item_exibe.view.*
 import me.relex.circleindicator.CircleIndicator3
@@ -25,7 +28,7 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
     val args: ExibeStoriesFragmentArgs by navArgs()
     lateinit var listStories:ArrayList<GenericResults>
     var layoutStarted = false
-    lateinit var listImages : ArrayList<ItemImage>
+    var listImages : ArrayList<ItemImage> = arrayListOf()
     lateinit var adapter: ExibeStoriesAdapter
 
 
@@ -91,7 +94,6 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
             adapter.updateList(listImages)
             indicator.setViewPager(vp)
         })
-
         // configurando o viewpager
         if (!layoutStarted) {
             listImages = arrayListOf()
@@ -110,21 +112,22 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
 
         view.btn_exibe_stories.setBackgroundColor(Color.DKGRAY)
 
-        view.btn_exibe_series.setOnClickListener {
-            Navigation.findNavController(view)
-                    .navigate(R.id.navigate_stories_to_series_fragment)
-        }
-
-        view.btn_exibe_comics.setOnClickListener {
-            Navigation.findNavController(view)
-                    .navigate(R.id.navigate_stories_to_comics_fragment)
-        }
-
         view.btn_exibe_char.setOnClickListener {
-            Navigation.findNavController(view)
-                    .navigate(R.id.navigate_stories_to_personagem_fragment)
+            val passaArgsComic = ExibeComicsFragmentDirections.navigateComicsToPersonagem(args.apiObj)
+            findNavController().navigate(passaArgsComic)
         }
-    }
+
+        view.btn_exibe_series.setOnClickListener {
+            val passaArgsComic =
+                ExibeComicsFragmentDirections.navigateComicsToSeries(args.apiObj)
+            findNavController().navigate(passaArgsComic)
+        }
+
+        view.btn_exibe_stories.setOnClickListener {
+            val passaArgsComic = ExibeComicsFragmentDirections.navigateComicsToStories(args.apiObj)
+            findNavController().navigate(passaArgsComic)
+        }
+        }
 
     override fun storiesClick(position: Int) {
         Log.i("storiesClick", listImages[position].toString())
