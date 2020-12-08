@@ -7,12 +7,11 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
 import com.e.jarvis.models.utils.ItemImage
-import com.e.jarvis.ui.home.HomeAdapter
 import com.squareup.picasso.Picasso
 
 class ExibeCharAdapter(
     var listImages: ArrayList<ItemImage>,
-    val listener: ExibeCharAdapter.onClickListener
+    val listener: onClickListener
 ) : RecyclerView.Adapter<ExibeCharAdapter.ViewHolder>() {
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
