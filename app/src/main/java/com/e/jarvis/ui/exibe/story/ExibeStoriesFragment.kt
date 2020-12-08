@@ -24,8 +24,6 @@ import me.relex.circleindicator.CircleIndicator3
 class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
     val args: ExibeStoriesFragmentArgs by navArgs()
     lateinit var listStories:ArrayList<GenericResults>
-
-    //viriaveis para o viewpager
     var layoutStarted = false
     lateinit var listImages : ArrayList<ItemImage>
     lateinit var adapter: ExibeStoriesAdapter
@@ -43,7 +41,6 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_exibe_stories, container, false)
     }
@@ -61,14 +58,17 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
 
 
         when (storiesInfo.tipoId) {
-            "StoriesComics" -> {
+            "comics" -> {
                 viewModel.getStoriesComics(storiesInfo.id)
             }
-            "StoriesChar" ->{
+            "char" ->{
                 viewModel.getStoriesChar(storiesInfo.id)
             }
-            "StoriesSeries" ->{
+            "series" ->{
                 viewModel.getStoriesSeries(storiesInfo.id)
+            }
+            "stories" ->{
+                viewModel.getStoriesStories(storiesInfo.id)
             }
         }
 

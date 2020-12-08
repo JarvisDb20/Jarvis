@@ -40,4 +40,11 @@ class ExibeStoriesViewModel(val service: Service) : ViewModel() {
         }
     }
 
+    fun getStoriesStories(id: String) {
+        viewModelScope.launch {
+            stories.value =
+                service.getStoriesStoriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+        }
+    }
+
 }
