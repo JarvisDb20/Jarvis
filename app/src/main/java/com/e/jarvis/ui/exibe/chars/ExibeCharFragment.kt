@@ -4,11 +4,13 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
@@ -57,7 +59,7 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        listImages = arrayListOf()
         val charInfo = args.apiObj
         val vp = view.findViewById<ViewPager2>(R.id.vp_images)
 
@@ -72,10 +74,9 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
         }
         val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
         viewModel.char.observe(viewLifecycleOwner, {
-            exibeInfo(view,it[0])
+            exibeInfo(view, it[0])
             listChar = it
-            it.forEach {
-                linha ->
+            it.forEach { linha ->
                 listImages.add(
                     ItemImage(
                         linha.thumbnail,
@@ -87,16 +88,19 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
                 )
             }
             adapter.updateList(listImages)
-            indicator.setViewPager(vp)
-        })
+            if (indicator.isEmpty())
+                indicator.setViewPager(vp)
 
+        })
+        Log.i("teste", "$layoutStarted")
 
         // configurando o viewpager
         if (!layoutStarted) {
-            listImages = arrayListOf()
+
             adapter = ExibeCharAdapter(listImages, this)
             layoutStarted = true
         }
+
         vp.adapter = adapter
         vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //quando trocar de pagina atualiza as informações
@@ -106,7 +110,6 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
                 super.onPageSelected(position)
             }
         })
-
 
         view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
         view.btn_exibe_series.setOnClickListener {
@@ -126,7 +129,8 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
     }
 
     override fun charsClick(position: Int) {
-        Log.i("click", listImages[position].toString())
+        val directions  = ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(listImages[position].thumb)
+        findNavController().navigate(directions)
     }
     fun exibeInfo(view : View,res :GenericResults){
         (activity as MainActivity).supportActionBar?.title = res.name
