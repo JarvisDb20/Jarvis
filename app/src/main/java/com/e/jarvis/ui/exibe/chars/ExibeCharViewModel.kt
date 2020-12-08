@@ -16,9 +16,9 @@ class ExibeCharViewModel(val service: Service) : ViewModel() {
         "f28a07f38dc7090aa24b3e50496e6ac6"
     )
 
-    //para testes vou usar o id do Hulk: 1009351
 
     val char = MutableLiveData<ArrayList<GenericResults>>()
+
 
     fun getChar(id: String) {
         viewModelScope.launch {
@@ -26,12 +26,34 @@ class ExibeCharViewModel(val service: Service) : ViewModel() {
                 service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
         }
     }
+
     fun getCharComics(id: String) {
         viewModelScope.launch {
             char.value =
-                service.getComicsCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+                service.getCharComicRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
         }
     }
 
+
+    fun getCharDaSerie(id: String) {
+        viewModelScope.launch {
+            char.value =
+                service.getCharSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+        }
+
+    }
+
+
+    fun getCharDaStories(id: String) {
+        viewModelScope.launch {
+            char.value = service.getCharStoriesRepo(
+                id,
+                hash.ts,
+                hash.publicKey,
+                hash.getKey()
+            ).data.results
+        }
+
+    }
 
 }

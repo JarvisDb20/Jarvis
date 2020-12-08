@@ -9,28 +9,34 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
+
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
+
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
+
 import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
 import kotlinx.android.synthetic.main.item_exibe.view.*
 import me.relex.circleindicator.CircleIndicator3
 
 
-class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
+class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
+
+    //variavel que vai receber os args
     val args: ExibeCharFragmentArgs by navArgs()
-    lateinit var listChar:ArrayList<GenericResults>
+
+    lateinit var listChar: ArrayList<GenericResults>
+
 
     //viriaveis para o viewpager
     var layoutStarted = false
-    lateinit var listImages : ArrayList<ItemImage>
+    lateinit var listImages: ArrayList<ItemImage>
     lateinit var adapter: ExibeCharAdapter
 
 
@@ -59,8 +65,14 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         listImages = arrayListOf()
+
+        //args que o fragment char tá recebendo
+
         val charInfo = args.apiObj
+        Log.i("OBJETO CHEGOU CHAR", charInfo.toString())
+
         val vp = view.findViewById<ViewPager2>(R.id.vp_images)
 
 
@@ -68,9 +80,16 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
             "char" -> {
                 viewModel.getChar(charInfo.id)
             }
-            "comic" ->{
+            "comic" -> {
                 viewModel.getCharComics(charInfo.id)
             }
+            "series" -> {
+                viewModel.getCharDaSerie(charInfo.id)
+            }
+            "stories" -> {
+                viewModel.getCharDaStories(charInfo.id)
+            }
+
         }
         val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
         viewModel.char.observe(viewLifecycleOwner, {
@@ -106,36 +125,44 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
         //quando trocar de pagina atualiza as informações
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                exibeInfo(view,listChar[position])
+                exibeInfo(view, listChar[position])
                 super.onPageSelected(position)
             }
         })
 
         view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
+
         view.btn_exibe_series.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.navigate_personagem_to_exibe_series_fragment)
+
+            val passaArgsChar =
+                ExibeCharFragmentDirections.navigatePersonagemToExibeSeriesFragment(args.apiObj)
+            findNavController().navigate(passaArgsChar)
+
         }
 
         view.btn_exibe_comics.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.navigate_personagem_to_exibe_comics_fragment)
+            val passaArgsChar =
+                ExibeCharFragmentDirections.navigatePersonagemToExibeComicsFragment(charInfo)
+            findNavController().navigate(passaArgsChar)
         }
 
         view.btn_exibe_stories.setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.navigate_personagem_to_exibe_stories_fragment)
+//           val passaArgsChar =
+//                ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment(charInfo)
+//          findNavController().navigate(passaArgsChar)
         }
     }
 
     override fun charsClick(position: Int) {
-        val directions  = ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(listImages[position].thumb)
-        findNavController().navigate(directions)
+//        val directions =
+//            ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(listImages[position].thumb)
+//        findNavController().navigate(directions)
     }
-    fun exibeInfo(view : View,res :GenericResults){
+
+    fun exibeInfo(view: View, res: GenericResults) {
         (activity as MainActivity).supportActionBar?.title = res.name
         view.tv_titulo_frag_char.text = res.name
-        if (res.description == null || res.description == "" )
+        if (res.description == null || res.description == "")
             view.tv_descricao_frag_char.text = "No description found..."
         else
             view.tv_descricao_frag_char.text = res.description
