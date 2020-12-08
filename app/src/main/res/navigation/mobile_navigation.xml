@@ -34,7 +34,7 @@
             app:destination="@id/exibeStoriesFragment" />
         <argument
             android:name="apiObj"
-            app:argType="com.e.jarvis.models.utils.apiObject" />
+            app:argType="com.e.jarvis.models.utils.ApiObject" />
     </fragment>
     <fragment
         android:id="@+id/exibeComicsFragment"

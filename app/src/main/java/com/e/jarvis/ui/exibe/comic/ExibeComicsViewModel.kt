@@ -1,14 +1,7 @@
 package com.e.jarvis.ui.exibe.comic
 
-import android.util.Log
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.e.jarvis.models.comics.Results
-import com.e.jarvis.repository.KeyHash
 import com.e.jarvis.repository.Service
-import com.e.jarvis.repository.service
-import kotlinx.coroutines.launch
 
 class ExibeComicsViewModel(service: Service) : ViewModel() {
 

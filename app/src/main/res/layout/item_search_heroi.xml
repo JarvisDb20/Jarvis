@@ -39,7 +39,7 @@
 
 
             <TextView
-                android:id="@+id/nome_personagem"
+                android:id="@+id/tv_nome_personagem"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginVertical="8dp"

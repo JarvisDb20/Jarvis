@@ -10,31 +10,26 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
-import com.e.jarvis.models.chars.Results
+import com.e.jarvis.models.generics.GenericResults
+import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
-import com.e.jarvis.models.utils.apiObject
 import com.e.jarvis.repository.service
-import com.e.jarvis.ui.home.HomeAdapter
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
-import kotlinx.android.synthetic.main.item_exibe.*
 import kotlinx.android.synthetic.main.item_exibe.view.*
 import me.relex.circleindicator.CircleIndicator3
 
 
 class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
     val args: ExibeCharFragmentArgs by navArgs()
-    lateinit var listChar:ArrayList<Results>
+    lateinit var listChar:ArrayList<GenericResults>
 
     //viriaveis para o viewpager
     var layoutStarted = false
     lateinit var listImages : ArrayList<ItemImage>
     lateinit var adapter: ExibeCharAdapter
-    lateinit var gManager: GridLayoutManager
 
 
     private val viewModel by viewModels<ExibeCharViewModel> {
@@ -51,10 +46,8 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_exibe_char, container, false)
-
         setHasOptionsMenu(true)
-        return view
+        return inflater.inflate(R.layout.fragment_exibe_char, container, false)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -86,7 +79,7 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
                 listImages.add(
                     ItemImage(
                         linha.thumbnail,
-                        apiObject(
+                        ApiObject(
                             "char",
                             linha.id
                         )
@@ -135,7 +128,7 @@ class ExibeCharFragment : Fragment(),ExibeCharAdapter.onClickListener {
     override fun charsClick(position: Int) {
         Log.i("click", listImages[position].toString())
     }
-    fun exibeInfo(view : View,res :Results){
+    fun exibeInfo(view : View,res :GenericResults){
         (activity as MainActivity).supportActionBar?.title = res.name
         view.tv_titulo_frag_char.text = res.name
         if (res.description == null || res.description == "" )
