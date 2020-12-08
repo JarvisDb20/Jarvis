@@ -1,8 +1,8 @@
 package com.e.jarvis.repository
 
 
-
 import com.e.jarvis.models.generics.GenericWrapper
+
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,17 +14,41 @@ import retrofit2.http.Query
 
 interface Service {
 
-    //pega um char especifico pelo id dele
+    //RETORNAM CHARS:
 
+    //pega um char especifico pelo id dele
     @GET("characters/{id}")
     suspend fun getCharRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String
+
     ): GenericWrapper
+
+    //pega os chars do comic especifico
+
     @GET("comics/{id}/characters")
-    suspend fun getComicsCharRepo(
+    suspend fun getCharComicRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
+
+    //pega os chars da serie especifica
+    @GET("series/{id}/characters")
+    suspend fun getCharSeriesRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+
+    ): GenericWrapper
+
+    //pega os chars da storie especifica
+    @GET("stories/{id}/characters")
+    suspend fun getCharStoriesRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
@@ -36,7 +60,7 @@ interface Service {
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("titleStartsWith") startWith :String
+        @Query("titleStartsWith") startWith: String
     ): GenericWrapper
 
     @GET("series")
@@ -44,7 +68,7 @@ interface Service {
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("titleStartsWith") startWith :String
+        @Query("titleStartsWith") startWith: String
     ): GenericWrapper
 
     @GET("characters")
@@ -52,19 +76,79 @@ interface Service {
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("nameStartsWith") startWith :String
+        @Query("nameStartsWith") startWith: String
     ): GenericWrapper
 
 
+    //RETORNAM SERIES:
 
-//    //pega os comics do char
-//    @GET("characters/{id}/comics")
-//    suspend fun getComicsRepo(
-//        @Path("id") id: String,
-//        @Query("ts") ts: String,
-//        @Query("apikey") apikey: String,
-//        @Query("hash") hash: String
-//    ): ComicsWrapper
+    //pega serie especifica pelo id
+    @GET("series/{id}")
+    suspend fun getSerieRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
+
+    // não é possível pegar series a partir de um comic
+
+    //pega series de um personagem especifico
+    @GET("characters/{id}/series")
+    suspend fun getSeriesCharRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
+
+    //pega series de uma storie especifica
+    @GET("stories/{id}/series")
+    suspend fun getSeriesStoriesRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
+
+
+    //RETORNAM COMICS:
+
+    //pega comic unico pelo id
+    @GET("comics/{id}")
+    suspend fun getComicRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
+
+    //pega comics de um personagem especifico
+    @GET("characters/{id}/comics")
+    suspend fun getComicsCharRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
+
+    //pega comics de uma storie especifica
+    @GET("stories/{id}/comics")
+    suspend fun getComicStorieRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
+
+    //pega comics de uma serie especifica
+    @GET("series/{id}/comics")
+    suspend fun getComicSeriesRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
 
     //Stories
 

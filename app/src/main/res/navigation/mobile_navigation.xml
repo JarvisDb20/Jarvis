@@ -54,11 +54,12 @@
             android:id="@+id/navigate_comics_to_stories"
             app:destination="@id/exibeStoriesFragment" />
         <argument
-            android:name="idChar"
-            app:argType="string" />
+            android:name="apiObj"
+            app:argType="com.e.jarvis.models.utils.ApiObject" />
         <action
             android:id="@+id/action_exibeComicsFragment_to_imageFullFragment"
             app:destination="@id/imageFullFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/exibeStoriesFragment"
@@ -103,9 +104,14 @@
         <action
             android:id="@+id/navigate_series_to_stories_fragment"
             app:destination="@id/exibeStoriesFragment" />
+
         <action
             android:id="@+id/action_exibeSeriesFragement_to_imageFullFragment"
             app:destination="@id/imageFullFragment" />
+        <argument
+            android:name="apiObj"
+            app:argType="com.e.jarvis.models.utils.ApiObject" />
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
