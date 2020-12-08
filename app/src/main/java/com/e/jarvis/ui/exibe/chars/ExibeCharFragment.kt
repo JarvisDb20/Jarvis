@@ -138,9 +138,9 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         }
 
         view.btn_exibe_stories.setOnClickListener {
-//            val passaArgsChar =
+//           val passaArgsChar =
 //                ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment(charInfo)
-//            findNavController().navigate(passaArgsChar)
+//          findNavController().navigate(passaArgsChar)
         }
     }
 
