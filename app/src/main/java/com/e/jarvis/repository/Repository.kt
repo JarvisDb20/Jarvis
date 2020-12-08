@@ -98,7 +98,7 @@ interface Service {
     ): ComicsWrapper
 
     //pega comics de um personagem especifico
-    @GET("character/{id}/comics")
+    @GET("characters/{id}/comics")
     suspend fun getComicsCharRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,
@@ -107,7 +107,7 @@ interface Service {
     ): ComicsWrapper
 
     //pega comics de uma storie especifica
-    @GET("storie/{id}/comics")
+    @GET("stories/{id}/comics")
     suspend fun getComicStorieRepo(
         @Path("id") id: String,
         @Query("ts") ts: String,

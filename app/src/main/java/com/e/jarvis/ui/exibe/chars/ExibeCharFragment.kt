@@ -34,7 +34,6 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     lateinit var adapter: ExibeCharAdapter
 
 
-
     private val viewModel by viewModels<ExibeCharViewModel> {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -65,6 +64,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
         //args que o fragment char tá recebendo
         val charInfo = args.apiObj
+        Log.i("OBJETO CHEGOU CHAR", charInfo.toString())
 
         val vp = view.findViewById<ViewPager2>(R.id.vp_images)
 
@@ -125,18 +125,21 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
         view.btn_exibe_series.setOnClickListener {
 
-            val passaArgsChar = ExibeCharFragmentDirections.navigatePersonagemToExibeSeriesFragment( args.apiObj)
+            val passaArgsChar =
+                ExibeCharFragmentDirections.navigatePersonagemToExibeSeriesFragment(args.apiObj)
             findNavController().navigate(passaArgsChar)
 
         }
 
         view.btn_exibe_comics.setOnClickListener {
-            val passaArgsChar = ExibeCharFragmentDirections.navigatePersonagemToExibeComicsFragment( args.apiObj)
+            val passaArgsChar =
+                ExibeCharFragmentDirections.navigatePersonagemToExibeComicsFragment(charInfo)
             findNavController().navigate(passaArgsChar)
         }
 
         view.btn_exibe_stories.setOnClickListener {
-//            val passaArgsChar = ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment( args.apiObj)
+//            val passaArgsChar =
+//                ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment(charInfo)
 //            findNavController().navigate(passaArgsChar)
         }
     }

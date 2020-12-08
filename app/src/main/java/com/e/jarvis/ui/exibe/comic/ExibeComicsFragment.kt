@@ -2,12 +2,12 @@ package com.e.jarvis.ui.exibe.comic
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -17,8 +17,6 @@ import com.e.jarvis.models.comics.Results
 import com.e.jarvis.models.utils.ItemImageComic
 import com.e.jarvis.models.utils.apiObject
 import com.e.jarvis.repository.service
-import com.e.jarvis.ui.exibe.chars.ExibeCharFragmentDirections
-import com.e.jarvis.ui.home.HomeFragmentDirections
 import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
 import kotlinx.android.synthetic.main.item_exibe.view.*
 
@@ -36,6 +34,8 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
 
     //classe do generated que tem o args que o frag comic vai receber
     val args: ExibeComicsFragmentArgs by navArgs()
+
+
 
 
     //lista dos comics
@@ -65,7 +65,8 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
         }
 
         view.btn_exibe_series.setOnClickListener {
-            val passaArgsComic = ExibeComicsFragmentDirections.navigateComicsToSeries(args.apiObjeto)
+            val passaArgsComic =
+                ExibeComicsFragmentDirections.navigateComicsToSeries(args.apiObjeto)
             findNavController().navigate(passaArgsComic)
         }
 
@@ -93,19 +94,21 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
         super.onViewCreated(view, savedInstanceState)
 
         //recebendo os args pra ver que tipo é e então chamar a função adequada
-        val comicInfo = args.apiObjeto
-        when (comicInfo.tipoId) {
+        val objeto = args.apiObjeto
+        Log.i("OBJETO CHEGOU COMICS", objeto.toString())
+
+        when (objeto.tipoId) {
             "char" -> {
-                viewModel.getComicChar(comicInfo.id)
+                viewModel.getComicChar(objeto.id)
             }
             "comic" -> {
-                viewModel.getComic(comicInfo.id)
+                viewModel.getComic(objeto.id)
             }
             "series" -> {
-                viewModel.getComicSeries(comicInfo.id)
+                viewModel.getComicSeries(objeto.id)
             }
             "stories" -> {
-                viewModel.getComicStories(comicInfo.id)
+                viewModel.getComicStories(objeto.id)
             }
         }
 
@@ -118,7 +121,7 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
 
             listComics = it
 
-            it.forEach{
+            it.forEach {
                 listImages.add(ItemImageComic(it.thumbnail, apiObject("comic", it.id)))
             }
 
@@ -129,7 +132,7 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
 
 
         //flag do layout
-        if(!layoutStarted){
+        if (!layoutStarted) {
             listImages = arrayListOf()
             adapter = ExibeComicsAdapter(listImages, this)
             layoutStarted = true
@@ -145,7 +148,6 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
                 super.onPageSelected(position)
             }
         })
-
 
 
     }

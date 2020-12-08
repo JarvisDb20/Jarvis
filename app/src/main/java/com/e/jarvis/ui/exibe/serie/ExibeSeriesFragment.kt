@@ -2,6 +2,7 @@ package com.e.jarvis.ui.exibe.serie
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -85,19 +86,21 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         super.onViewCreated(view, savedInstanceState)
 
         //recebendo os args
-        val serieInfo = args.apiObj
-        when (serieInfo.tipoId) {
+        val objeto = args.apiObj
+        Log.i("OBJETO CHEGOU SERIES", objeto.toString())
+
+        when (objeto.tipoId) {
             "char" -> {
-                viewModel.getSeriesChar(serieInfo.id)
+                viewModel.getSeriesChar(objeto.id)
             }
             "comic" -> {
                 tv_descricao_frag_series.setText("NOT FOUND. We don´t see this comming.")
             }
             "series" -> {
-                viewModel.getSerie(serieInfo.id)
+                viewModel.getSerie(objeto.id)
             }
             "stories" -> {
-                viewModel.getSeriesStories(serieInfo.id)
+                viewModel.getSeriesStories(objeto.id)
             }
 
         }
