@@ -150,6 +150,43 @@ interface Service {
         @Query("hash") hash: String
     ): GenericWrapper
 
+    //Stories
+
+    //pega stories de uma comic especifica
+    @GET("comics/{id}/stories")
+    suspend fun getStoriesComicsRepo(
+            @Path("id") id: String,
+            @Query("ts") ts: String,
+            @Query("apikey") apikey: String,
+            @Query("hash") hash: String
+    ): GenericWrapper
+
+    //pega stories de um char especifico
+    @GET("characters/{id}/stories")
+    suspend fun getStoriesCharRepo(
+            @Path("id") id: String,
+            @Query("ts") ts: String,
+            @Query("apikey") apikey: String,
+            @Query("hash") hash: String
+    ): GenericWrapper
+
+    //pega stories de uma serie especifica
+    @GET("series/{id}/stories")
+    suspend fun getStoriesSeriesRepo(
+            @Path("id") id: String,
+            @Query("ts") ts: String,
+            @Query("apikey") apikey: String,
+            @Query("hash") hash: String
+    ): GenericWrapper
+
+    //pega stories de uma stories
+    @GET("stories/{id}")
+    suspend fun getStoriesStoriesRepo(
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String
+    ): GenericWrapper
 
 }
 

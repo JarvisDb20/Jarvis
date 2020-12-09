@@ -63,8 +63,8 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         }
 
         view.btn_exibe_stories.setOnClickListener {
-//            val passaArgsSeries = ExibeSeriesFragementDirections.navigateSeriesToStoriesFragment(args.apiObj)
-//            findNavController().navigate(passaArgsSeries)
+            val passaArgsSeries = ExibeSeriesFragementDirections.navigateSeriesToStoriesFragment(args.apiObj)
+            findNavController().navigate(passaArgsSeries)
         }
         setHasOptionsMenu(true)
         return view

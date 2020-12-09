@@ -147,16 +147,16 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         }
 
         view.btn_exibe_stories.setOnClickListener {
-//           val passaArgsChar =
-//                ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment(charInfo)
-//          findNavController().navigate(passaArgsChar)
+           val passaArgsChar =
+                ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment(charInfo)
+          findNavController().navigate(passaArgsChar)
         }
     }
 
     override fun charsClick(position: Int) {
-//        val directions =
-//            ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(listImages[position].thumb)
-//        findNavController().navigate(directions)
+        val directions =
+            ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(listImages[position].thumb)
+        findNavController().navigate(directions)
     }
 
     fun exibeInfo(view: View, res: GenericResults) {

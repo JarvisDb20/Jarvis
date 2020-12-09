@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    android:background="@drawable/bkp11"
+    android:background="@drawable/bkg15_opc_blur_grey"
 
     tools:context=".ui.favorites.FavoritosFragment">
 
