@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -13,13 +14,16 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
+import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_exibe_series.*
 import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
-import kotlinx.android.synthetic.main.item_exibe.view.*
+import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
+import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
+
 
 class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener {
 
@@ -53,17 +57,20 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         view.btn_exibe_series.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_char.setOnClickListener {
-            val passaArgsSeries = ExibeSeriesFragementDirections.navigateSeriesToPersonagemFragment(args.apiObj)
+            val passaArgsSeries =
+                ExibeSeriesFragementDirections.navigateSeriesToPersonagemFragment(args.apiObj)
             findNavController().navigate(passaArgsSeries)
         }
 
         view.btn_exibe_comics.setOnClickListener {
-            val passaArgsSeries = ExibeSeriesFragementDirections.navigateSeriesToComicsFragment(args.apiObj)
+            val passaArgsSeries =
+                ExibeSeriesFragementDirections.navigateSeriesToComicsFragment(args.apiObj)
             findNavController().navigate(passaArgsSeries)
         }
 
         view.btn_exibe_stories.setOnClickListener {
-            val passaArgsSeries = ExibeSeriesFragementDirections.navigateSeriesToStoriesFragment(args.apiObj)
+            val passaArgsSeries =
+                ExibeSeriesFragementDirections.navigateSeriesToStoriesFragment(args.apiObj)
             findNavController().navigate(passaArgsSeries)
         }
         setHasOptionsMenu(true)
@@ -108,30 +115,62 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         val vp = view.vp_images
         val indicator = view.ci_images
         viewModel.serie.observe(viewLifecycleOwner, {
-            exibeInfo(view, it[0])
-            listSeries = it
 
-            it.forEach { linha ->
-                listImages.add(
-                    //objeto desse tipo, com esses atributos
-                    ItemImage(
-                        linha.thumbnail,
-                        ApiObject(
-                            "serie",
-                            linha.id
+            if (it.size != 0) {
+                exibeInfo(view, it[0])
+                listSeries = it
+
+                it.forEach { linha ->
+
+                    if (linha.thumbnail != null) {
+                        listImages.add(
+                            ItemImage(
+                                linha.thumbnail,
+                                ApiObject(
+                                    "char",
+                                    linha.id
+                                )
+                            )
                         )
-                    )
-                )
 
+
+                    } else {
+                        listImages.add(
+                            ItemImage(
+                                GenericImage(
+                                    "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available",
+                                    "jpg"
+                                ),
+                                ApiObject(
+                                    "char",
+                                    linha.id
+                                )
+                            )
+                        )
+                    }
+
+
+                }
+                adapter.updateList(listImages)
+                if (indicator.isEmpty())
+                    indicator.setViewPager(vp)
+
+
+            } else {
+                (activity as MainActivity).supportActionBar?.title = "Not found..."
+                view.tv_titulo_frag_series.text = "Not found..."
+                view.tv_descricao_frag_series.text = "No description found..."
+
+                view.vp_images.setBackgroundColor(Color.GRAY)
             }
-            adapter.updateList(listImages)
-            indicator.setViewPager(vp)
+
+
         })
 
 
         //Lucas, vc pode me explicar melhor essa coisa de flag por favor? :)
         //só entra aqui uma vez, pq aqui que ele começa a existir
-        if (!layoutStarted){
+        if (!layoutStarted) {
             listImages = arrayListOf()
             adapter = ExibeSerieAdapter(listImages, this)
             layoutStarted = true
@@ -141,7 +180,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
 
         //atualizar as info, girar página
-        vp.registerOnPageChangeCallback(object  : ViewPager2.OnPageChangeCallback(){
+        vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 exibeInfo(view, listSeries[position])
                 super.onPageSelected(position)

@@ -15,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
+import com.e.jarvis.models.generics.GenericImage
 
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
@@ -22,7 +23,11 @@ import com.e.jarvis.models.utils.ItemImage
 
 import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
-import kotlinx.android.synthetic.main.item_exibe.view.*
+import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
+import kotlinx.android.synthetic.main.fragment_image_full.*
+import kotlinx.android.synthetic.main.fragment_image_full.view.*
+import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
+import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
 
 
@@ -93,22 +98,54 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         }
         val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
         viewModel.char.observe(viewLifecycleOwner, {
-            exibeInfo(view, it[0])
-            listChar = it
-            it.forEach { linha ->
-                listImages.add(
-                    ItemImage(
-                        linha.thumbnail,
-                        ApiObject(
-                            "char",
-                            linha.id
+
+            if (it.size != 0) {
+                exibeInfo(view, it[0])
+                listChar = it
+
+                it.forEach { linha ->
+
+                    if (linha.thumbnail != null) {
+                        listImages.add(
+                            ItemImage(
+                                linha.thumbnail,
+                                ApiObject(
+                                    "char",
+                                    linha.id
+                                )
+                            )
                         )
-                    )
-                )
+
+
+                    } else {
+                        listImages.add(
+                            ItemImage(
+                                GenericImage(
+                                    "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available",
+                                    "jpg"
+                                ),
+                                ApiObject(
+                                    "char",
+                                    linha.id
+                                )
+                            )
+                        )
+                    }
+
+
+                }
+                adapter.updateList(listImages)
+                if (indicator.isEmpty())
+                    indicator.setViewPager(vp)
+
+
+            } else {
+                (activity as MainActivity).supportActionBar?.title = "Not found..."
+                view.tv_titulo_frag_char.text = "Not found..."
+                view.tv_descricao_frag_char.text = "No description found..."
+
+                view.vp_images.setBackgroundColor(Color.GRAY)
             }
-            adapter.updateList(listImages)
-            if (indicator.isEmpty())
-                indicator.setViewPager(vp)
 
         })
         Log.i("teste", "$layoutStarted")
@@ -123,12 +160,13 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         vp.adapter = adapter
         vp.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         //quando trocar de pagina atualiza as informações
-        vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                exibeInfo(view, listChar[position])
-                super.onPageSelected(position)
-            }
-        })
+        vp.registerOnPageChangeCallback(
+            object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    exibeInfo(view, listChar[position])
+                    super.onPageSelected(position)
+                }
+            })
 
         view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
 
@@ -147,15 +185,17 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         }
 
         view.btn_exibe_stories.setOnClickListener {
-           val passaArgsChar =
+            val passaArgsChar =
                 ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment(charInfo)
-          findNavController().navigate(passaArgsChar)
+            findNavController().navigate(passaArgsChar)
         }
     }
 
     override fun charsClick(position: Int) {
         val directions =
-            ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(listImages[position].thumb)
+            ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(
+                listImages[position].thumb
+            )
         findNavController().navigate(directions)
     }
 

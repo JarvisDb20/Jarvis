@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -13,13 +14,15 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
+import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
-import kotlinx.android.synthetic.main.item_exibe.view.*
-
+import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
+import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
+import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 
 class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener {
 
@@ -34,8 +37,6 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
 
     //classe do generated que tem o args que o frag comic vai receber
     val args: ExibeComicsFragmentArgs by navArgs()
-
-
 
 
     //lista dos comics
@@ -60,7 +61,8 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
         view.btn_exibe_comics.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_char.setOnClickListener {
-            val passaArgsComic = ExibeComicsFragmentDirections.navigateComicsToPersonagem(args.apiObj)
+            val passaArgsComic =
+                ExibeComicsFragmentDirections.navigateComicsToPersonagem(args.apiObj)
             findNavController().navigate(passaArgsComic)
         }
 
@@ -117,16 +119,53 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
         val indicator = view.ci_images
 
         viewModel.comic.observe(viewLifecycleOwner, {
-            exibeInfo(view, it[0])
+            if (it.size != 0) {
+                exibeInfo(view, it[0])
+                listComics = it
 
-            listComics = it
+                it.forEach { linha ->
 
-            it.forEach {
-                listImages.add(ItemImage(it.thumbnail, ApiObject("comic", it.id)))
+                    if (linha.thumbnail != null) {
+                        listImages.add(
+                            ItemImage(
+                                linha.thumbnail,
+                                ApiObject(
+                                    "char",
+                                    linha.id
+                                )
+                            )
+                        )
+
+
+                    } else {
+                        listImages.add(
+                            ItemImage(
+                                GenericImage(
+                                    "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available",
+                                    "jpg"
+                                ),
+                                ApiObject(
+                                    "char",
+                                    linha.id
+                                )
+                            )
+                        )
+                    }
+
+
+                }
+                adapter.updateList(listImages)
+                if (indicator.isEmpty())
+                    indicator.setViewPager(vp)
+
+
+            } else {
+                (activity as MainActivity).supportActionBar?.title = "Not found..."
+                view.tv_titulo_frag_comics.text = "Not found..."
+                view.tv_descricao_frag_comics.text = "No description found..."
+
+                view.vp_images.setBackgroundColor(Color.GRAY)
             }
-
-            adapter.updateList(listImages)
-            indicator
 
         })
 

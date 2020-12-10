@@ -22,7 +22,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
 
     ): GenericWrapper
 
@@ -33,7 +34,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
     //pega os chars da serie especifica
@@ -42,7 +44,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
 
     ): GenericWrapper
 
@@ -52,7 +55,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
     @GET("comics")
@@ -60,7 +64,8 @@ interface Service {
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("titleStartsWith") startWith: String
+        @Query("titleStartsWith") startWith: String,
+        @Query("orderBy") orderBy: String = "-onsaleDate"
     ): GenericWrapper
 
     @GET("series")
@@ -68,7 +73,8 @@ interface Service {
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("titleStartsWith") startWith: String
+        @Query("titleStartsWith") startWith: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
     @GET("characters")
@@ -76,7 +82,8 @@ interface Service {
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
         @Query("hash") hash: String,
-        @Query("nameStartsWith") startWith: String
+        @Query("nameStartsWith") startWith: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
 
@@ -88,7 +95,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
     // não é possível pegar series a partir de um comic
@@ -99,7 +107,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
     //pega series de uma storie especifica
@@ -108,7 +117,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
 
@@ -120,7 +130,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-onsaleDate"
     ): GenericWrapper
 
     //pega comics de um personagem especifico
@@ -129,7 +140,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-onsaleDate"
     ): GenericWrapper
 
     //pega comics de uma storie especifica
@@ -138,7 +150,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-onsaleDate"
     ): GenericWrapper
 
     //pega comics de uma serie especifica
@@ -147,7 +160,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-onsaleDate"
     ): GenericWrapper
 
     //Stories
@@ -155,28 +169,31 @@ interface Service {
     //pega stories de uma comic especifica
     @GET("comics/{id}/stories")
     suspend fun getStoriesComicsRepo(
-            @Path("id") id: String,
-            @Query("ts") ts: String,
-            @Query("apikey") apikey: String,
-            @Query("hash") hash: String
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
     //pega stories de um char especifico
     @GET("characters/{id}/stories")
     suspend fun getStoriesCharRepo(
-            @Path("id") id: String,
-            @Query("ts") ts: String,
-            @Query("apikey") apikey: String,
-            @Query("hash") hash: String
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
     //pega stories de uma serie especifica
     @GET("series/{id}/stories")
     suspend fun getStoriesSeriesRepo(
-            @Path("id") id: String,
-            @Query("ts") ts: String,
-            @Query("apikey") apikey: String,
-            @Query("hash") hash: String
+        @Path("id") id: String,
+        @Query("ts") ts: String,
+        @Query("apikey") apikey: String,
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
     //pega stories de uma stories
@@ -185,7 +202,8 @@ interface Service {
         @Path("id") id: String,
         @Query("ts") ts: String,
         @Query("apikey") apikey: String,
-        @Query("hash") hash: String
+        @Query("hash") hash: String,
+        @Query("orderBy") orderBy: String = "-modified"
     ): GenericWrapper
 
 }

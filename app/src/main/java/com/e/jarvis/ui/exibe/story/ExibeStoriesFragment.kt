@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -13,13 +14,16 @@ import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
+import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import com.e.jarvis.repository.service
 import com.e.jarvis.ui.exibe.comic.ExibeComicsFragmentDirections
+import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
 import kotlinx.android.synthetic.main.fragment_exibe_stories.view.*
-import kotlinx.android.synthetic.main.item_exibe.view.*
+import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
+import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
 
 class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
@@ -75,22 +79,53 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
 
         val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
         viewModel.stories.observe(viewLifecycleOwner, {
-            exibeInfo(view,it[0])
-            listStories = it
-            it.forEach {
-                linha ->
-                listImages.add(
-                        ItemImage(
+            if (it.size != 0) {
+                exibeInfo(view, it[0])
+                listStories = it
+
+                it.forEach { linha ->
+
+                    if (linha.thumbnail != null) {
+                        listImages.add(
+                            ItemImage(
                                 linha.thumbnail,
                                 ApiObject(
-                                        "stories",
-                                        linha.id
+                                    "char",
+                                    linha.id
                                 )
+                            )
                         )
-                )
+
+
+                    } else {
+                        listImages.add(
+                            ItemImage(
+                                GenericImage(
+                                    "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available",
+                                    "jpg"
+                                ),
+                                ApiObject(
+                                    "char",
+                                    linha.id
+                                )
+                            )
+                        )
+                    }
+
+
+                }
+                adapter.updateList(listImages)
+                if (indicator.isEmpty())
+                    indicator.setViewPager(vp)
+
+
+            } else {
+                (activity as MainActivity).supportActionBar?.title = "Not found..."
+                view.tv_titulo_frag_stories.text = "Not found..."
+                view.tv_descricao_frag_stories.text = "No description found..."
+
+                view.vp_images.setBackgroundColor(Color.GRAY)
             }
-            adapter.updateList(listImages)
-            indicator.setViewPager(vp)
         })
         // configurando o viewpager
         if (!layoutStarted) {
@@ -111,18 +146,18 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
         view.btn_exibe_stories.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_char.setOnClickListener {
-            val passaArgsComic = ExibeComicsFragmentDirections.navigateComicsToPersonagem(args.apiObj)
+            val passaArgsComic = ExibeStoriesFragmentDirections.navigateStoriesToPersonagemFragment(args.apiObj)
             findNavController().navigate(passaArgsComic)
         }
 
         view.btn_exibe_series.setOnClickListener {
             val passaArgsComic =
-                ExibeComicsFragmentDirections.navigateComicsToSeries(args.apiObj)
+                ExibeStoriesFragmentDirections.navigateStoriesToSeriesFragment(args.apiObj)
             findNavController().navigate(passaArgsComic)
         }
 
-        view.btn_exibe_stories.setOnClickListener {
-            val passaArgsComic = ExibeComicsFragmentDirections.navigateComicsToStories(args.apiObj)
+        view.btn_exibe_comics.setOnClickListener {
+            val passaArgsComic =  ExibeStoriesFragmentDirections.navigateStoriesToComicsFragment(args.apiObj)
             findNavController().navigate(passaArgsComic)
         }
         }
@@ -131,8 +166,8 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
         Log.i("storiesClick", listImages[position].toString())
     }
     fun exibeInfo(view : View,res :GenericResults){
-        (activity as MainActivity).supportActionBar?.title = res.name
-        view.tv_titulo_frag_stories.text = res.name
+        (activity as MainActivity).supportActionBar?.title = res.title
+        view.tv_titulo_frag_stories.text = res.title
         if (res.description == null || res.description == "" )
             view.tv_descricao_frag_stories.text = "No description found..."
         else
