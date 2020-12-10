@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.squareup.picasso.Picasso
 
@@ -27,9 +28,12 @@ class ImageFullFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val ivFullImage = view.findViewById<ImageView>(R.id.iv_full_image)
         try {
-            Picasso.get().load(args.fullImage.path + "/portrait_incredible." + args.fullImage.extension).into(ivFullImage)
-        }catch (ex : Exception){
-            Toast.makeText(context, "Teste", Toast.LENGTH_SHORT).show()
+            Picasso.get()
+                .load(args.fullImage.thumb.path + "/portrait_incredible." + args.fullImage.thumb.extension)
+                .into(ivFullImage)
+            (activity as MainActivity).supportActionBar?.title = args.fullImage.name
+        } catch (ex: Exception) {
+            Toast.makeText(context, "Deu ruim", Toast.LENGTH_SHORT).show()
         }
     }
 }

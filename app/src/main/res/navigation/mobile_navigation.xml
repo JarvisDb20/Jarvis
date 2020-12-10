@@ -153,6 +153,6 @@
         tools:layout="@layout/fragment_image_full" >
         <argument
             android:name="fullImage"
-            app:argType="com.e.jarvis.models.generics.GenericImage" />
+            app:argType="com.e.jarvis.models.utils.ItemImage" />
     </fragment>
 </navigation>

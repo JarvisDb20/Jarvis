@@ -76,7 +76,6 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         //args que o fragment char tá recebendo
 
         val charInfo = args.apiObj
-        Log.i("OBJETO CHEGOU CHAR", charInfo.toString())
 
         val vp = view.findViewById<ViewPager2>(R.id.vp_images)
 
@@ -148,7 +147,6 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
             }
 
         })
-        Log.i("teste", "$layoutStarted")
 
         // configurando o viewpager
         if (!layoutStarted) {
@@ -194,7 +192,11 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     override fun charsClick(position: Int) {
         val directions =
             ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(
-                listImages[position].thumb
+                ItemImage(
+                    listImages[position].thumb,
+                    args.apiObj,
+                    listChar[position].name
+                )
             )
         findNavController().navigate(directions)
     }

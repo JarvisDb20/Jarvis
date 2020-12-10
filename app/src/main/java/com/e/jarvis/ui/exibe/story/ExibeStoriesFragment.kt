@@ -20,6 +20,7 @@ import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import com.e.jarvis.repository.service
 import com.e.jarvis.ui.exibe.comic.ExibeComicsFragmentDirections
+import com.e.jarvis.ui.exibe.serie.ExibeSeriesFragementDirections
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
 import kotlinx.android.synthetic.main.fragment_exibe_stories.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
@@ -28,9 +29,9 @@ import me.relex.circleindicator.CircleIndicator3
 
 class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
     val args: ExibeStoriesFragmentArgs by navArgs()
-    lateinit var listStories:ArrayList<GenericResults>
+    lateinit var listStories: ArrayList<GenericResults>
     var layoutStarted = false
-    var listImages : ArrayList<ItemImage> = arrayListOf()
+    var listImages: ArrayList<ItemImage> = arrayListOf()
     lateinit var adapter: ExibeStoriesAdapter
 
 
@@ -43,8 +44,8 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_exibe_stories, container, false)
@@ -63,16 +64,16 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
 
 
         when (storiesInfo.tipoId) {
-            "comics" -> {
+            "comic" -> {
                 viewModel.getStoriesComics(storiesInfo.id)
             }
-            "char" ->{
+            "char" -> {
                 viewModel.getStoriesChar(storiesInfo.id)
             }
-            "series" ->{
+            "series" -> {
                 viewModel.getStoriesSeries(storiesInfo.id)
             }
-            "stories" ->{
+            "stories" -> {
                 viewModel.getStoriesStories(storiesInfo.id)
             }
         }
@@ -138,7 +139,7 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
         //quando trocar de pagina atualiza as informações
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                exibeInfo(view,listStories[position])
+                exibeInfo(view, listStories[position])
                 super.onPageSelected(position)
             }
         })
@@ -146,7 +147,8 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
         view.btn_exibe_stories.setBackgroundColor(Color.DKGRAY)
 
         view.btn_exibe_char.setOnClickListener {
-            val passaArgsComic = ExibeStoriesFragmentDirections.navigateStoriesToPersonagemFragment(args.apiObj)
+            val passaArgsComic =
+                ExibeStoriesFragmentDirections.navigateStoriesToPersonagemFragment(args.apiObj)
             findNavController().navigate(passaArgsComic)
         }
 
@@ -157,18 +159,29 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
         }
 
         view.btn_exibe_comics.setOnClickListener {
-            val passaArgsComic =  ExibeStoriesFragmentDirections.navigateStoriesToComicsFragment(args.apiObj)
+            val passaArgsComic =
+                ExibeStoriesFragmentDirections.navigateStoriesToComicsFragment(args.apiObj)
             findNavController().navigate(passaArgsComic)
         }
-        }
+    }
 
     override fun storiesClick(position: Int) {
-        Log.i("storiesClick", listImages[position].toString())
+        val directions =
+            ExibeStoriesFragmentDirections.actionExibeStoriesFragmentToImageFullFragment(
+                ItemImage(
+                    listImages[position].thumb,
+                    args.apiObj,
+                    listStories[position].name
+                )
+            )
+        findNavController().navigate(directions)
+
     }
-    fun exibeInfo(view : View,res :GenericResults){
+
+    fun exibeInfo(view: View, res: GenericResults) {
         (activity as MainActivity).supportActionBar?.title = res.title
         view.tv_titulo_frag_stories.text = res.title
-        if (res.description == null || res.description == "" )
+        if (res.description == null || res.description == "")
             view.tv_descricao_frag_stories.text = "No description found..."
         else
             view.tv_descricao_frag_stories.text = res.description

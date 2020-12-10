@@ -19,6 +19,7 @@ import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import com.e.jarvis.repository.service
+import com.e.jarvis.ui.exibe.chars.ExibeCharFragmentDirections
 import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
 import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
@@ -88,7 +89,15 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
     }
 
     override fun comicClick(position: Int) {
-        TODO("Not yet implemented")
+        val directions =
+            ExibeComicsFragmentDirections.actionExibeComicsFragmentToImageFullFragment(
+                ItemImage(
+                    listImages[position].thumb,
+                    args.apiObj,
+                    listComics[position].title
+                )
+            )
+        findNavController().navigate(directions)
     }
 
 

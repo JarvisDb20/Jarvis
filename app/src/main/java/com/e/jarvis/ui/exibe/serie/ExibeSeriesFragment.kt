@@ -19,10 +19,12 @@ import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import com.e.jarvis.repository.service
+import com.e.jarvis.ui.exibe.chars.ExibeCharFragmentDirections
 import kotlinx.android.synthetic.main.fragment_exibe_series.*
 import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
+import kotlinx.android.synthetic.main.item_exibe_image.view.*
 
 
 class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener {
@@ -83,7 +85,17 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
     }
 
     override fun serieClick(position: Int) {
-        TODO("Not yet implemented")
+        val directions =
+            ExibeSeriesFragementDirections.actionExibeSeriesFragementToImageFullFragment(
+                ItemImage(
+                    listImages[position].thumb,
+                    args.apiObj,
+                    listSeries[position].title
+                )
+
+
+            )
+        findNavController().navigate(directions)
     }
 
 
@@ -99,7 +111,8 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
                 viewModel.getSeriesChar(objeto.id)
             }
             "comic" -> {
-                tv_descricao_frag_series.setText("NOT FOUND. We don´t see this comming.")
+                view.tv_descricao_frag_series.text = "NOT FOUND. We don´t see this comming."
+                //view.iv_exibe_menu.setBackgroundColor(Color.GRAY)
             }
             "series" -> {
                 viewModel.getSerie(objeto.id)
@@ -110,7 +123,6 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
         }
 
-        //-----> não entendi essa parte direito e no linha do char e do serie tá vermelho
         //configurando viewpager
         val vp = view.vp_images
         val indicator = view.ci_images
@@ -132,8 +144,6 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
                                 )
                             )
                         )
-
-
                     } else {
                         listImages.add(
                             ItemImage(

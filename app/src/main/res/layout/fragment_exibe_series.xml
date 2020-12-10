@@ -11,9 +11,9 @@
         android:id="@+id/scroll_exibe_series"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/include3"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -71,9 +71,9 @@
     </ScrollView>
 
     <include
+        android:id="@+id/include3"
         layout="@layout/item_exibe_botoes"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cv_exibe_series" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
