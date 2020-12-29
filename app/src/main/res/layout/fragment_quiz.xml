@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
-        android:background="@drawable/bkg1"
+        android:background="@drawable/bkg15_opc_blur_grey"
         android:scaleType="fitXY" />
 
     <LinearLayout

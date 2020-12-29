@@ -13,6 +13,9 @@
         <action
             android:id="@+id/navigate_to_pesquisa_fragment"
             app:destination="@id/pesquisaFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_exibePersonagemFragment"
+            app:destination="@id/exibePersonagemFragment" />
     </fragment>
 
     <fragment
@@ -29,6 +32,12 @@
         <action
             android:id="@+id/navigate_personagem_to_exibe_stories_fragment"
             app:destination="@id/exibeStoriesFragment" />
+        <argument
+            android:name="apiObj"
+            app:argType="com.e.jarvis.models.utils.ApiObject" />
+        <action
+            android:id="@+id/action_exibePersonagemFragment_to_imageFullFragment"
+            app:destination="@id/imageFullFragment" />
     </fragment>
     <fragment
         android:id="@+id/exibeComicsFragment"
@@ -44,6 +53,13 @@
         <action
             android:id="@+id/navigate_comics_to_stories"
             app:destination="@id/exibeStoriesFragment" />
+        <argument
+            android:name="apiObj"
+            app:argType="com.e.jarvis.models.utils.ApiObject" />
+        <action
+            android:id="@+id/action_exibeComicsFragment_to_imageFullFragment"
+            app:destination="@id/imageFullFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/exibeStoriesFragment"
@@ -59,6 +75,12 @@
         <action
             android:id="@+id/navigate_stories_to_comics_fragment"
             app:destination="@id/exibeComicsFragment" />
+        <action
+            android:id="@+id/action_exibeStoriesFragment_to_imageFullFragment"
+            app:destination="@id/imageFullFragment" />
+        <argument
+            android:name="apiObj"
+            app:argType="com.e.jarvis.models.utils.ApiObject" />
     </fragment>
     <fragment
         android:id="@+id/pesquisaFragment"
@@ -82,6 +104,14 @@
         <action
             android:id="@+id/navigate_series_to_stories_fragment"
             app:destination="@id/exibeStoriesFragment" />
+
+        <action
+            android:id="@+id/action_exibeSeriesFragement_to_imageFullFragment"
+            app:destination="@id/imageFullFragment" />
+        <argument
+            android:name="apiObj"
+            app:argType="com.e.jarvis.models.utils.ApiObject" />
+
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -116,4 +146,13 @@
         android:name="com.e.jarvis.ui.favorites.FavoritosFragment"
         android:label="My favorites"
         tools:layout="@layout/fragment_favoritos" />
+    <fragment
+        android:id="@+id/imageFullFragment"
+        android:name="com.e.jarvis.ui.exibe.ImageFullFragment"
+        android:label="fragment_image_full"
+        tools:layout="@layout/fragment_image_full" >
+        <argument
+            android:name="fullImage"
+            app:argType="com.e.jarvis.models.utils.ItemImage" />
+    </fragment>
 </navigation>

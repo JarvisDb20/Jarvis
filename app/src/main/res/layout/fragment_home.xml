@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg4"
+    android:background="@drawable/bkg15_opc_blur_grey"
     android:orientation="vertical">
 
     <ScrollView
@@ -27,7 +27,7 @@
 
             <TextView
                 android:id="@+id/tv_home_top"
-                style="@style/fontePrincipal"
+                style="@style/fonteSecundaria"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -38,7 +38,7 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rc_home"
+                android:id="@+id/rv_home"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

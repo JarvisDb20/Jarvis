@@ -1,45 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bkg1"
+    android:background="@drawable/bkg15_opc_blur_grey"
     android:orientation="vertical">
 
-    <include layout="@layout/item_exibe" />
-
-    <com.google.android.material.card.MaterialCardView
+    <ScrollView
+        android:id="@+id/scroll_exibe_comics"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:cardBackgroundColor="#C5CFD1"
-        app:cardCornerRadius="20dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="3dp">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/include2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tv_titulo_frag_comics"
-                style="@style/fontePrincipal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="15dp"
-                android:gravity="center"
-                android:text="Nome da Comic"
-                android:textColor="@color/titleColor"
-                android:textSize="24sp" />
-            <TextView
-                android:id="@+id/tv_descricao_frag_comics"
-                style="@style/fonteLeitura"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include layout="@layout/item_exibe_circle_viewpager" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cv_exibe_comics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:text="texto descrição"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:layout_margin="10dp"
+                app:cardBackgroundColor="#C5CFD1"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="@color/black"
+                app:strokeWidth="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_titulo_frag_comics"
+                        style="@style/fontePrincipal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="15dp"
+                        android:gravity="center"
+                        android:textColor="@color/titleColor"
+                        android:textSize="24sp" />
+
+
+                    <TextView
+                        android:id="@+id/tv_descricao_frag_comics"
+                        style="@style/fonteLeitura"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+
+
+    </ScrollView>
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/item_exibe_botoes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
