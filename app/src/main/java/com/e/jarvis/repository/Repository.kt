@@ -1,6 +1,8 @@
 package com.e.jarvis.repository
 
 
+import com.e.jarvis.dao.ResultsDao
+import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.generics.GenericWrapper
 
 
@@ -214,4 +216,18 @@ val retrofit = Retrofit.Builder().baseUrl("http://gateway.marvel.com/v1/public/"
 val service: Service = retrofit.create(Service::class.java)
 
 
-//@GET("characters?ts=1&apikey=f28a07f38dc7090aa24b3e50496e6ac6&hash=f7aece34f231420e8d8fb2e698fa4113")
+
+
+
+//parte do room:
+
+class RepositoryDataBase(val resultsdao : ResultsDao) : ResultsDao {
+    override suspend fun getAllResults() = resultsdao.getAllResults()
+
+    override suspend fun getResults(id: Int) = resultsdao.getResults(id)
+
+    override suspend fun addResults(results: GenericResults) = resultsdao.addResults(results)
+
+    override suspend fun deleteResults(results: GenericResults) = resultsdao.deleteResults(results)
+
+}

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
     id 'kotlin-android-extensions'
     id 'androidx.navigation.safeargs.kotlin'
 }
@@ -66,5 +67,22 @@ dependencies {
     // Swipe de imagem
     implementation 'me.relex:circleindicator:2.1.4'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    // Koin
+    def koin_version = '2.2.2'
+    implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-scope:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+
+
+    // Room
+    def room_version = "2.2.6"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    implementation "androidx.room:room-ktx:$room_version"
+
 
 }
