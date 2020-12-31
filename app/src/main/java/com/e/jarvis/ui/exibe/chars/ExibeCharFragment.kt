@@ -9,19 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericImage
-
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
-
-import com.e.jarvis.repository.service
+//import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
 import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
 import kotlinx.android.synthetic.main.fragment_image_full.*
@@ -29,6 +26,7 @@ import kotlinx.android.synthetic.main.fragment_image_full.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
@@ -45,13 +43,8 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     lateinit var adapter: ExibeCharAdapter
 
 
-    private val viewModel by viewModels<ExibeCharViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ExibeCharViewModel(service) as T
-            }
-        }
-    }
+    private val viewModel: ExibeCharViewModel by viewModel()
+
 
 
     override fun onCreateView(
@@ -66,6 +59,8 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_activity_drawer, menu)
         super.onCreateOptionsMenu(menu, inflater)
+
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

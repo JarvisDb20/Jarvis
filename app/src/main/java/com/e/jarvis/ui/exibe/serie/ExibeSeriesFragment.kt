@@ -18,24 +18,21 @@ import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
-import com.e.jarvis.repository.service
+//import com.e.jarvis.repository.service
 import com.e.jarvis.ui.exibe.chars.ExibeCharFragmentDirections
+import com.e.jarvis.ui.exibe.chars.ExibeCharViewModel
 import kotlinx.android.synthetic.main.fragment_exibe_series.*
 import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import kotlinx.android.synthetic.main.item_exibe_image.view.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener {
 
-    private val viewModel by viewModels<ExibeSerieViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ExibeSerieViewModel(service) as T
-            }
-        }
-    }
+    private val viewModel: ExibeSerieViewModel by viewModel()
+
 
     //classe do generated
     val args: ExibeSeriesFragementArgs by navArgs()

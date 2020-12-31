@@ -18,23 +18,20 @@ import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
-import com.e.jarvis.repository.service
+//import com.e.jarvis.repository.service
 import com.e.jarvis.ui.exibe.chars.ExibeCharFragmentDirections
+import com.e.jarvis.ui.exibe.chars.ExibeCharViewModel
 import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
 import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener {
 
     //instancia viewModel
-    private val viewModel by viewModels<ExibeComicsViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ExibeComicsViewModel(service) as T
-            }
-        }
-    }
+    private val viewModel: ExibeComicsViewModel by viewModel()
+
 
     //classe do generated que tem o args que o frag comic vai receber
     val args: ExibeComicsFragmentArgs by navArgs()

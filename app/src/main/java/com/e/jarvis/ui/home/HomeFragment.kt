@@ -16,21 +16,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
-import com.e.jarvis.repository.service
+import com.e.jarvis.ui.exibe.story.ExibeStoriesViewModel
+//import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() , HomeAdapter.onClickListener {
     var layoutStarted = false
     lateinit var chars: ArrayList<GenericResults>
     lateinit var adapter: HomeAdapter
     lateinit var gManager: GridLayoutManager
-    private val viewModel by viewModels<HomeViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return HomeViewModel(service) as T
-            }
-        }
-    }
+
+    private val viewModel: HomeViewModel by viewModel()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

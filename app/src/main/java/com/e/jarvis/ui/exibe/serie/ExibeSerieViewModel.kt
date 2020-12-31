@@ -5,10 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.repository.KeyHash
+import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
 import kotlinx.coroutines.launch
 
-class ExibeSerieViewModel(val service: Service) : ViewModel() {
+class ExibeSerieViewModel(val service: Service, val dataBase: RepositoryDataBase) : ViewModel() {
 
     val hash = KeyHash(
         "bacf6559c29f05132ea07020962d41a65dcd3304",

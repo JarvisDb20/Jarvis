@@ -17,8 +17,10 @@ import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
+import com.e.jarvis.ui.home.HomeViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
-import com.e.jarvis.repository.service
+//import com.e.jarvis.repository.service
 
 
 class PesquisaFragment : Fragment(), PesquisaAdapter.onClickListener {
@@ -30,13 +32,8 @@ class PesquisaFragment : Fragment(), PesquisaAdapter.onClickListener {
     lateinit var adapter: PesquisaAdapter
 
 
-    private val viewModel by viewModels<PesquisaViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return PesquisaViewModel(service) as T
-            }
-        }
-    }
+    private val viewModel: PesquisaViewModel by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

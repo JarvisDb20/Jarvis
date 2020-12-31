@@ -1,14 +1,16 @@
 package com.e.jarvis.ui.exibe.chars
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.repository.KeyHash
+import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
 import kotlinx.coroutines.launch
 
-class ExibeCharViewModel(val service: Service) : ViewModel() {
+class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase) : ViewModel() {
 
 
     val hash = KeyHash(
@@ -52,6 +54,14 @@ class ExibeCharViewModel(val service: Service) : ViewModel() {
                 hash.publicKey,
                 hash.getKey()
             ).data.results
+        }
+
+    }
+
+    fun addResults(char: GenericResults){
+        viewModelScope.launch {
+            dataBase.addResults(char)
+            Log.i("CHARVIEWMODEL", "salvou char ${char.name}")
         }
 
     }

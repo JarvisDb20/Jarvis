@@ -210,24 +210,34 @@ interface Service {
 
 }
 
-val retrofit = Retrofit.Builder().baseUrl("http://gateway.marvel.com/v1/public/")
-    .addConverterFactory(GsonConverterFactory.create()).build()
+//val retrofit = Retrofit.Builder().baseUrl("http://gateway.marvel.com/v1/public/")
+//    .addConverterFactory(GsonConverterFactory.create()).build()
+//
+//val service: Service = retrofit.create(Service::class.java)
+//
+//
 
-val service: Service = retrofit.create(Service::class.java)
+
+
+
+
+
+
+
+
 
 
 
 
 
 //parte do room:
+class RepositoryDataBase(val resultsdao : ResultsDao) {
+   suspend fun getAllResults() = resultsdao.getAllResults()
 
-class RepositoryDataBase(val resultsdao : ResultsDao) : ResultsDao {
-    override suspend fun getAllResults() = resultsdao.getAllResults()
+    suspend fun getResults(id: Int) = resultsdao.getResults(id)
 
-    override suspend fun getResults(id: Int) = resultsdao.getResults(id)
+    suspend fun addResults(results: GenericResults) = resultsdao.addResults(results)
 
-    override suspend fun addResults(results: GenericResults) = resultsdao.addResults(results)
-
-    override suspend fun deleteResults(results: GenericResults) = resultsdao.deleteResults(results)
+    suspend fun deleteResults(results: GenericResults) = resultsdao.deleteResults(results)
 
 }

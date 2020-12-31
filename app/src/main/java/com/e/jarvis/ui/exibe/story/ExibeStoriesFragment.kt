@@ -18,14 +18,16 @@ import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
-import com.e.jarvis.repository.service
+//import com.e.jarvis.repository.service
 import com.e.jarvis.ui.exibe.comic.ExibeComicsFragmentDirections
+import com.e.jarvis.ui.exibe.serie.ExibeSerieViewModel
 import com.e.jarvis.ui.exibe.serie.ExibeSeriesFragementDirections
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
 import kotlinx.android.synthetic.main.fragment_exibe_stories.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
     val args: ExibeStoriesFragmentArgs by navArgs()
@@ -35,13 +37,8 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
     lateinit var adapter: ExibeStoriesAdapter
 
 
-    private val viewModel by viewModels<ExibeStoriesViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ExibeStoriesViewModel(service) as T
-            }
-        }
-    }
+    private val viewModel: ExibeStoriesViewModel by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
