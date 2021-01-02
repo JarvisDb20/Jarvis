@@ -1,13 +1,12 @@
 package com.e.jarvis.repository
 
 
+import androidx.lifecycle.MutableLiveData
 import com.e.jarvis.dao.ResultsDao
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.generics.GenericWrapper
 
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -210,34 +209,15 @@ interface Service {
 
 }
 
-//val retrofit = Retrofit.Builder().baseUrl("http://gateway.marvel.com/v1/public/")
-//    .addConverterFactory(GsonConverterFactory.create()).build()
-//
-//val service: Service = retrofit.create(Service::class.java)
-//
-//
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //parte do room:
-class RepositoryDataBase(val resultsdao : ResultsDao) {
-   suspend fun getAllResults() = resultsdao.getAllResults()
+class RepositoryDataBase(val resultsDao : ResultsDao) {
+   suspend fun getAllResults() = resultsDao.getAllResults()
 
-    suspend fun getResults(id: Int) = resultsdao.getResults(id)
+    suspend fun getResults(id: Int) = resultsDao.getResults(id)
 
-    suspend fun addResults(results: GenericResults) = resultsdao.addResults(results)
+    suspend fun addResults(results: GenericResults) = resultsDao.addResults(results)
 
-    suspend fun deleteResults(results: GenericResults) = resultsdao.deleteResults(results)
+    suspend fun deleteResults(results: GenericResults) = resultsDao.deleteResults(results)
 
 }

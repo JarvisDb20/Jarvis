@@ -26,7 +26,9 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
         viewModelScope.launch {
             char.value =
                 service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
         }
+
     }
 
     fun getCharComics(id: String) {
@@ -61,9 +63,9 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
     fun addResults(char: GenericResults){
         viewModelScope.launch {
             dataBase.addResults(char)
-            Log.i("CHARVIEWMODEL", "salvou char ${char.name}")
+            Log.i("CHARVIEWMODEL", "salvou char ${char.toString()}")
         }
 
-    }
+   }
 
 }

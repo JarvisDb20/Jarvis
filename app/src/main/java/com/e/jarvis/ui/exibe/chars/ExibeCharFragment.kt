@@ -1,14 +1,12 @@
 package com.e.jarvis.ui.exibe.chars
 
+//import com.e.jarvis.repository.service
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -18,11 +16,7 @@ import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
-//import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
-import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
-import kotlinx.android.synthetic.main.fragment_image_full.*
-import kotlinx.android.synthetic.main.fragment_image_full.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
@@ -30,6 +24,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
+
+    lateinit var objChar: ArrayList<GenericResults>
 
     //variavel que vai receber os args
     val args: ExibeCharFragmentArgs by navArgs()
@@ -46,7 +42,6 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     private val viewModel: ExibeCharViewModel by viewModel()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,12 +51,14 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         return inflater.inflate(R.layout.fragment_exibe_char, container, false)
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_activity_drawer, menu)
         super.onCreateOptionsMenu(menu, inflater)
 
 
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,6 +75,10 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         when (charInfo.tipoId) {
             "char" -> {
                 viewModel.getChar(charInfo.id)
+                viewModel.char.observe(viewLifecycleOwner, {
+                    objChar = it
+                    Log.i("CHARFRAGMENT OBJCHAR", objChar.toString())
+                })
             }
             "comic" -> {
                 viewModel.getCharComics(charInfo.id)
@@ -90,6 +91,8 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
             }
 
         }
+
+
         val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
         viewModel.char.observe(viewLifecycleOwner, {
 
@@ -182,6 +185,14 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
                 ExibeCharFragmentDirections.navigatePersonagemToExibeStoriesFragment(charInfo)
             findNavController().navigate(passaArgsChar)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.menu_favoritar -> {
+            viewModel.addResults(objChar[0])
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun charsClick(position: Int) {

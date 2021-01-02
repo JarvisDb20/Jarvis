@@ -13,7 +13,7 @@ interface ResultsDao {
     suspend fun getAllResults(): List<GenericResults>
 
     @Query ("SELECT * FROM resultsdb WHERE id= :id")
-    suspend fun getResults(id: Int) : GenericResults
+    suspend fun getResults(id: Int) : List<GenericResults>
 
     @Insert
     suspend fun addResults(results: GenericResults)

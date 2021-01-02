@@ -13,11 +13,9 @@ import com.e.jarvis.ui.exibe.story.ExibeStoriesViewModel
 import com.e.jarvis.ui.home.HomeViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
-
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 val roomRepositoryModule = module {
 
@@ -33,9 +31,9 @@ val roomDataBaseModule = module {
 
     fun provideDataBase(application: Application): AppDatabase {
         return Room.databaseBuilder(application, AppDatabase::class.java, "resultsdb")
-                .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
-                .build()
+            .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
+            .build()
     }
 
     fun provideDao(database: AppDatabase): ResultsDao {
@@ -73,7 +71,6 @@ val viewModelModule = module {
     }
 
 
-
 }
 
 
@@ -81,10 +78,10 @@ val retrofitModule = module {
 
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl("http://gateway.marvel.com/v1/public/")
-                .addConverterFactory(GsonConverterFactory.create()).build()
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
-    fun provideAPI(retrofit: Retrofit) : Service {
+    fun provideAPI(retrofit: Retrofit): Service {
         return retrofit.create(Service::class.java)
     }
 
