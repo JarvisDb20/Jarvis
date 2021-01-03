@@ -1,4 +1,4 @@
-package com.e.jarvis.repository
+package com.e.jarvis.models.utils
 
 import java.math.BigInteger
 import java.security.MessageDigest
