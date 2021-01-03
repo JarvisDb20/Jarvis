@@ -1,18 +1,15 @@
 package com.e.jarvis.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.e.jarvis.models.generics.GenericResults
 
 @Dao
 interface ResultsDao {
 
-    @Query("SELECT * FROM resultsdb")
+    @Query("SELECT * FROM results")
     suspend fun getAllResults(): List<GenericResults>
 
-    @Query ("SELECT * FROM resultsdb WHERE id= :id")
+    @Query ("SELECT * FROM results WHERE id= :id")
     suspend fun getResults(id: Int) : List<GenericResults>
 
     @Insert

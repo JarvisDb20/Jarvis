@@ -168,7 +168,7 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
                 ItemImage(
                     listImages[position].thumb,
                     args.apiObj,
-                    listStories[position].name
+                    listStories[position].name!!
                 )
             )
         findNavController().navigate(directions)

@@ -91,7 +91,7 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
                 ItemImage(
                     listImages[position].thumb,
                     args.apiObj,
-                    listComics[position].title
+                    listComics[position].title!!
                 )
             )
         findNavController().navigate(directions)

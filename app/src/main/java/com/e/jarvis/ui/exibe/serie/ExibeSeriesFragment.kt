@@ -87,7 +87,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
                 ItemImage(
                     listImages[position].thumb,
                     args.apiObj,
-                    listSeries[position].title
+                    listSeries[position].title!!
                 )
 
 

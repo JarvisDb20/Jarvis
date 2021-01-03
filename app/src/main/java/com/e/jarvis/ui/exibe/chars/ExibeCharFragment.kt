@@ -201,7 +201,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
                 ItemImage(
                     listImages[position].thumb,
                     args.apiObj,
-                    listChar[position].name
+                    listChar[position].name!!
                 )
             )
         findNavController().navigate(directions)
