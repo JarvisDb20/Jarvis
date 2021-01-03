@@ -1,9 +1,7 @@
 package com.e.jarvis.models.generics
 
 import androidx.annotation.Nullable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.room.*
 import com.e.jarvis.models.utils.ConverterType
 import java.io.Serializable
 
@@ -32,7 +30,7 @@ data class GenericResults(
     val resourceURI: String= " ", // story
 //    val urls : List<GenericUrls>,
     @Nullable
-    @TypeConverters(ConverterType::class)
+    @Embedded(prefix = "algumnome")
     val series: GenericList= GenericList(" ", " ", " "), // story
     //   val variants : List<GenericSummary>,
     //  val collections : List<GenericSummary>,
@@ -40,25 +38,25 @@ data class GenericResults(
     //   val dates : List<GenericDates>,
     //   val prices : List<GenericPrices>,
     @Nullable
-    @TypeConverters(ConverterType::class)
+    @Embedded(prefix = "algumnome")
     val thumbnail: GenericImage, // story
     //   val genericImages : List<GenericImage>,
     @Nullable
-    @TypeConverters(ConverterType::class)
+    @Embedded(prefix = "algumnome")
     val creators: GenericList= GenericList(" ", " ", " "), // story
     @Nullable
-    @TypeConverters(ConverterType::class)
+    @Embedded(prefix = "algumnome")
     val characters: GenericList= GenericList(" ", " ", " "), // story
     @Nullable
-    @TypeConverters(ConverterType::class)
+    @Embedded(prefix = "algumnome")
     val stories: GenericList= GenericList(" ", " ", " "),
     @Nullable
-    @TypeConverters(ConverterType::class)
+    @Embedded(prefix = "algumnome")
     val events: GenericList = GenericList(" ", " ", " "), // story
     @Nullable
     val name: String = " ",
     @Nullable
-    @TypeConverters(ConverterType::class)
+    @Embedded(prefix = "algumnome")
     val comics: GenericList= GenericList(" ", " ", " "), //story
     //     val startYear: String,
     //      val endYear: String,
