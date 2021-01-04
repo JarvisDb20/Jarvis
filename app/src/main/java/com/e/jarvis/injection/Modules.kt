@@ -2,6 +2,7 @@ package com.e.jarvis.injection
 
 import android.app.Application
 import androidx.room.Room
+import com.e.jarvis.dao.FavoritoDao
 import com.e.jarvis.dao.ResultsDao
 import com.e.jarvis.database.AppDatabase
 import com.e.jarvis.repository.RepositoryDataBase
@@ -11,6 +12,7 @@ import com.e.jarvis.ui.exibe.comic.ExibeComicsViewModel
 import com.e.jarvis.ui.exibe.serie.ExibeSerieViewModel
 import com.e.jarvis.ui.exibe.story.ExibeStoriesViewModel
 import com.e.jarvis.ui.home.HomeViewModel
+import com.e.jarvis.ui.search.PesquisaViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -19,18 +21,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val roomRepositoryModule = module {
 
-    fun provideUserRepository(dao: ResultsDao): RepositoryDataBase {
-        return RepositoryDataBase(dao)
+    fun provideUserRepository(dao: ResultsDao, favoritoDao: FavoritoDao): RepositoryDataBase {
+        return RepositoryDataBase(dao, favoritoDao)
     }
 
     //devolve uma instancia unica para ser utilizada onde é dependencia
-    single { provideUserRepository(get()) }
+    single { provideUserRepository(get(), get()) }
 }
 
 val roomDataBaseModule = module {
 
     fun provideDataBase(application: Application): AppDatabase {
-        return Room.databaseBuilder(application, AppDatabase::class.java, "resultsdb")
+        return Room.databaseBuilder(application, AppDatabase::class.java, "javisdb")
             .fallbackToDestructiveMigration()
             .allowMainThreadQueries()
             .build()
@@ -40,9 +42,14 @@ val roomDataBaseModule = module {
         return database.resultsDao()
     }
 
+    fun provideFavoritosDao(database: AppDatabase): FavoritoDao {
+        return database.favoritosDao()
+    }
+
     //devolve uma instancia unica
     single { provideDataBase(androidApplication()) }
     single { provideDao(get()) }
+    single { provideFavoritosDao(get()) }
 
 
 }
@@ -68,6 +75,10 @@ val viewModelModule = module {
 
     viewModel {
         HomeViewModel(get(), get())
+    }
+
+    viewModel {
+        PesquisaViewModel(get())
     }
 
 

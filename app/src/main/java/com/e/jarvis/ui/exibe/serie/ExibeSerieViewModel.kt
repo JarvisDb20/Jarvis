@@ -47,5 +47,13 @@ class ExibeSerieViewModel(val service: Service, val dataBase: RepositoryDataBase
         }
     }
 
+    //room:
+
+    fun addResults(serie: GenericResults) {
+        viewModelScope.launch {
+            dataBase.addResults(serie)
+        }
+    }
+
 
 }

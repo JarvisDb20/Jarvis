@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,9 @@ import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
+import com.e.jarvis.ui.home.HomeFragmentDirections
 import com.e.jarvis.ui.home.HomeViewModel
+import kotlinx.android.synthetic.main.fragment_pesquisa.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 //import com.e.jarvis.repository.service
@@ -70,7 +73,7 @@ class PesquisaFragment : Fragment(), PesquisaAdapter.onClickListener {
             }
         }
 //        view.sv_search.setOnClickListener{
-//            Navigation.findNavController(view).navigate(R.id.navigate_to_exibe_personagem_fragment)
+//           Navigation.findNavController(view).navigate(R.id.navigate_to_exibe_personagem_fragment)
 //        }
     }
 
@@ -88,4 +91,8 @@ class PesquisaFragment : Fragment(), PesquisaAdapter.onClickListener {
         findNavController().navigate(direction)
 
     }
+
+
+
+
 }

@@ -36,6 +36,8 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
     var listImages: ArrayList<ItemImage> = arrayListOf()
     lateinit var adapter: ExibeStoriesAdapter
 
+    var objStorie: ArrayList<GenericResults> = arrayListOf()
+
 
     private val viewModel: ExibeStoriesViewModel by viewModel()
 
@@ -72,6 +74,11 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
             }
             "stories" -> {
                 viewModel.getStoriesStories(storiesInfo.id)
+                viewModel.stories.observe(viewLifecycleOwner, {
+                    objStorie = it
+                    Log.i("STORIE OBJSTORIE", objStorie.toString())
+                    viewModel.addResults(it[0])
+                })
             }
         }
 

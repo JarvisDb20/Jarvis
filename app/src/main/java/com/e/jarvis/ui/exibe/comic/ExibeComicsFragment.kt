@@ -32,6 +32,8 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
     //instancia viewModel
     private val viewModel: ExibeComicsViewModel by viewModel()
 
+    var objComic: ArrayList<GenericResults> = arrayListOf()
+
 
     //classe do generated que tem o args que o frag comic vai receber
     val args: ExibeComicsFragmentArgs by navArgs()
@@ -103,14 +105,18 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
 
         //recebendo os args pra ver que tipo é e então chamar a função adequada
         val objeto = args.apiObj
-        Log.i("OBJETO CHEGOU COMICS", objeto.toString())
-
         when (objeto.tipoId) {
             "char" -> {
                 viewModel.getComicChar(objeto.id)
             }
             "comic" -> {
                 viewModel.getComic(objeto.id)
+                viewModel.comic.observe(viewLifecycleOwner, {
+                    objComic = it
+                    Log.i("COMIC OBJCOMIC", objComic.toString())
+                    viewModel.addResults(it[0])
+                })
+
             }
             "series" -> {
                 viewModel.getComicSeries(objeto.id)

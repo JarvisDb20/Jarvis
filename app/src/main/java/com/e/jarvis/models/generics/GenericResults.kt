@@ -16,7 +16,7 @@ data class GenericResults(
     //     val issueNumber: String,
     //      val variantDescription: String,
     
-    val description: String, // story
+    val description: String?, // story
     //      val modified: String, // story
     //      val isbn: String,
     //       val upc: String,
@@ -27,11 +27,11 @@ data class GenericResults(
     //      val pageCount: String,
 //    val genericTextObjects : List<GenericTextObject>,
     
-    val resourceURI: String= " ", // story
+    val resourceURI: String? = " ", // story
 //    val urls : List<GenericUrls>,
 
     @Embedded(prefix = "series_")
-    val series: GenericList, // story
+    val series: GenericList?, // story
     //   val variants : List<GenericSummary>,
     //  val collections : List<GenericSummary>,
     //   val collectedIssues : List<GenericSummary>,
@@ -43,21 +43,21 @@ data class GenericResults(
     //   val genericImages : List<GenericImage>,
 
     @Embedded(prefix = "creators_")
-    val creators: GenericList, // story
+    val creators: GenericList?, // story
 
     @Embedded(prefix = "chars_")
-    val characters: GenericList, // story
+    val characters: GenericList?, // story
 
     @Embedded(prefix = "stories_")
-    val stories: GenericList,
+    val stories: GenericList?,
 
     @Embedded(prefix = "events_")
-    val events: GenericList, // story
+    val events: GenericList?, // story
 
     val name: String?,
 
     @Embedded(prefix = "comics_")
-    val comics: GenericList, //story
+    val comics: GenericList?, //story
 
     //     val startYear: String,
     //      val endYear: String,

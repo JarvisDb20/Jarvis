@@ -2,6 +2,7 @@ package com.e.jarvis.repository
 
 
 import androidx.lifecycle.MutableLiveData
+import com.e.jarvis.dao.FavoritoDao
 import com.e.jarvis.dao.ResultsDao
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.generics.GenericWrapper
@@ -211,7 +212,7 @@ interface Service {
 
 
 //parte do room:
-class RepositoryDataBase(val resultsDao : ResultsDao) {
+class RepositoryDataBase(val resultsDao : ResultsDao, val favoritoDao: FavoritoDao) {
    suspend fun getAllResults() = resultsDao.getAllResults()
 
     suspend fun getResults(id: Int) = resultsDao.getResults(id)

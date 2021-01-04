@@ -33,6 +33,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
     private val viewModel: ExibeSerieViewModel by viewModel()
 
+    var objSerie: ArrayList<GenericResults> = arrayListOf()
 
     //classe do generated
     val args: ExibeSeriesFragementArgs by navArgs()
@@ -113,6 +114,11 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
             }
             "series" -> {
                 viewModel.getSerie(objeto.id)
+                viewModel.serie.observe(viewLifecycleOwner, {
+                    objSerie = it
+                    Log.i("SERIE OBJSERIE", objSerie.toString())
+                    viewModel.addResults(it[0])
+                })
             }
             "stories" -> {
                 viewModel.getSeriesStories(objeto.id)

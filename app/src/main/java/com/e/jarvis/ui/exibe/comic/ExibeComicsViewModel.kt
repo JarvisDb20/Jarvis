@@ -50,5 +50,14 @@ class ExibeComicsViewModel(val service: Service, val dataBase: RepositoryDataBas
         }
     }
 
+    //room:
+
+    fun addResults(comic: GenericResults) {
+        viewModelScope.launch {
+            dataBase.addResults(comic)
+        }
+    }
+
+
 
 }

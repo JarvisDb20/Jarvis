@@ -7,7 +7,7 @@ import java.io.Serializable
 
 
 data class GenericList(
-        val id: String?,
+       // val id: String?,
         val available: String?,
         val returned: String?,
         val collectionURI: String?,

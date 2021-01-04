@@ -18,17 +18,13 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
         "f28a07f38dc7090aa24b3e50496e6ac6"
     )
 
-
     val char = MutableLiveData<ArrayList<GenericResults>>()
-
 
     fun getChar(id: String) {
         viewModelScope.launch {
             char.value =
                 service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
-
         }
-
     }
 
     fun getCharComics(id: String) {
@@ -38,15 +34,12 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
         }
     }
 
-
     fun getCharDaSerie(id: String) {
         viewModelScope.launch {
             char.value =
                 service.getCharSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
         }
-
     }
-
 
     fun getCharDaStories(id: String) {
         viewModelScope.launch {
@@ -57,15 +50,16 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
                 hash.getKey()
             ).data.results
         }
-
     }
 
-    fun addResults(char: GenericResults){
+
+    //room:
+
+    fun addResults(char: GenericResults) {
         viewModelScope.launch {
             dataBase.addResults(char)
-            Log.i("CHARVIEWMODEL", "salvou char ${char.toString()}")
         }
+    }
 
-   }
 
 }

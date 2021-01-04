@@ -25,7 +25,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
-    lateinit var objChar: ArrayList<GenericResults>
+    var objChar: ArrayList<GenericResults> = arrayListOf()
 
     //variavel que vai receber os args
     val args: ExibeCharFragmentArgs by navArgs()
@@ -77,7 +77,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
                 viewModel.getChar(charInfo.id)
                 viewModel.char.observe(viewLifecycleOwner, {
                     objChar = it
-                    Log.i("CHARFRAGMENT OBJCHAR", objChar.toString())
+                    viewModel.addResults(it[0])
                 })
             }
             "comic" -> {
@@ -187,13 +187,13 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        R.id.menu_favoritar -> {
-            viewModel.addResults(objChar[0])
-            true
-        }
-        else -> super.onOptionsItemSelected(item)
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+//        R.id.menu_favoritar -> {
+//            viewModel.addResults(objChar[0])
+//            true
+//        }
+//        else -> super.onOptionsItemSelected(item)
+//    }
 
     override fun charsClick(position: Int) {
         val directions =
