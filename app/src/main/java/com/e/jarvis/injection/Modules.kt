@@ -2,7 +2,7 @@ package com.e.jarvis.injection
 
 import android.app.Application
 import androidx.room.Room
-import com.e.jarvis.dao.FavoritoDao
+import com.e.jarvis.dao.CharFavoritoDao
 import com.e.jarvis.dao.ResultsDao
 import com.e.jarvis.database.AppDatabase
 import com.e.jarvis.repository.RepositoryDataBase
@@ -21,8 +21,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val roomRepositoryModule = module {
 
-    fun provideUserRepository(dao: ResultsDao, favoritoDao: FavoritoDao): RepositoryDataBase {
-        return RepositoryDataBase(dao, favoritoDao)
+    fun provideUserRepository(
+        dao: ResultsDao,
+        charFavoritoDao: CharFavoritoDao
+    ): RepositoryDataBase {
+        return RepositoryDataBase(dao, charFavoritoDao)
     }
 
     //devolve uma instancia unica para ser utilizada onde é dependencia
@@ -42,7 +45,7 @@ val roomDataBaseModule = module {
         return database.resultsDao()
     }
 
-    fun provideFavoritosDao(database: AppDatabase): FavoritoDao {
+    fun provideFavoritosDao(database: AppDatabase): CharFavoritoDao {
         return database.favoritosDao()
     }
 

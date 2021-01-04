@@ -1,10 +1,10 @@
 package com.e.jarvis.ui.exibe.chars
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.e.jarvis.models.generics.GenericResults
+import com.e.jarvis.models.modelsfavoritos.CharFavorito
 import com.e.jarvis.models.utils.KeyHash
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
@@ -53,13 +53,17 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
     }
 
 
-    //room:
-
+    //room tabela results
     fun addResults(char: GenericResults) {
         viewModelScope.launch {
             dataBase.addResults(char)
         }
     }
 
-
+    //room tabela favoritos
+    fun addCharFavorito(char: CharFavorito) {
+        viewModelScope.launch {
+            dataBase.addCharFavorito(char)
+        }
+    }
 }

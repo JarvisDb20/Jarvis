@@ -16,6 +16,7 @@ import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
+import com.e.jarvis.models.modelsfavoritos.CharFavorito
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 //import com.e.jarvis.repository.service
@@ -111,12 +112,6 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
             }
             "comic" -> {
                 viewModel.getComic(objeto.id)
-                viewModel.comic.observe(viewLifecycleOwner, {
-                    objComic = it
-                    Log.i("COMIC OBJCOMIC", objComic.toString())
-                    viewModel.addResults(it[0])
-                })
-
             }
             "series" -> {
                 viewModel.getComicSeries(objeto.id)

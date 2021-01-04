@@ -1,18 +1,19 @@
-package com.e.jarvis.models.favoritosgenerics
+package com.e.jarvis.models.modelsfavoritos
 
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericList
+import com.e.jarvis.models.generics.GenericResults
 import java.io.Serializable
 
-@Entity(tableName = "favoritos")
-data class FavoritoGenerics(
+@Entity(tableName = "charsfavoritos")
+data class CharFavorito(
     @PrimaryKey(autoGenerate = false)
     val id: String,
     val title: String?, // story
-    val description: String?, // story
+    var description: String?, // story
     val resourceURI: String? = " ", // story
     @Embedded(prefix = "series_")
     val series: GenericList?, // story
@@ -26,7 +27,7 @@ data class FavoritoGenerics(
     val stories: GenericList?,
     @Embedded(prefix = "events_")
     val events: GenericList?, // story
-    val name: String?,
+    var name: String?,
     @Embedded(prefix = "comics_")
     val comics: GenericList?, //story
-) : Serializable
+) :  Serializable
