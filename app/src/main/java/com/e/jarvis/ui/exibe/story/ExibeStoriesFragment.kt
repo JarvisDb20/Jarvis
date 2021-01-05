@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -64,15 +65,19 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
         when (storiesInfo.tipoId) {
             "comic" -> {
                 viewModel.getStoriesComics(storiesInfo.id)
+                configuraProgressBar(view)
             }
             "char" -> {
                 viewModel.getStoriesChar(storiesInfo.id)
+                configuraProgressBar(view)
             }
             "series" -> {
                 viewModel.getStoriesSeries(storiesInfo.id)
+                configuraProgressBar(view)
             }
             "stories" -> {
                 viewModel.getStoriesStories(storiesInfo.id)
+                configuraProgressBar(view)
             }
         }
 
@@ -187,6 +192,16 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
             )
         findNavController().navigate(directions)
 
+    }
+
+    private fun configuraProgressBar(view: View) {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == 1) {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            } else {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
+            }
+        })
     }
 
     fun exibeInfo(view: View, res: GenericResults) {

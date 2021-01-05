@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -102,20 +103,23 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
         //recebendo os args
         val objeto = args.apiObj
-        Log.i("OBJETO CHEGOU SERIES", objeto.toString())
 
         when (objeto.tipoId) {
             "char" -> {
                 viewModel.getSeriesChar(objeto.id)
+                   configuraProgressBar(view)
             }
             "comic" -> {
                 view.tv_descricao_frag_series.text = "NOT FOUND. We don´t see this comming."
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
             }
             "series" -> {
                 viewModel.getSerie(objeto.id)
+                configuraProgressBar(view)
             }
             "stories" -> {
                 viewModel.getSeriesStories(objeto.id)
+                configuraProgressBar(view)
             }
 
         }
@@ -209,6 +213,15 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         else -> super.onOptionsItemSelected(item)
     }
 
+    private fun configuraProgressBar(view: View) {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == 1) {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            } else {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
+            }
+        })
+    }
 
 
 

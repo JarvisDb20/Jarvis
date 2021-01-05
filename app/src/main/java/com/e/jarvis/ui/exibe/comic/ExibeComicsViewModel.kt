@@ -10,6 +10,7 @@ import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.models.utils.KeyHash
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
+import kotlinx.coroutines.delay
 
 import kotlinx.coroutines.launch
 
@@ -22,34 +23,65 @@ class ExibeComicsViewModel(val service: Service, val dataBase: RepositoryDataBas
 
     val comic = MutableLiveData<ArrayList<GenericResults>>()
 
+    val loading = MutableLiveData<Int>()
+
 
     fun getComic(id: String) {
+        loading.value = 1
+
         viewModelScope.launch {
+            delay(1500)
             comic.value =
                 service.getComicRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            loading.value = 0
         }
+
     }
 
     fun getComicChar(id: String) {
+        loading.value = 1
+
         viewModelScope.launch {
+            delay(1500)
             comic.value =
                 service.getComicsCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            loading.value = 0
         }
+
     }
 
     fun getComicSeries(id: String) {
+        loading.value = 1
+
         viewModelScope.launch {
+            delay(1500)
             comic.value =
                 service.getComicSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            loading.value = 0
         }
+
     }
 
     fun getComicStories(id: String) {
+        loading.value = 1
+
         viewModelScope.launch {
+
+            delay(1500)
+
             comic.value =
                 service.getComicStorieRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            loading.value = 0
         }
+
     }
+
+
+
 
 
     //room tabela results

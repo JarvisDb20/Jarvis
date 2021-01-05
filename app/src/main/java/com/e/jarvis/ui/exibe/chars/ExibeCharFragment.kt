@@ -1,9 +1,10 @@
 package com.e.jarvis.ui.exibe.chars
 
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,15 +14,13 @@ import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
-import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
+import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
-import org.koin.android.ext.android.get
-import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -72,19 +71,20 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         when (charInfo.tipoId) {
             "char" -> {
                 viewModel.getChar(charInfo.id)
-
-
+                configuraProgressBar(view)
             }
             "comic" -> {
                 viewModel.getCharComics(charInfo.id)
+                configuraProgressBar(view)
             }
             "series" -> {
                 viewModel.getCharDaSerie(charInfo.id)
+                configuraProgressBar(view)
             }
             "stories" -> {
                 viewModel.getCharDaStories(charInfo.id)
+                configuraProgressBar(view)
             }
-
         }
 
 
@@ -93,7 +93,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
             if (it.size != 0) {
                 exibeInfo(view, it[0])
-                listChar = it
+                listChar = it as ArrayList<GenericResults>
 
                 it.forEach { linha ->
 
@@ -185,10 +185,20 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         }
     }
 
+    private fun configuraProgressBar(view: View) {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == 1) {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            } else {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
+            }
+        })
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 
         R.id.menu_favoritar -> {
-          viewModel.addFavorito(listChar[posicao])
+            viewModel.addFavorito(listChar[posicao])
             true
         }
         else -> super.onOptionsItemSelected(item)

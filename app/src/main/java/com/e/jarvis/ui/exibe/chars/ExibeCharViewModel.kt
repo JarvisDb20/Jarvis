@@ -8,6 +8,7 @@ import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.models.utils.KeyHash
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase) : ViewModel() {
@@ -18,38 +19,82 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
         "f28a07f38dc7090aa24b3e50496e6ac6"
     )
 
-    val char = MutableLiveData<ArrayList<GenericResults>>()
-    //val charUnico = MutableLiveData<GenericResults>()
+    val char = MutableLiveData<List<GenericResults>>()
+
+    val loading = MutableLiveData<Int>()
 
     fun getChar(id: String) {
+        loading.value = 1
+
         viewModelScope.launch {
-            char.value =
-                service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            delay(1500)
+
+
+            var charExibido = dataBase.getResults(id)
+
+            if (charExibido == null) {
+                charExibido =
+                    service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+                dataBase.addResults(charExibido[0])
+            }
+
+
+            char.value = charExibido
+
+            loading.value = 0
         }
+
+
     }
 
     fun getCharComics(id: String) {
+        loading.value = 1
+
         viewModelScope.launch {
+
+            delay(1000)
+
             char.value =
                 service.getCharComicRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+
+
+            loading.value = 0
         }
+
     }
 
     fun getCharDaSerie(id: String) {
+
+        loading.value = 1
         viewModelScope.launch {
+
+            delay(1500)
+
             char.value =
                 service.getCharSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+
+            loading.value = 0
         }
     }
 
     fun getCharDaStories(id: String) {
+        loading.value = 1
         viewModelScope.launch {
+
+            delay(1500)
+
             char.value = service.getCharStoriesRepo(
                 id,
                 hash.ts,
                 hash.publicKey,
                 hash.getKey()
             ).data.results
+
+
+            loading.value = 0
         }
     }
 

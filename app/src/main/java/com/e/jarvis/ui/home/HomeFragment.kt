@@ -30,7 +30,6 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
     private val viewModel: HomeViewModel by viewModel()
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

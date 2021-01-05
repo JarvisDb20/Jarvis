@@ -8,6 +8,7 @@ import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.models.utils.KeyHash
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ExibeStoriesViewModel(val service: Service, val dataBase: RepositoryDataBase) : ViewModel() {
@@ -21,31 +22,49 @@ class ExibeStoriesViewModel(val service: Service, val dataBase: RepositoryDataBa
 
     val stories = MutableLiveData<ArrayList<GenericResults>>()
 
+    val loading = MutableLiveData<Int>()
+
     fun getStoriesComics(id: String) {
+        loading.value = 1
         viewModelScope.launch {
+            delay(1000)
             stories.value =
                 service.getStoriesComicsRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            loading.value = 0
         }
     }
 
     fun getStoriesChar(id: String) {
+        loading.value = 1
         viewModelScope.launch {
+            delay(1000)
             stories.value =
                 service.getStoriesCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            loading.value = 0
         }
     }
 
     fun getStoriesSeries(id: String) {
+        loading.value = 1
         viewModelScope.launch {
+            delay(1000)
             stories.value =
                 service.getStoriesSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            loading.value = 0
         }
     }
 
     fun getStoriesStories(id: String) {
+        loading.value = 1
         viewModelScope.launch {
+            delay(1000)
             stories.value =
                 service.getStoriesStoriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
+
+            loading.value = 0
         }
     }
 

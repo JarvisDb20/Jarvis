@@ -3,6 +3,7 @@ package com.e.jarvis.ui.exibe.comic
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -103,15 +104,19 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
         when (objeto.tipoId) {
             "char" -> {
                 viewModel.getComicChar(objeto.id)
+                configuraProgressBar(view)
             }
             "comic" -> {
                 viewModel.getComic(objeto.id)
+                configuraProgressBar(view)
             }
             "series" -> {
                 viewModel.getComicSeries(objeto.id)
+                configuraProgressBar(view)
             }
             "stories" -> {
                 viewModel.getComicStories(objeto.id)
+                configuraProgressBar(view)
             }
         }
 
@@ -214,5 +219,15 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
         else
             view.tv_descricao_frag_comics.text = res.description
 
+    }
+
+    private fun configuraProgressBar(view: View) {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == 1) {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            } else {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
+            }
+        })
     }
 }
