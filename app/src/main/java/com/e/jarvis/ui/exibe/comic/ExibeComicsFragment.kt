@@ -26,10 +26,8 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
     //instancia viewModel
     private val viewModel: ExibeComicsViewModel by viewModel()
 
-    var objComic: ArrayList<GenericResults> = arrayListOf()
-
-    //para persistir na tabela favoritos
-    lateinit var comicFavorito : Favorito
+    //posição do item na lista do adapter
+    var posicao = 0
 
 
     //classe do generated que tem o args que o frag comic vai receber
@@ -126,7 +124,11 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
                 exibeInfo(view, it[0])
                 listComics = it
 
+
+
                 it.forEach { linha ->
+
+                    viewModel.addResults(linha)
 
                     if (linha.thumbnail != null) {
                         listImages.add(
@@ -187,11 +189,20 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 exibeInfo(view, listComics[position])
+                posicao = position
                 super.onPageSelected(position)
             }
         })
 
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+    R.id.menu_favoritar -> {
+            viewModel.addFavorito(listComics[posicao])
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
 

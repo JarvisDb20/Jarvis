@@ -33,7 +33,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
     private val viewModel: ExibeSerieViewModel by viewModel()
 
-    var objSerie: ArrayList<GenericResults> = arrayListOf()
+    var posicao = 0
 
     //classe do generated
     val args: ExibeSeriesFragementArgs by navArgs()
@@ -110,15 +110,9 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
             }
             "comic" -> {
                 view.tv_descricao_frag_series.text = "NOT FOUND. We don´t see this comming."
-                //view.iv_exibe_menu.setBackgroundColor(Color.GRAY)
             }
             "series" -> {
                 viewModel.getSerie(objeto.id)
-                viewModel.serie.observe(viewLifecycleOwner, {
-                    objSerie = it
-                    Log.i("SERIE OBJSERIE", objSerie.toString())
-                    viewModel.addResults(it[0])
-                })
             }
             "stories" -> {
                 viewModel.getSeriesStories(objeto.id)
@@ -136,6 +130,8 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
                 listSeries = it
 
                 it.forEach { linha ->
+
+                    viewModel.addResults(linha)
 
                     if (linha.thumbnail != null) {
                         listImages.add(
@@ -196,6 +192,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 exibeInfo(view, listSeries[position])
+                posicao = position
                 super.onPageSelected(position)
             }
 
@@ -203,6 +200,16 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
 
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.menu_favoritar -> {
+            viewModel.addFavorito(listSeries[posicao])
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+
+
 
 
     fun exibeInfo(view: View, res: GenericResults) {

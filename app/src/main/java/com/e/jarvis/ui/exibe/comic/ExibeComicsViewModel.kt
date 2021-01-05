@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.models.utils.KeyHash
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
@@ -50,13 +51,20 @@ class ExibeComicsViewModel(val service: Service, val dataBase: RepositoryDataBas
         }
     }
 
-    //room:
 
+    //room tabela results
     fun addResults(comic: GenericResults) {
         viewModelScope.launch {
             dataBase.addResults(comic)
         }
     }
 
+
+    //room tabela favoritos
+    fun addFavorito(comic: GenericResults) {
+        viewModelScope.launch {
+            dataBase.addFavorito(Favorito(comic.id, comic, "comic"))
+        }
+    }
 
 }

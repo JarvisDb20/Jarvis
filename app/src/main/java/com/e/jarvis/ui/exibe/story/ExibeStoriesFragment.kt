@@ -36,8 +36,7 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
     var listImages: ArrayList<ItemImage> = arrayListOf()
     lateinit var adapter: ExibeStoriesAdapter
 
-    var objStorie: ArrayList<GenericResults> = arrayListOf()
-
+    var posicao = 0
 
     private val viewModel: ExibeStoriesViewModel by viewModel()
 
@@ -74,11 +73,6 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
             }
             "stories" -> {
                 viewModel.getStoriesStories(storiesInfo.id)
-                viewModel.stories.observe(viewLifecycleOwner, {
-                    objStorie = it
-                    Log.i("STORIE OBJSTORIE", objStorie.toString())
-                    viewModel.addResults(it[0])
-                })
             }
         }
 
@@ -89,6 +83,8 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
                 listStories = it
 
                 it.forEach { linha ->
+
+                    viewModel.addResults(linha)
 
                     if (linha.thumbnail != null) {
                         listImages.add(
@@ -144,9 +140,12 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 exibeInfo(view, listStories[position])
+                posicao = position
                 super.onPageSelected(position)
             }
         })
+
+
 
         view.btn_exibe_stories.setBackgroundColor(Color.DKGRAY)
 
@@ -167,6 +166,14 @@ class ExibeStoriesFragment : Fragment(), ExibeStoriesAdapter.onClickListener {
                 ExibeStoriesFragmentDirections.navigateStoriesToComicsFragment(args.apiObj)
             findNavController().navigate(passaArgsComic)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.menu_favoritar -> {
+            viewModel.addFavorito(listStories[posicao])
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun storiesClick(position: Int) {
