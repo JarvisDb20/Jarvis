@@ -73,6 +73,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
             "char" -> {
                 viewModel.getChar(charInfo.id)
 
+
             }
             "comic" -> {
                 viewModel.getCharComics(charInfo.id)
@@ -96,6 +97,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
                 it.forEach { linha ->
 
+                    viewModel.addResults(linha)
 
                     if (linha.thumbnail != null) {
                         listImages.add(
