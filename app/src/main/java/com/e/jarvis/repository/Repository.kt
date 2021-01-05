@@ -1,11 +1,11 @@
 package com.e.jarvis.repository
 
 
-import com.e.jarvis.dao.CharFavoritoDao
+import com.e.jarvis.dao.FavoritoDao
 import com.e.jarvis.dao.ResultsDao
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.generics.GenericWrapper
-import com.e.jarvis.models.modelsfavoritos.CharFavorito
+import com.e.jarvis.models.modelsfavoritos.Favorito
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -210,18 +210,24 @@ interface Service {
 
 
 //parte do room:
-class RepositoryDataBase(val resultsDao: ResultsDao, val charFavoritoDao: CharFavoritoDao) {
+class RepositoryDataBase(val resultsDao: ResultsDao, val favoritoDao: FavoritoDao) {
+   //tabela results
     suspend fun getAllResults() = resultsDao.getAllResults()
 
-    suspend fun getResults(id: Int) = resultsDao.getResults(id)
+    suspend fun getResults(id: String) = resultsDao.getResult(id)
 
     suspend fun addResults(results: GenericResults) = resultsDao.addResults(results)
 
     suspend fun deleteResults(results: GenericResults) = resultsDao.deleteResults(results)
 
 
-    //tabela char favoritos:
-    suspend fun addCharFavorito(char: CharFavorito) =
-        charFavoritoDao.addCharFavorito(char)
+
+
+
+
+
+    //tabela favoritos:
+    suspend fun addFavorito(favorito: Favorito) =
+        favoritoDao.addFavorito(favorito)
 
 }

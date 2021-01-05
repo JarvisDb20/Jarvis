@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.e.jarvis.models.generics.GenericResults
-import com.e.jarvis.models.modelsfavoritos.CharFavorito
+import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.models.utils.KeyHash
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
@@ -19,6 +19,7 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
     )
 
     val char = MutableLiveData<ArrayList<GenericResults>>()
+    //val charUnico = MutableLiveData<GenericResults>()
 
     fun getChar(id: String) {
         viewModelScope.launch {
@@ -61,9 +62,9 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
     }
 
     //room tabela favoritos
-    fun addCharFavorito(char: CharFavorito) {
+    fun addFavorito(aChar: GenericResults) {
         viewModelScope.launch {
-            dataBase.addCharFavorito(char)
+            dataBase.addFavorito(Favorito(aChar.id, aChar, "char"))
         }
     }
 }

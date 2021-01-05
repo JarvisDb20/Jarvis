@@ -2,7 +2,7 @@ package com.e.jarvis.injection
 
 import android.app.Application
 import androidx.room.Room
-import com.e.jarvis.dao.CharFavoritoDao
+import com.e.jarvis.dao.FavoritoDao
 import com.e.jarvis.dao.ResultsDao
 import com.e.jarvis.database.AppDatabase
 import com.e.jarvis.repository.RepositoryDataBase
@@ -23,9 +23,9 @@ val roomRepositoryModule = module {
 
     fun provideUserRepository(
         dao: ResultsDao,
-        charFavoritoDao: CharFavoritoDao
+        favoritoDao: FavoritoDao
     ): RepositoryDataBase {
-        return RepositoryDataBase(dao, charFavoritoDao)
+        return RepositoryDataBase(dao, favoritoDao)
     }
 
     //devolve uma instancia unica para ser utilizada onde é dependencia
@@ -45,7 +45,7 @@ val roomDataBaseModule = module {
         return database.resultsDao()
     }
 
-    fun provideFavoritosDao(database: AppDatabase): CharFavoritoDao {
+    fun provideFavoritosDao(database: AppDatabase): FavoritoDao {
         return database.favoritosDao()
     }
 

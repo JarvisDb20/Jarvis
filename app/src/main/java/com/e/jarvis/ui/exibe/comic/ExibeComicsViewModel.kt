@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.e.jarvis.models.modelsfavoritos.CharFavorito
 import com.e.jarvis.models.utils.KeyHash
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service

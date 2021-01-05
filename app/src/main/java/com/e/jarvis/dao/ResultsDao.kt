@@ -10,7 +10,7 @@ interface ResultsDao {
     suspend fun getAllResults(): List<GenericResults>
 
     @Query ("SELECT * FROM results WHERE id= :id")
-    suspend fun getResults(id: Int) : List<GenericResults>
+    suspend fun getResult(id: String) : List<GenericResults>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addResults(results: GenericResults)

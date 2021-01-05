@@ -6,7 +6,6 @@ import java.io.Serializable
 
 
 data class GenericImage(
-        @PrimaryKey(autoGenerate = false)
-        val path: String,
-        val extension: String
+        val path: String?,
+        val extension: String?
 ) : Serializable

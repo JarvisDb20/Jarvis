@@ -13,23 +13,22 @@ import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
-import com.e.jarvis.models.modelsfavoritos.CharFavorito
+import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
+import org.koin.android.ext.android.get
+import org.koin.android.scope.currentScope
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
-    //para persistir na tabela results
-    var objChar: ArrayList<GenericResults> = arrayListOf()
-
-    //para persistir na tabela favoritos
-    lateinit var charFavorito : CharFavorito
+    //posição do item na lista do adapter
+     var posicao = 0
 
     //variavel que vai receber os args que vem do fragment home
     val args: ExibeCharFragmentArgs by navArgs()
@@ -73,59 +72,16 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         when (charInfo.tipoId) {
             "char" -> {
                 viewModel.getChar(charInfo.id)
-                viewModel.char.observe(viewLifecycleOwner, {
-                    objChar = it
-                    viewModel.addResults(it[0])
-
-                    charFavorito = CharFavorito(
-                    it[0].id,  it[0].title,  it[0].description,  it[0].resourceURI,  it[0].series,  it[0].thumbnail,
-                        it[0].creators,  it[0].characters,  it[0].stories,  it[0].events,  it[0].name,
-                        it[0].comics )
-
-                })
 
             }
             "comic" -> {
                 viewModel.getCharComics(charInfo.id)
-                viewModel.char.observe(viewLifecycleOwner, {
-                    objChar = it
-                    viewModel.addResults(it[0])
-
-                    charFavorito = CharFavorito(
-                        it[0].id,  it[0].title,  it[0].description,  it[0].resourceURI,  it[0].series,  it[0].thumbnail,
-                        it[0].creators,  it[0].characters,  it[0].stories,  it[0].events,  it[0].name,
-                        it[0].comics )
-
-                })
-
             }
             "series" -> {
                 viewModel.getCharDaSerie(charInfo.id)
-                viewModel.char.observe(viewLifecycleOwner, {
-                    objChar = it
-                    viewModel.addResults(it[0])
-
-                    charFavorito = CharFavorito(
-                        it[0].id,  it[0].title,  it[0].description,  it[0].resourceURI,  it[0].series,  it[0].thumbnail,
-                        it[0].creators,  it[0].characters,  it[0].stories,  it[0].events,  it[0].name,
-                        it[0].comics )
-
-                })
             }
             "stories" -> {
                 viewModel.getCharDaStories(charInfo.id)
-//                viewModel.char.observe(viewLifecycleOwner, {
-//                    objChar = it
-//                    viewModel.addResults(it[0])
-//
-//                    it.forEach{
-//
-//                    charFavorito = CharFavorito(
-//                        it.id,  it.title,  it.description,  it.resourceURI,  it.series,  it.thumbnail,
-//                        it.creators,  it.characters,  it.stories,  it.events,  it.name,
-//                        it.comics )
-//                    }
-//                })
             }
 
         }
@@ -139,6 +95,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
                 listChar = it
 
                 it.forEach { linha ->
+
 
                     if (linha.thumbnail != null) {
                         listImages.add(
@@ -186,7 +143,6 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
         // configurando o viewpager
         if (!layoutStarted) {
-
             adapter = ExibeCharAdapter(listImages, this)
             layoutStarted = true
         }
@@ -198,9 +154,11 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     exibeInfo(view, listChar[position])
+                    posicao = position
                     super.onPageSelected(position)
                 }
             })
+
 
         view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
 
@@ -228,8 +186,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
 
         R.id.menu_favoritar -> {
-            viewModel.addCharFavorito(charFavorito)
-            Log.i("CHARFRAGFAV", charFavorito.toString())
+          viewModel.addFavorito(listChar[posicao])
             true
         }
         else -> super.onOptionsItemSelected(item)

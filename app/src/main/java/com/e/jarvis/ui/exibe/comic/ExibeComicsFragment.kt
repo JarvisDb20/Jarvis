@@ -2,13 +2,9 @@ package com.e.jarvis.ui.exibe.comic
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -16,14 +12,11 @@ import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
-import com.e.jarvis.models.modelsfavoritos.CharFavorito
+import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
 //import com.e.jarvis.repository.service
-import com.e.jarvis.ui.exibe.chars.ExibeCharFragmentDirections
-import com.e.jarvis.ui.exibe.chars.ExibeCharViewModel
 import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
-import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -34,6 +27,9 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
     private val viewModel: ExibeComicsViewModel by viewModel()
 
     var objComic: ArrayList<GenericResults> = arrayListOf()
+
+    //para persistir na tabela favoritos
+    lateinit var comicFavorito : Favorito
 
 
     //classe do generated que tem o args que o frag comic vai receber
