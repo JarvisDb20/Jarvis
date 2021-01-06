@@ -1,39 +1,35 @@
 package com.e.jarvis.ui.exibe.chars
 
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.MainActivity
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericImage
-
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
-
-import com.e.jarvis.repository.service
 import kotlinx.android.synthetic.main.fragment_exibe_char.view.*
-import kotlinx.android.synthetic.main.fragment_exibe_comics.view.*
-import kotlinx.android.synthetic.main.fragment_image_full.*
-import kotlinx.android.synthetic.main.fragment_image_full.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
+import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
-    //variavel que vai receber os args
+    //posição do item na lista do adapter
+     var posicao = 0
+
+    //variavel que vai receber os args que vem do fragment home
     val args: ExibeCharFragmentArgs by navArgs()
 
     lateinit var listChar: ArrayList<GenericResults>
@@ -45,13 +41,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     lateinit var adapter: ExibeCharAdapter
 
 
-    private val viewModel by viewModels<ExibeCharViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ExibeCharViewModel(service) as T
-            }
-        }
-    }
+    private val viewModel: ExibeCharViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -63,23 +53,23 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         return inflater.inflate(R.layout.fragment_exibe_char, container, false)
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_activity_drawer, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         listImages = arrayListOf()
 
-        //args que o fragment char tá recebendo
+        val vp = view.findViewById<ViewPager2>(R.id.vp_images)
 
         val charInfo = args.apiObj
 
-        val vp = view.findViewById<ViewPager2>(R.id.vp_images)
-
-
+        configuraProgressBar(view)
         when (charInfo.tipoId) {
             "char" -> {
                 viewModel.getChar(charInfo.id)
@@ -93,16 +83,19 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
             "stories" -> {
                 viewModel.getCharDaStories(charInfo.id)
             }
-
         }
+
+
         val indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
         viewModel.char.observe(viewLifecycleOwner, {
 
             if (it.size != 0) {
                 exibeInfo(view, it[0])
-                listChar = it
+                listChar = it as ArrayList<GenericResults>
 
                 it.forEach { linha ->
+
+                    viewModel.addResults(linha)
 
                     if (linha.thumbnail != null) {
                         listImages.add(
@@ -150,7 +143,6 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
         // configurando o viewpager
         if (!layoutStarted) {
-
             adapter = ExibeCharAdapter(listImages, this)
             layoutStarted = true
         }
@@ -162,9 +154,11 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     exibeInfo(view, listChar[position])
+                    posicao = position
                     super.onPageSelected(position)
                 }
             })
+
 
         view.btn_exibe_char.setBackgroundColor(Color.DKGRAY)
 
@@ -189,13 +183,32 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         }
     }
 
+    private fun configuraProgressBar(view: View) {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == 1) {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            } else {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
+            }
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+
+        R.id.menu_favoritar -> {
+            viewModel.addFavorito(listChar[posicao])
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+
     override fun charsClick(position: Int) {
         val directions =
             ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(
                 ItemImage(
                     listImages[position].thumb,
                     args.apiObj,
-                    listChar[position].name
+                    listChar[position].name!!
                 )
             )
         findNavController().navigate(directions)

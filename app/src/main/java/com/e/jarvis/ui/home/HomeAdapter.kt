@@ -14,6 +14,7 @@ class HomeAdapter (
         private var chars: ArrayList<GenericResults>,
         val listener: onClickListener
         ): RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
             View.OnClickListener {
         val ivChar : ImageView = itemView.findViewById(R.id.iv_personagem)
@@ -34,14 +35,14 @@ class HomeAdapter (
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var layoutItemRest = LayoutInflater.from(parent.context)
+        val layoutItemRest = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_top_heroi, parent, false)
         return ViewHolder(layoutItemRest)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var picasso = Picasso.get()
-        var currentItem = chars[position]
+        val picasso = Picasso.get()
+        val currentItem = chars[position]
         picasso.load(currentItem.thumbnail.path + "." + currentItem.thumbnail.extension).into(holder.ivChar)
         holder.tvChar.text = currentItem.name
 
@@ -49,6 +50,7 @@ class HomeAdapter (
     override fun getItemCount(): Int {
         return chars.size
     }
+
     fun updateChars(char: ArrayList<GenericResults>){
         chars = char
         notifyDataSetChanged()

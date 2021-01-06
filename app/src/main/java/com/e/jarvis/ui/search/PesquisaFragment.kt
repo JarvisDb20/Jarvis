@@ -1,42 +1,31 @@
 package com.e.jarvis.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
-import com.e.jarvis.models.utils.ItemImage
-
-import com.e.jarvis.repository.service
-
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class PesquisaFragment : Fragment(), PesquisaAdapter.onClickListener {
-    var listSearches:ArrayList<GenericResults> = arrayListOf()
 
-    //viriaveis para o viewpager
+    var listSearches: ArrayList<GenericResults> = arrayListOf()
+
     var layoutStarted = false
-    lateinit var listImages : ArrayList<ItemImage>
     lateinit var adapter: PesquisaAdapter
 
-
-    private val viewModel by viewModels<PesquisaViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return PesquisaViewModel(service) as T
-            }
-        }
-    }
+    private val viewModel: PesquisaViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,46 +38,64 @@ class PesquisaFragment : Fragment(), PesquisaAdapter.onClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val rvSearch = view.findViewById<RecyclerView>(R.id.rv_search)
-
-        
         if (!layoutStarted) {
             adapter = PesquisaAdapter(listSearches, this)
             layoutStarted = true
         }
-        rvSearch.adapter = adapter
-        rvSearch.layoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL, false)
 
+        //campo de entrada do searchview
+        //quando o campo não está nulo e tem mais de 3 letras, faz a chamada pra API
         val svSearch = view.findViewById<EditText>(R.id.sv_search)
-
-        viewModel.listSearch.observe(viewLifecycleOwner, {
-            adapter.updateList(it)
-            listSearches = it
-
-        })
-        svSearch.doAfterTextChanged{
+        svSearch.doAfterTextChanged {
             if (it != null) {
                 if (it.length > 3)
                     viewModel.getSearch(it.toString())
+                configuraProgressBar(view)
             }
         }
-//        view.sv_search.setOnClickListener{
-//            Navigation.findNavController(view).navigate(R.id.navigate_to_exibe_personagem_fragment)
-//        }
+
+        //configurando recyclerview que exibe os resultados da chamada da api
+        val rvSearch = view.findViewById<RecyclerView>(R.id.rv_search)
+        rvSearch.adapter = adapter
+        rvSearch.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+
+        //passa a lista que recebeu a API para o adapter
+        viewModel.listSearch.observe(viewLifecycleOwner, {
+            adapter.updateList(it)
+            listSearches = it
+        })
     }
 
-    override fun searchClick(position: Int) {
+    override fun searchClick(position: Int, view: View) {
+        //pega item da lista do adapter
         val currentItem = listSearches[position]
-        var apiObject : ApiObject = ApiObject("","")
-        if (currentItem.series == null)
-            apiObject = ApiObject(currentItem.id,"series")
-        else if (currentItem.comics == null)
-            apiObject = ApiObject(currentItem.id,"comic")
-        else if (currentItem.characters == null)
-            apiObject = ApiObject(currentItem.id,"char")
+
+        //viewmodel vai retornar o apiObject, dizendo o id e qual tipo ele é
+        val apiObject = viewModel.passaDadosApiObj(currentItem)
 
         val direction = PesquisaFragmentDirections.navigateToExibePersonagemFragment(apiObject)
         findNavController().navigate(direction)
 
+        //chamada para fechar o teclado
+        view.hideKeyboard()
+
+    }
+
+    //função para fechar o teclado
+    fun View.hideKeyboard() {
+        val inputManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    private fun configuraProgressBar(view: View) {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == 1) {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            } else {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
+            }
+        })
     }
 }

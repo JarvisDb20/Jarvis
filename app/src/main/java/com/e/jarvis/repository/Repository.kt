@@ -1,11 +1,11 @@
 package com.e.jarvis.repository
 
 
+import com.e.jarvis.dao.FavoritoDao
+import com.e.jarvis.dao.ResultsDao
+import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.generics.GenericWrapper
-
-
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.e.jarvis.models.modelsfavoritos.Favorito
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -208,10 +208,22 @@ interface Service {
 
 }
 
-val retrofit = Retrofit.Builder().baseUrl("http://gateway.marvel.com/v1/public/")
-    .addConverterFactory(GsonConverterFactory.create()).build()
 
-val service: Service = retrofit.create(Service::class.java)
+//parte do room:
+class RepositoryDataBase(val resultsDao: ResultsDao, val favoritoDao: FavoritoDao) {
+   //tabela results
+    suspend fun getAllResults() = resultsDao.getAllResults()
+
+    suspend fun getResults(id: String) = resultsDao.getResult(id)
+
+    suspend fun addResults(results: GenericResults) = resultsDao.addResults(results)
+
+    suspend fun deleteResults(results: GenericResults) = resultsDao.deleteResults(results)
 
 
-//@GET("characters?ts=1&apikey=f28a07f38dc7090aa24b3e50496e6ac6&hash=f7aece34f231420e8d8fb2e698fa4113")
+
+    //tabela favoritos:
+    suspend fun addFavorito(favorito: Favorito) =
+        favoritoDao.addFavorito(favorito)
+
+}

@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ProgressBar
 import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,24 +19,22 @@ import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.ItemImage
-import com.e.jarvis.repository.service
+//import com.e.jarvis.repository.service
 import com.e.jarvis.ui.exibe.chars.ExibeCharFragmentDirections
+import com.e.jarvis.ui.exibe.chars.ExibeCharViewModel
 import kotlinx.android.synthetic.main.fragment_exibe_series.*
 import kotlinx.android.synthetic.main.fragment_exibe_series.view.*
 import kotlinx.android.synthetic.main.item_exibe_botoes.view.*
 import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import kotlinx.android.synthetic.main.item_exibe_image.view.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener {
 
-    private val viewModel by viewModels<ExibeSerieViewModel> {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ExibeSerieViewModel(service) as T
-            }
-        }
-    }
+    private val viewModel: ExibeSerieViewModel by viewModel()
+
+    var posicao = 0
 
     //classe do generated
     val args: ExibeSeriesFragementArgs by navArgs()
@@ -90,7 +89,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
                 ItemImage(
                     listImages[position].thumb,
                     args.apiObj,
-                    listSeries[position].title
+                    listSeries[position].title!!
                 )
 
 
@@ -104,15 +103,15 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
         //recebendo os args
         val objeto = args.apiObj
-        Log.i("OBJETO CHEGOU SERIES", objeto.toString())
 
+        configuraProgressBar(view)
         when (objeto.tipoId) {
             "char" -> {
                 viewModel.getSeriesChar(objeto.id)
             }
             "comic" -> {
                 view.tv_descricao_frag_series.text = "NOT FOUND. We don´t see this comming."
-                //view.iv_exibe_menu.setBackgroundColor(Color.GRAY)
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
             }
             "series" -> {
                 viewModel.getSerie(objeto.id)
@@ -120,7 +119,6 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
             "stories" -> {
                 viewModel.getSeriesStories(objeto.id)
             }
-
         }
 
         //configurando viewpager
@@ -133,6 +131,8 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
                 listSeries = it
 
                 it.forEach { linha ->
+
+                    viewModel.addResults(linha)
 
                     if (linha.thumbnail != null) {
                         listImages.add(
@@ -193,6 +193,7 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         vp.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 exibeInfo(view, listSeries[position])
+                posicao = position
                 super.onPageSelected(position)
             }
 
@@ -200,6 +201,25 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
 
 
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.menu_favoritar -> {
+            viewModel.addFavorito(listSeries[posicao])
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    private fun configuraProgressBar(view: View) {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == 1) {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            } else {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
+            }
+        })
+    }
+
 
 
     fun exibeInfo(view: View, res: GenericResults) {
