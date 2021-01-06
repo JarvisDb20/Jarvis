@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -40,13 +41,15 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //clique na barra de search abre frag pesquisa
         view.sv_home.setOnClickListener {
             Navigation.findNavController(view)
                     .navigate(R.id.navigate_to_pesquisa_fragment)
         }
 
-        var rvHome = view.findViewById<RecyclerView>(R.id.rv_home)
 
+        //pega a lista que vem da API e passa para o metodo do adapter
         viewModel.chars.observe(viewLifecycleOwner, {
             chars = it
             adapter.updateChars(it)
@@ -54,7 +57,7 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
         })
 
 
-        gManager = GridLayoutManager(context, 3)
+        //lista de chars que aparecem estaticamente
         if (!layoutStarted) {
             chars = arrayListOf()
             adapter = HomeAdapter(chars, this)
@@ -70,15 +73,23 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
                     "1009268", // deadpool
                     "1009610"  // homem aranha
             ))
+            configuraProgressBar(view)
         }
+
+
+        //configurando a recyclerview
+        val rvHome = view.findViewById<RecyclerView>(R.id.rv_home)
+        gManager = GridLayoutManager(context, 3)
         rvHome.setHasFixedSize(true)
         rvHome.layoutManager = gManager
         rvHome.adapter = adapter
 
+
     }
 
+    //clique no char, passa o id dele e o tipo para o Api Object
     override fun charsClick(position: Int) {
-        //65123
+
         val api : ApiObject
 
         if (chars[position].id == "1010744"){
@@ -93,7 +104,20 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
                 "char"
             )
         }
+
+        //quando clica em um item, vai para o fragment exibe personagem e passa o ApiObject
+        //vai ser sempre para o frag exibe char pois aqui só vai ter top 9 char
         val direction = HomeFragmentDirections.actionNavHomeToExibePersonagemFragment(api)
         findNavController().navigate(direction)
+    }
+
+    private fun configuraProgressBar(view: View) {
+        viewModel.loading.observe(viewLifecycleOwner, {
+            if (it == 1) {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+            } else {
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
+            }
+        })
     }
 }

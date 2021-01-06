@@ -18,7 +18,11 @@ class HomeViewModel(val service: Service, val dataBase: RepositoryDataBase) : Vi
 
     val chars = MutableLiveData<ArrayList<GenericResults>>()
 
+    val loading = MutableLiveData<Int>()
+
     fun getChars(listCharId : ArrayList<String>){
+        loading.value = 1
+
         viewModelScope.launch {
             val resultado = arrayListOf<GenericResults>()
             listCharId.forEach {
@@ -27,8 +31,13 @@ class HomeViewModel(val service: Service, val dataBase: RepositoryDataBase) : Vi
                 )
             }
             chars.value = resultado
+
+            loading.value = 0
         }
     }
+
+
+
 
 
 

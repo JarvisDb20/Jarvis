@@ -104,10 +104,10 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
         //recebendo os args
         val objeto = args.apiObj
 
+        configuraProgressBar(view)
         when (objeto.tipoId) {
             "char" -> {
                 viewModel.getSeriesChar(objeto.id)
-                   configuraProgressBar(view)
             }
             "comic" -> {
                 view.tv_descricao_frag_series.text = "NOT FOUND. We don´t see this comming."
@@ -115,13 +115,10 @@ class ExibeSeriesFragement : Fragment(), ExibeSerieAdapter.serieOnClickListener 
             }
             "series" -> {
                 viewModel.getSerie(objeto.id)
-                configuraProgressBar(view)
             }
             "stories" -> {
                 viewModel.getSeriesStories(objeto.id)
-                configuraProgressBar(view)
             }
-
         }
 
         //configurando viewpager

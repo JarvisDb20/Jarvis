@@ -68,22 +68,20 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         val vp = view.findViewById<ViewPager2>(R.id.vp_images)
 
         val charInfo = args.apiObj
+
+        configuraProgressBar(view)
         when (charInfo.tipoId) {
             "char" -> {
                 viewModel.getChar(charInfo.id)
-                configuraProgressBar(view)
             }
             "comic" -> {
                 viewModel.getCharComics(charInfo.id)
-                configuraProgressBar(view)
             }
             "series" -> {
                 viewModel.getCharDaSerie(charInfo.id)
-                configuraProgressBar(view)
             }
             "stories" -> {
                 viewModel.getCharDaStories(charInfo.id)
-                configuraProgressBar(view)
             }
         }
 

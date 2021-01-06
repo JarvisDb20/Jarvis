@@ -101,22 +101,20 @@ class ExibeComicsFragment : Fragment(), ExibeComicsAdapter.comicOnClickListener 
 
         //recebendo os args pra ver que tipo é e então chamar a função adequada
         val objeto = args.apiObj
+
+        configuraProgressBar(view)
         when (objeto.tipoId) {
             "char" -> {
                 viewModel.getComicChar(objeto.id)
-                configuraProgressBar(view)
             }
             "comic" -> {
                 viewModel.getComic(objeto.id)
-                configuraProgressBar(view)
             }
             "series" -> {
                 viewModel.getComicSeries(objeto.id)
-                configuraProgressBar(view)
             }
             "stories" -> {
                 viewModel.getComicStories(objeto.id)
-                configuraProgressBar(view)
             }
         }
 

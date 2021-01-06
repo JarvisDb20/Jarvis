@@ -27,23 +27,23 @@ class PesquisaAdapter(
         override fun onClick(v: View?) {
             val position = adapterPosition
             if (RecyclerView.NO_POSITION != position)
-                listener.searchClick(position)
+                v?.let { listener.searchClick(position, it) }
         }
 
     }
 
     interface onClickListener {
-        fun searchClick(position: Int)
+        fun searchClick(position: Int, view: View)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var layoutItemRest = LayoutInflater.from(parent.context)
+        val layoutItemRest = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_search_heroi, parent, false)
         return ViewHolder(layoutItemRest)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var picasso = Picasso.get()
+        val picasso = Picasso.get()
         val currentItem = listSearches[position]
         picasso.load(currentItem.thumbnail.path + "/landscape_incredible." + currentItem.thumbnail.extension)
             .into(holder.ivExibe)

@@ -222,10 +222,6 @@ class RepositoryDataBase(val resultsDao: ResultsDao, val favoritoDao: FavoritoDa
 
 
 
-
-
-
-
     //tabela favoritos:
     suspend fun addFavorito(favorito: Favorito) =
         favoritoDao.addFavorito(favorito)
