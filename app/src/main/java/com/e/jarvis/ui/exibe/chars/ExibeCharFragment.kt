@@ -32,7 +32,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     //variavel que vai receber os args que vem do fragment home
     val args: ExibeCharFragmentArgs by navArgs()
 
-    lateinit var listChar: ArrayList<GenericResults>
+    lateinit var listChar: List<GenericResults>
 
 
     //viriaveis para o viewpager
@@ -63,6 +63,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         listImages = arrayListOf()
 
         val vp = view.findViewById<ViewPager2>(R.id.vp_images)
@@ -91,7 +92,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
             if (it.size != 0) {
                 exibeInfo(view, it[0])
-                listChar = it 
+                listChar = it
 
                 it.forEach { linha ->
 
