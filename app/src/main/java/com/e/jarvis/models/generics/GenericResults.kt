@@ -39,8 +39,12 @@ data class GenericResults(
     //   val prices : List<GenericPrices>,
 
     @Embedded(prefix = "thumb_")
-    val thumbnail: GenericImage, // story
-    //   val genericImages : List<GenericImage>,
+    val thumbnail: GenericImage?, // story
+
+
+       //val genericImages : List<GenericImage>,
+
+
 
     @Embedded(prefix = "creators_")
     val creators: GenericList?, // story

@@ -11,6 +11,7 @@ import com.e.jarvis.ui.exibe.chars.ExibeCharViewModel
 import com.e.jarvis.ui.exibe.comic.ExibeComicsViewModel
 import com.e.jarvis.ui.exibe.serie.ExibeSerieViewModel
 import com.e.jarvis.ui.exibe.story.ExibeStoriesViewModel
+import com.e.jarvis.ui.favorites.FavoritosViewModel
 import com.e.jarvis.ui.home.HomeViewModel
 import com.e.jarvis.ui.search.PesquisaViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -84,6 +85,9 @@ val viewModelModule = module {
         PesquisaViewModel(get())
     }
 
+    viewModel {
+        FavoritosViewModel(get())
+    }
 
 }
 

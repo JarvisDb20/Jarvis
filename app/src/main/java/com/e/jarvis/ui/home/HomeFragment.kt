@@ -53,7 +53,7 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
         viewModel.chars.observe(viewLifecycleOwner, {
             chars = it
             adapter.updateChars(it)
-            Log.i("Inicio", it.toString())
+           // Log.i("Inicio", it.toString())
         })
 
 

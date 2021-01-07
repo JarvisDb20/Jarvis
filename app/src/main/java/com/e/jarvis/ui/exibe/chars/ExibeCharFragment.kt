@@ -91,7 +91,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
 
             if (it.size != 0) {
                 exibeInfo(view, it[0])
-                listChar = it as ArrayList<GenericResults>
+                listChar = it 
 
                 it.forEach { linha ->
 

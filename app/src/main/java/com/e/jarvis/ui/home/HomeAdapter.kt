@@ -43,7 +43,7 @@ class HomeAdapter (
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val picasso = Picasso.get()
         val currentItem = chars[position]
-        picasso.load(currentItem.thumbnail.path + "." + currentItem.thumbnail.extension).into(holder.ivChar)
+        picasso.load(currentItem.thumbnail?.path + "." + currentItem.thumbnail?.extension).into(holder.ivChar)
         holder.tvChar.text = currentItem.name
 
     }

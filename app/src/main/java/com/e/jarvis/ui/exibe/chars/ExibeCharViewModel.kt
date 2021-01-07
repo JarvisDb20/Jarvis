@@ -19,7 +19,7 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
         "f28a07f38dc7090aa24b3e50496e6ac6"
     )
 
-    val char = MutableLiveData<List<GenericResults>>()
+    val char = MutableLiveData<ArrayList<GenericResults>>()
 
     val loading = MutableLiveData<Int>()
 
@@ -31,16 +31,16 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
             delay(1500)
 
 
-            var charExibido = dataBase.getResults(id)
+          //  var charExibido = dataBase.getResults(id)
 
-            if (charExibido == null) {
-                charExibido =
+          //  if (charExibido == null) {
+                char.value =
                     service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
-                dataBase.addResults(charExibido[0])
-            }
+           //     dataBase.addResults(charExibido[0])
+           // }
 
 
-            char.value = charExibido
+         //   char.value = charExibido
 
             loading.value = 0
         }
