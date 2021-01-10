@@ -27,7 +27,7 @@ class ExibeStoriesViewModel(val service: Service, val dataBase: RepositoryDataBa
     fun getStoriesComics(id: String) {
         loading.value = 1
         viewModelScope.launch {
-            delay(1000)
+
             stories.value =
                 service.getStoriesComicsRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
 
@@ -38,7 +38,7 @@ class ExibeStoriesViewModel(val service: Service, val dataBase: RepositoryDataBa
     fun getStoriesChar(id: String) {
         loading.value = 1
         viewModelScope.launch {
-            delay(1000)
+
             stories.value =
                 service.getStoriesCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
 
@@ -49,7 +49,7 @@ class ExibeStoriesViewModel(val service: Service, val dataBase: RepositoryDataBa
     fun getStoriesSeries(id: String) {
         loading.value = 1
         viewModelScope.launch {
-            delay(1000)
+
             stories.value =
                 service.getStoriesSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
 
@@ -60,7 +60,7 @@ class ExibeStoriesViewModel(val service: Service, val dataBase: RepositoryDataBa
     fun getStoriesStories(id: String) {
         loading.value = 1
         viewModelScope.launch {
-            delay(1000)
+
             stories.value =
                 service.getStoriesStoriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
 

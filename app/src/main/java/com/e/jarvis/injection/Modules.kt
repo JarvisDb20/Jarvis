@@ -3,8 +3,10 @@ package com.e.jarvis.injection
 import android.app.Application
 import androidx.room.Room
 import com.e.jarvis.dao.FavoritoDao
+import com.e.jarvis.dao.QuizDao
 import com.e.jarvis.dao.ResultsDao
 import com.e.jarvis.database.AppDatabase
+import com.e.jarvis.repository.QuizRepository
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
 import com.e.jarvis.ui.exibe.chars.ExibeCharViewModel
@@ -12,6 +14,9 @@ import com.e.jarvis.ui.exibe.comic.ExibeComicsViewModel
 import com.e.jarvis.ui.exibe.serie.ExibeSerieViewModel
 import com.e.jarvis.ui.exibe.story.ExibeStoriesViewModel
 import com.e.jarvis.ui.home.HomeViewModel
+import com.e.jarvis.ui.question.QuestionFragment
+import com.e.jarvis.ui.question.QuestionViewModel
+import com.e.jarvis.ui.quiz.QuizViewModel
 import com.e.jarvis.ui.search.PesquisaViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
@@ -30,6 +35,15 @@ val roomRepositoryModule = module {
 
     //devolve uma instancia unica para ser utilizada onde é dependencia
     single { provideUserRepository(get(), get()) }
+
+
+    fun provideQuizRepository(
+        dao: QuizDao
+    ): QuizRepository {
+        return QuizRepository(dao)
+    }
+    single { provideQuizRepository(get()) }
+
 }
 
 val roomDataBaseModule = module {
@@ -49,10 +63,15 @@ val roomDataBaseModule = module {
         return database.favoritosDao()
     }
 
+    fun provideQuizDao(database: AppDatabase): QuizDao {
+        return database.QuizDao()
+    }
+
     //devolve uma instancia unica
     single { provideDataBase(androidApplication()) }
     single { provideDao(get()) }
     single { provideFavoritosDao(get()) }
+    single { provideQuizDao(get()) }
 
 
 }
@@ -84,6 +103,13 @@ val viewModelModule = module {
         PesquisaViewModel(get())
     }
 
+    viewModel {
+        QuizViewModel(get())
+    }
+
+    viewModel {
+        QuestionViewModel(get())
+    }
 
 }
 

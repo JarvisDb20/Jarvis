@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:justificationMode="inter_word"
                     android:text="Pergunta?"
-                    android:textSize="26dp"
+                    android:textSize="14dp"
                     android:textAlignment="center"
                     android:textColor="@color/titleColor"
                     />

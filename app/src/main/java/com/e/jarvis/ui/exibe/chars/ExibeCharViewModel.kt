@@ -28,12 +28,9 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
 
         viewModelScope.launch {
 
-            delay(1500)
-
-
             var charExibido = dataBase.getResults(id)
 
-            if (charExibido == null) {
+            if (charExibido.isNullOrEmpty()) {
                 charExibido =
                     service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
                 dataBase.addResults(charExibido[0])
@@ -52,30 +49,18 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
         loading.value = 1
 
         viewModelScope.launch {
-
-            delay(1000)
-
             char.value =
                 service.getCharComicRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
-
-
-
             loading.value = 0
         }
-
     }
 
     fun getCharDaSerie(id: String) {
 
         loading.value = 1
         viewModelScope.launch {
-
-            delay(1500)
-
             char.value =
                 service.getCharSeriesRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
-
-
             loading.value = 0
         }
     }
@@ -83,17 +68,12 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
     fun getCharDaStories(id: String) {
         loading.value = 1
         viewModelScope.launch {
-
-            delay(1500)
-
             char.value = service.getCharStoriesRepo(
                 id,
                 hash.ts,
                 hash.publicKey,
                 hash.getKey()
             ).data.results
-
-
             loading.value = 0
         }
     }

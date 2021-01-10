@@ -25,7 +25,7 @@ class ExibeSerieViewModel(val service: Service, val dataBase: RepositoryDataBase
     fun getSerie(id: String) {
         loading.value = 1
         viewModelScope.launch {
-            delay(1000)
+
             serie.value =
                 service.getSerieRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
 
@@ -36,7 +36,7 @@ class ExibeSerieViewModel(val service: Service, val dataBase: RepositoryDataBase
     fun getSeriesChar(id: String) {
         loading.value = 1
         viewModelScope.launch {
-            delay(1000)
+
             serie.value = service.getSeriesCharRepo(
                 id,
                 hash.ts,
@@ -51,7 +51,7 @@ class ExibeSerieViewModel(val service: Service, val dataBase: RepositoryDataBase
     fun getSeriesStories(id: String) {
         loading.value = 1
         viewModelScope.launch {
-            delay(1000)
+
             serie.value = service.getSeriesStoriesRepo(
                 id,
                 hash.ts,
