@@ -24,7 +24,7 @@ class ExibeSerieAdapter(
     override fun onBindViewHolder(holder: SerieViewHolder, position: Int) {
         val serie = listImagensSeries[position]
         var picasso = Picasso.get()
-        picasso.load(serie.thumb.path + "/landscape_incredible." + serie.thumb.extension)
+        picasso.load(serie.thumb.path + "/portrait_uncanny." + serie.thumb.extension)
             .into(holder.imagem)
 
         holder.itemView.setOnClickListener {

@@ -41,7 +41,7 @@ class ExibeStoriesAdapter (
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var picasso = Picasso.get()
-        picasso.load(listImages[position].thumb.path + "/landscape_incredible." +listImages[position].thumb.extension).into(holder.ivExibe)
+        picasso.load(listImages[position].thumb.path + "/portrait_uncanny." +listImages[position].thumb.extension).into(holder.ivExibe)
 
     }
 

@@ -24,7 +24,7 @@ class ExibeComicsAdapter(
     override fun onBindViewHolder(holder: ComicViewHolder, position: Int) {
         val comic = listImagensComics[position]
         val picasso = Picasso.get()
-        picasso.load(comic.thumb.path + "/landscape_incredible." + comic.thumb.extension)
+        picasso.load(comic.thumb.path + "/portrait_uncanny." + comic.thumb.extension)
             .into(holder.imagemComic)
 
         holder.itemView.setOnClickListener {
