@@ -33,7 +33,8 @@ class ExibeCharViewModel(val service: Service, val dataBase: RepositoryDataBase)
             var charExibido = dataBase.getResults(id)
 
 
-            if (charExibido == null) {
+
+            if (charExibido.isEmpty()) {
                 charExibido =
                     service.getCharRepo(id, hash.ts, hash.publicKey, hash.getKey()).data.results
                 Log.i("EXIBECHARVIEWMODEL", "pegou da api")

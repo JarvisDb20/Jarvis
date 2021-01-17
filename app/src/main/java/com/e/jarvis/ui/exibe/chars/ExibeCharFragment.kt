@@ -71,6 +71,7 @@ class ExibeCharFragment : Fragment(), ExibeCharAdapter.onClickListener {
         val charInfo = args.apiObj
 
         configuraProgressBar(view)
+        //charinfo passa pra viewmodel fazer o when e trazer o resultado direto chmara lá direto na api retorna o resultado
         when (charInfo.tipoId) {
             "char" -> {
                 viewModel.getChar(charInfo.id)

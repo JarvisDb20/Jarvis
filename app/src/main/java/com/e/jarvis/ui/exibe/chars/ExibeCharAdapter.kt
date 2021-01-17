@@ -44,8 +44,10 @@ class ExibeCharAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var picasso = Picasso.get()
-        picasso.load(listImages[position].thumb.path + "/landscape_incredible." +listImages[position].thumb.extension).into(holder.ivExibe)
+        picasso.load(listImages[position].thumb.path + "/portrait_medium." +listImages[position].thumb.extension).into(holder.ivExibe)
 
+
+        //melhor até agora e portrait xlarge fit xy
     }
 
     override fun getItemCount(): Int {

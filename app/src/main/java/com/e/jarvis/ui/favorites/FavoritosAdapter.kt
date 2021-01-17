@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
 import com.e.jarvis.models.modelsfavoritos.Favorito
+import com.e.jarvis.ui.home.HomeAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_top_heroi.view.*
 
@@ -55,15 +56,14 @@ class FavoritosAdapter() : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHo
 
 
 
-        holder.itemView.setOnClickListener {
-            Log.i("FAVORITOS CLICK", "clicou mas falta comportamento")
 
-        }
 
 
     }
 
     override fun getItemCount() = listFavoritos.size
+
+
 
 
     //passa as listas e avisa o adapter quando tem mudanças

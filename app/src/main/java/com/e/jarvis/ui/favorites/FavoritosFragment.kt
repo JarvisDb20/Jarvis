@@ -84,20 +84,15 @@ class FavoritosFragment : Fragment() {
         viewModel.getAllStoriesFavoritos()
 
 
+        //clique longo para excluir
+        //multiplos e lixinho que aparece na toolbar
 
-
-
-
-
-
-
-
-
-
-
+        //incluir comportamento de clique nos itens que mostra detalhes deles
 
 
     }
+
+
 
 
 }

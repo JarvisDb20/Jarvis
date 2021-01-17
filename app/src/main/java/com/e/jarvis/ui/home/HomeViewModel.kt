@@ -36,6 +36,8 @@ class HomeViewModel(val service: Service, val dataBase: RepositoryDataBase) : Vi
         }
     }
 
+    //fazer função que muda a flag
+
 
 
 

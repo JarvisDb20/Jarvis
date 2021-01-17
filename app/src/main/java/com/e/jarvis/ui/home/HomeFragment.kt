@@ -73,8 +73,14 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
                     "1009268", // deadpool
                     "1009610"  // homem aranha
             ))
-            configuraProgressBar(view)
+
         }
+
+
+        configuraProgressBar(view)
+        //toda vez que muda de fragment tem que mudar a flag da progressbar
+        //chama o observer aqui
+
 
 
         //configurando a recyclerview
@@ -111,6 +117,9 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
         findNavController().navigate(direction)
     }
 
+
+    //chamada da viewModel no oncreate
+    //e chama função do if else
     private fun configuraProgressBar(view: View) {
         viewModel.loading.observe(viewLifecycleOwner, {
             if (it == 1) {
