@@ -1,6 +1,5 @@
 package com.e.jarvis.ui.favorites
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
 import com.e.jarvis.models.modelsfavoritos.Favorito
-import com.e.jarvis.ui.home.HomeAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_top_heroi.view.*
 
-class FavoritosAdapter() : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHolder>() {
+class FavoritosAdapter( val listener : FavoritosOnClickListener) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHolder>() {
 
     var listFavoritos = emptyList<Favorito>()
 
@@ -53,18 +51,18 @@ class FavoritosAdapter() : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHo
             }
         }
 
-
-
-
-
-
-
+        holder.itemView.setOnLongClickListener {
+            listener.selectFavorito(position)
+            true
+        }
     }
 
     override fun getItemCount() = listFavoritos.size
 
 
-
+    interface FavoritosOnClickListener {
+        fun selectFavorito(position: Int)
+    }
 
     //passa as listas e avisa o adapter quando tem mudanças
     fun setData(favorito: List<Favorito>) {
@@ -80,3 +78,5 @@ class FavoritosAdapter() : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHo
 
     }
 }
+
+

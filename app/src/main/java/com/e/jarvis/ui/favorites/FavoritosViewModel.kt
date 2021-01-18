@@ -3,6 +3,7 @@ package com.e.jarvis.ui.favorites
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.e.jarvis.injection.roomRepositoryModule
 import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.repository.RepositoryDataBase
 import kotlinx.coroutines.launch
@@ -44,6 +45,14 @@ class FavoritosViewModel(private val dataBase: RepositoryDataBase) : ViewModel()
         }
 
     }
+
+    //deleta favorito
+    fun deleteFavorito(favorito: Favorito){
+        viewModelScope.launch {
+            dataBase.deleteFavorito(favorito)
+        }
+    }
+
 
 
 

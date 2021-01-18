@@ -238,5 +238,8 @@ class RepositoryDataBase(val resultsDao: ResultsDao, val favoritoDao: FavoritoDa
    //pega stories favoritos
     suspend fun getAllStoriesFavoritos() = favoritoDao.getAllStoriesFavoritos("storie")
 
+    //deleta favorito selecionado com o long click
+    suspend fun deleteFavorito(favorito: Favorito) = favoritoDao.deleteFavorito(favorito)
+
 
 }
