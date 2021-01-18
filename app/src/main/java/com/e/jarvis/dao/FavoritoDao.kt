@@ -33,7 +33,4 @@ interface FavoritoDao {
     suspend fun deleteFavorito(favorito: Favorito)
 
 
-
-
-
 }

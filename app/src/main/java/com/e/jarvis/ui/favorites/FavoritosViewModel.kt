@@ -46,10 +46,36 @@ class FavoritosViewModel(private val dataBase: RepositoryDataBase) : ViewModel()
 
     }
 
-    //deleta favorito
-    fun deleteFavorito(favorito: Favorito){
+
+    fun deleteFavoritoChar(favorito: Favorito) {
         viewModelScope.launch {
             dataBase.deleteFavorito(favorito)
+            //chamando essa função, ela atualiza
+            getAllCharsFavoritos()
+        }
+    }
+
+    fun deleteFavoritoComic(favorito: Favorito) {
+        viewModelScope.launch {
+            dataBase.deleteFavorito(favorito)
+            //chamando essa função, ela atualiza
+            getAllComicsFavoritos()
+        }
+    }
+
+    fun deleteFavoritoSerie(favorito: Favorito) {
+        viewModelScope.launch {
+            dataBase.deleteFavorito(favorito)
+            //chamando essa função, ela atualiza
+            getAllSeriesFavoritos()
+        }
+    }
+
+    fun deleteFavoritoStorie(favorito: Favorito) {
+        viewModelScope.launch {
+            dataBase.deleteFavorito(favorito)
+            //chamando essa função, ela atualiza
+            getAllStoriesFavoritos()
         }
     }
 

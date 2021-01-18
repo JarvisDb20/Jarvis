@@ -2,6 +2,7 @@ package com.e.jarvis.models.generics
 
 
 import androidx.room.*
+import com.e.jarvis.models.utils.ApiObject
 
 import java.io.Serializable
 
@@ -70,6 +71,10 @@ data class GenericResults(
 //    val next : GenericSummary,
 //    val previous : GenericSummary,
     //   val originalIssue : GenericSummary // story
+
+    @Embedded(prefix = "apiObject_")
+    var apiObject: ApiObject?
+
 ) : Serializable
 
 

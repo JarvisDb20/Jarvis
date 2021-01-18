@@ -11,7 +11,7 @@ import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_top_heroi.view.*
 
-class FavoritosAdapter( val listener : FavoritosOnClickListener) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHolder>() {
+class FavoritosAdapter( val listener : FavoritosOnClickListener, val origin : String) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHolder>() {
 
     var listFavoritos = emptyList<Favorito>()
 
@@ -51,17 +51,14 @@ class FavoritosAdapter( val listener : FavoritosOnClickListener) : RecyclerView.
             }
         }
 
-        holder.itemView.setOnLongClickListener {
-            listener.selectFavorito(position)
-            true
-        }
+
     }
 
     override fun getItemCount() = listFavoritos.size
 
 
     interface FavoritosOnClickListener {
-        fun selectFavorito(position: Int)
+        fun selectFavorito(position: Int, origin: String)
     }
 
     //passa as listas e avisa o adapter quando tem mudanças
@@ -71,10 +68,21 @@ class FavoritosAdapter( val listener : FavoritosOnClickListener) : RecyclerView.
 
     }
 
-    class FavoritosViewHolder(item: View) : RecyclerView.ViewHolder(item) {
+    inner class FavoritosViewHolder(item: View) : RecyclerView.ViewHolder(item),  View.OnClickListener {
 
         val imagemFav: ImageView = item.iv_personagem
         val nomeFav: TextView = item.tv_personagem
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (RecyclerView.NO_POSITION != position)
+                v?.let { listener.selectFavorito(position, origin) }
+        }
 
     }
 }

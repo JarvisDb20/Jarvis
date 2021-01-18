@@ -242,4 +242,6 @@ class RepositoryDataBase(val resultsDao: ResultsDao, val favoritoDao: FavoritoDa
     suspend fun deleteFavorito(favorito: Favorito) = favoritoDao.deleteFavorito(favorito)
 
 
+
+
 }
