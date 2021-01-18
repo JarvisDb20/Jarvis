@@ -44,6 +44,7 @@
     <string name="series_fav">Series</string>
     <string name="comics_fav">Comics</string>
     <string name="personagens_fav">Characters</string>
+    <string name="Logout">Logout</string>
 
 
 </resources>

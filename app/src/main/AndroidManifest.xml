@@ -18,7 +18,7 @@
         android:hardwareAccelerated="false"
 
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <!--            android:theme="@style/Theme.MaterialComponents.NoActionBar"-->
 
             <intent-filter>

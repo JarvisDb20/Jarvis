@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/nav_home"
@@ -22,7 +22,7 @@
         android:id="@+id/exibePersonagemFragment"
         android:name="com.e.jarvis.ui.exibe.chars.ExibeCharFragment"
         android:label="NOME DO PERSONAGEM"
-        tools:layout="@layout/fragment_exibe_char">
+        tools:layout="@layout/fragment_exibe">
         <action
             android:id="@+id/navigate_personagem_to_exibe_series_fragment"
             app:destination="@id/exibeSeriesFragement" />
@@ -32,9 +32,6 @@
         <action
             android:id="@+id/navigate_personagem_to_exibe_stories_fragment"
             app:destination="@id/exibeStoriesFragment" />
-        <argument
-            android:name="apiObj"
-            app:argType="com.e.jarvis.models.utils.ApiObject" />
         <action
             android:id="@+id/action_exibePersonagemFragment_to_imageFullFragment"
             app:destination="@id/imageFullFragment" />
@@ -43,7 +40,7 @@
         android:id="@+id/exibeComicsFragment"
         android:name="com.e.jarvis.ui.exibe.comic.ExibeComicsFragment"
         android:label="NOME DO PERSONAGEM"
-        tools:layout="@layout/fragment_exibe_comics">
+        tools:layout="@layout/fragment_exibe">
         <action
             android:id="@+id/navigate_comics_to_personagem"
             app:destination="@id/exibePersonagemFragment" />
@@ -53,9 +50,6 @@
         <action
             android:id="@+id/navigate_comics_to_stories"
             app:destination="@id/exibeStoriesFragment" />
-        <argument
-            android:name="apiObj"
-            app:argType="com.e.jarvis.models.utils.ApiObject" />
         <action
             android:id="@+id/action_exibeComicsFragment_to_imageFullFragment"
             app:destination="@id/imageFullFragment" />
@@ -63,9 +57,9 @@
     </fragment>
     <fragment
         android:id="@+id/exibeStoriesFragment"
-        android:name="com.e.jarvis.ui.exibe.story.ExibeStoriesFragment"
+        android:name="com.e.jarvis.ui.exibe.stories.ExibeStoriesFragment"
         android:label="NOME DO PERSONAGEM"
-        tools:layout="@layout/fragment_exibe_stories">
+        tools:layout="@layout/fragment_exibe">
         <action
             android:id="@+id/navigate_stories_to_personagem_fragment"
             app:destination="@id/exibePersonagemFragment" />
@@ -78,13 +72,10 @@
         <action
             android:id="@+id/action_exibeStoriesFragment_to_imageFullFragment"
             app:destination="@id/imageFullFragment" />
-        <argument
-            android:name="apiObj"
-            app:argType="com.e.jarvis.models.utils.ApiObject" />
     </fragment>
     <fragment
         android:id="@+id/pesquisaFragment"
-        android:name="com.e.jarvis.ui.search.PesquisaFragment"
+        android:name="com.e.jarvis.ui.pesquisa.PesquisaFragment"
         android:label="JARVIS DB"
         tools:layout="@layout/fragment_pesquisa">
         <action
@@ -93,8 +84,10 @@
     </fragment>
     <fragment
         android:id="@+id/exibeSeriesFragement"
-        android:name="com.e.jarvis.ui.exibe.serie.ExibeSeriesFragement"
-        android:label="NOME DO PERSONAGEM">
+        android:name="com.e.jarvis.ui.exibe.series.ExibeSeriesFragement"
+        android:label="NOME DO PERSONAGEM"
+        tools:layout="@layout/fragment_exibe"
+        >
         <action
             android:id="@+id/navigate_series_to_personagem_fragment"
             app:destination="@id/exibePersonagemFragment" />
@@ -108,9 +101,6 @@
         <action
             android:id="@+id/action_exibeSeriesFragement_to_imageFullFragment"
             app:destination="@id/imageFullFragment" />
-        <argument
-            android:name="apiObj"
-            app:argType="com.e.jarvis.models.utils.ApiObject" />
 
     </fragment>
     <fragment
@@ -138,7 +128,7 @@
         tools:layout="@layout/fragment_cadastro" />
     <fragment
         android:id="@+id/questionFragment"
-        android:name="com.e.jarvis.ui.question.QuestionFragment"
+        android:name="com.e.jarvis.ui.perguntas.QuestionFragment"
         android:label="Quiz"
         tools:layout="@layout/fragment_question" />
     <fragment
@@ -150,9 +140,23 @@
         android:id="@+id/imageFullFragment"
         android:name="com.e.jarvis.ui.exibe.ImageFullFragment"
         android:label="fragment_image_full"
-        tools:layout="@layout/fragment_image_full" >
+        tools:layout="@layout/fragment_image_full">
         <argument
             android:name="fullImage"
             app:argType="com.e.jarvis.models.utils.ItemImage" />
     </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.e.jarvis.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/logoutFragment"
+        android:name="com.e.jarvis.ui.logout.logoutFragment"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" />
 </navigation>

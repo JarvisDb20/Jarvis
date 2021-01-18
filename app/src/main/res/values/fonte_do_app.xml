@@ -4,7 +4,7 @@
         <item name="android:fontFamily">@font/font_norwester</item>
     </style>
     <style name="fonteSecundaria" parent="TextAppearance.AppCompat">
-        <item name="android:fontFamily">@font/chewy</item>
+        <item name="android:fontFamily">@font/font_chewy</item>
     </style>
     <style name="fonteLeitura" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">sans-serif</item>
