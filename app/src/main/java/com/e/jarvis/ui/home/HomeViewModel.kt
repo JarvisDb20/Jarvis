@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.e.jarvis.models.generics.GenericResults
+import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.models.utils.KeyHash
 import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
@@ -27,7 +28,7 @@ class HomeViewModel(val service: Service, val dataBase: RepositoryDataBase) : Vi
             val resultado = arrayListOf<GenericResults>()
             listCharId.forEach {
                 resultado.addAll(
-                    service.getCharRepo(it,hash.ts,hash.publicKey,hash.getKey()).data.results
+                    setApiObject("char",service.getCharRepo(it,hash.ts,hash.publicKey,hash.getKey()).data.results)
                 )
             }
             chars.value = resultado
@@ -36,10 +37,14 @@ class HomeViewModel(val service: Service, val dataBase: RepositoryDataBase) : Vi
         }
     }
 
-
-
-
-
-
+    fun setApiObject(
+        tipoid: String,
+        results: ArrayList<GenericResults>
+    ): ArrayList<GenericResults> {
+        results.forEach { res ->
+            res.apiObject = ApiObject(res.id, tipoid)
+        }
+        return results
+    }
 }
 

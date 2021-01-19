@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:title="Char."
+        android:icon="@drawable/ic_btn_personagem"
+        />
+    <item
+        android:id="@+id/exibeSeriesFragement"
+        android:title="Series"
+        android:icon="@drawable/ic_btn_series"
+        />
+    <item
+        android:id="@+id/exibeComicsFragment"
+        android:title="Comics"
+        android:icon="@drawable/ic_btn_comics"
+        />
+    <item
+        android:id="@+id/exibeStoriesFragment"
+        android:icon="@drawable/ic_btn_stories"
+        android:title="Stories" />
+</menu>
+
+<!--<Button-->
+<!--android:id="@+id/btn_exibe_char"-->
+<!--style="@style/fontePrincipal"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:backgroundTint="@color/black"-->
+<!--android:drawableTop="@drawable/ic_btn_personagem"-->
+<!--android:text="Char."-->
+<!--android:textColor="@color/white" />-->
+
+<!--<Button-->
+<!--android:id="@+id/btn_exibe_series"-->
+<!--style="@style/fontePrincipal"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:backgroundTint="@color/black"-->
+<!--android:drawableTop="@drawable/ic_btn_series"-->
+<!--android:text="Series"-->
+<!--android:textColor="@color/white" />-->
+
+<!--<Button-->
+<!--android:id="@+id/btn_exibe_comics"-->
+<!--style="@style/fontePrincipal"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:backgroundTint="@color/black"-->
+<!--android:drawableTop="@drawable/ic_btn_comics"-->
+<!--android:text="Comics"-->
+<!--android:textColor="@color/white" />-->
+
+<!--<Button-->
+<!--android:id="@+id/btn_exibe_stories"-->
+<!--style="@style/fontePrincipal"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:layout_weight="1"-->
+<!--android:backgroundTint="@color/black"-->
+<!--android:drawableTop="@drawable/ic_btn_stories"-->
+<!--android:text="Stories"-->
+<!--android:textColor="@color/white" />-->

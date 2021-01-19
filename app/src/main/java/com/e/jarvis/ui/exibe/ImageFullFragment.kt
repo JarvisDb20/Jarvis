@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.e.jarvis.MainActivity
 import com.e.jarvis.R
+import com.e.jarvis.ui.BaseFragment
+import com.e.jarvis.ui.MainActivity
 import com.squareup.picasso.Picasso
 
-class ImageFullFragment : Fragment() {
+class ImageFullFragment : BaseFragment() {
     val args: ImageFullFragmentArgs by navArgs()
 
     override fun onCreateView(

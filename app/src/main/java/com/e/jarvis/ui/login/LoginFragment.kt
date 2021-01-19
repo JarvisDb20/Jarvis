@@ -7,14 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.e.jarvis.R
+import com.e.jarvis.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

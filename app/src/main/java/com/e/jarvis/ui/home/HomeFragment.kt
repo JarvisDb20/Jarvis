@@ -6,10 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,12 +13,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
-import com.e.jarvis.ui.exibe.story.ExibeStoriesViewModel
-//import com.e.jarvis.repository.service
+import com.e.jarvis.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment() , HomeAdapter.onClickListener {
+class HomeFragment : BaseFragment() , HomeAdapter.onClickListener {
     var layoutStarted = false
     lateinit var chars: ArrayList<GenericResults>
     lateinit var adapter: HomeAdapter
@@ -53,7 +48,7 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
         viewModel.chars.observe(viewLifecycleOwner, {
             chars = it
             adapter.updateChars(it)
-            Log.i("Inicio", it.toString())
+           // Log.i("Inicio", it.toString())
         })
 
 
@@ -73,8 +68,14 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
                     "1009268", // deadpool
                     "1009610"  // homem aranha
             ))
-            configuraProgressBar(view)
+
         }
+
+
+        configuraProgressBar(view)
+        //toda vez que muda de fragment tem que mudar a flag da progressbar
+        //chama o observer aqui
+
 
 
         //configurando a recyclerview
@@ -90,27 +91,30 @@ class HomeFragment : Fragment() , HomeAdapter.onClickListener {
     //clique no char, passa o id dele e o tipo para o Api Object
     override fun charsClick(position: Int) {
 
-        val api : ApiObject
+        val apisSimulation : ApiObject
 
         if (chars[position].id == "1010744"){
             // simulando pegar uma comic quando clicar no rocket
-            api = ApiObject(
+            apisSimulation = ApiObject(
                 "65123",
                 "comic"
             )
         }else {
-            api = ApiObject(
+            apisSimulation = ApiObject(
                 chars[position].id,
                 "char"
             )
         }
-
+        sharedModel.setSelectedResult(chars[position])
         //quando clica em um item, vai para o fragment exibe personagem e passa o ApiObject
         //vai ser sempre para o frag exibe char pois aqui só vai ter top 9 char
-        val direction = HomeFragmentDirections.actionNavHomeToExibePersonagemFragment(api)
-        findNavController().navigate(direction)
+
+        findNavController().navigate(R.id.action_nav_home_to_exibePersonagemFragment)
     }
 
+
+    //chamada da viewModel no oncreate
+    //e chama função do if else
     private fun configuraProgressBar(view: View) {
         viewModel.loading.observe(viewLifecycleOwner, {
             if (it == 1) {
