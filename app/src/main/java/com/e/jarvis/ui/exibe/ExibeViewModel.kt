@@ -1,167 +1,52 @@
 package com.e.jarvis.ui.exibe
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.generics.GenericResults
-import com.e.jarvis.models.modelsfavoritos.Favorito
-import com.e.jarvis.models.utils.KeyHash
-import com.e.jarvis.repository.RepositoryDataBase
-import com.e.jarvis.repository.Service
+import com.e.jarvis.repository.MarvelRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.ArrayList
 
-class ExibeViewModel(val service: Service, val dataBase: RepositoryDataBase) : ViewModel() {
+class ExibeViewModel(
+    val marvelRepo: MarvelRepository
+) : ViewModel() {
 
-
-    private val hash = KeyHash(
-        "bacf6559c29f05132ea07020962d41a65dcd3304",
-        "f28a07f38dc7090aa24b3e50496e6ac6"
-    )
-
-    val result = MutableLiveData<List<GenericResults>>()
-
+    val result = MutableLiveData<ResponseWrapper<HashSet<GenericResults>>>()
     val loading = MutableLiveData<Int>()
 
-    fun getResult(genericResults: GenericResults, origin: String) {
-        val apiObject = genericResults.apiObject!!
-        when (apiObject.tipoId) {
-            "char" -> {
-                getChar(apiObject.id, origin)
-            }
-            "comic" -> {
-                getCharComics(apiObject.id, origin)
-            }
-            "series" -> {
-                getCharDaSerie(apiObject.id, origin)
-            }
-            "stories" -> {
-                getCharDaStories(apiObject.id, origin)
-            }
-        }
-    }
-
-    fun getChar(id: String, origin: String) {
-        loading.value = 1
+    fun getResult(genericResults: GenericResults, info: String) {
         viewModelScope.launch {
-            var resultExibido = dataBase.getResults(id)
-            if (resultExibido.isNullOrEmpty()) {
-                when (origin) {
-                    "char" -> {
-                        resultExibido = service.getCharRepo(
-                            id,
-                            hash.ts,
-                            hash.publicKey,
-                            hash.getKey()
-                        ).data.results
+            genericResults.apiObject?.let {
+                marvelRepo.getById(genericResults.id, it.tipoId, info).collect {  res ->
+                    when (res.status){
+                        ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                        ResponseWrapper.Status.ERROR ->  result.value = ResponseWrapper( res.status,null,res.error)
+                        else ->{
+                            result.value = ResponseWrapper(res.status, res.data!!.toHashSet(),res.error)
+                        }
                     }
-                    "comic" -> {
-
-                    }
-                    "series" -> {
-
-                    }
-                    "stories" -> {
-
-                    }
-                }
-                dataBase.addResults(resultExibido[0])
-            }
-            result.value = resultExibido
-            loading.value = 0
-        }
-    }
-
-    fun getCharComics(id: String, origin: String) {
-        loading.value = 1
-        viewModelScope.launch {
-            when (origin) {
-                "char" -> {
-                    result.value = service.getCharComicRepo(
-                        id,
-                        hash.ts,
-                        hash.publicKey,
-                        hash.getKey()
-                    ).data.results
-                }
-                "comic" -> {
-
-                }
-                "series" -> {
-
-                }
-                "stories" -> {
-
+                    loading.value = View.INVISIBLE
                 }
             }
-            loading.value = 0
         }
     }
-
-    fun getCharDaSerie(id: String, origin: String) {
-        loading.value = 1
-        viewModelScope.launch {
-            when (origin) {
-                "char" -> {
-                    result.value = service.getCharSeriesRepo(
-                        id,
-                        hash.ts,
-                        hash.publicKey,
-                        hash.getKey()
-                    ).data.results
-                }
-                "comic" -> {
-
-                }
-                "series" -> {
-
-                }
-                "stories" -> {
-
-                }
-            }
-
-            loading.value = 0
+    //converte para hashset
+    fun <T> ArrayList<out T>.toHashSet(): HashSet<T> {
+        val hash = hashSetOf<T>()
+        this.forEach { l ->
+            hash.add(l)
         }
+        return hash
     }
 
-    fun getCharDaStories(id: String, origin: String) {
-        loading.value = 1
-        viewModelScope.launch {
-            when (origin) {
-                "char" -> {
-                    result.value = service.getCharStoriesRepo(
-                        id,
-                        hash.ts,
-                        hash.publicKey,
-                        hash.getKey()
-                    ).data.results
-                }
-                "comic" -> {
-
-                }
-                "series" -> {
-
-                }
-                "stories" -> {
-
-                }
-            }
-            loading.value = 0
-        }
-    }
-
-
-    //room tabela results
-    fun addResults(result: GenericResults) {
-        viewModelScope.launch {
-            dataBase.addResults(result)
-        }
-    }
-
-    //room tabela favoritos
-    fun addFavorito(result: GenericResults) {
-        viewModelScope.launch {
-            dataBase.addFavorito(Favorito(result.id, result, "char"))
-        }
-    }
+//    //room tabela favoritos
+//    fun addFavorito(result: GenericResults) {
+//        viewModelScope.launch {
+//            dataBase.addFavorito(Favorito(result.id, result, "char"))
+//        }
+//    }
 }

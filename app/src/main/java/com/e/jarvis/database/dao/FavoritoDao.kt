@@ -1,4 +1,4 @@
-package com.e.jarvis.dao
+package com.e.jarvis.database.dao
 
 import androidx.room.*
 import com.e.jarvis.models.modelsfavoritos.Favorito
@@ -17,10 +17,6 @@ interface FavoritoDao {
 
     @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
     suspend fun getAllStoriesFavoritos(tipo : String): List<Favorito>
-
-
-
-
 
 
     @Query("SELECT * FROM favoritos WHERE id= :id")

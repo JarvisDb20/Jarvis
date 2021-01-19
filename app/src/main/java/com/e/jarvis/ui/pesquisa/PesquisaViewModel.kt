@@ -1,67 +1,51 @@
 package com.e.jarvis.ui.pesquisa
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.generics.GenericResults
-import com.e.jarvis.models.utils.ApiObject
-import com.e.jarvis.models.utils.KeyHash
-import com.e.jarvis.repository.Service
+import com.e.jarvis.repository.MarvelRepository
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class PesquisaViewModel(val service: Service) : ViewModel() {
+class PesquisaViewModel(val marvelRepo: MarvelRepository) : ViewModel() {
 
-    val hash = KeyHash(
-        "bacf6559c29f05132ea07020962d41a65dcd3304",
-        "f28a07f38dc7090aa24b3e50496e6ac6"
-    )
-
-    val listSearch = MutableLiveData<ArrayList<GenericResults>>()
-
+    val listSearch = MutableLiveData<ResponseWrapper<ArrayList<GenericResults>>>()
     val loading = MutableLiveData<Int>()
 
 
     fun getSearch(starString: String) {
-        loading.value = 1
-
         viewModelScope.launch {
-            val result: ArrayList<GenericResults> = arrayListOf()
-
-            val chars = setApiObject(
-                "char", service.getCharSearch(
-                    hash.ts, hash.publicKey, hash.getKey(),
-                    "%$starString%"
-                ).data.results
-            )
-
-            val comics = setApiObject("comic",service.getComicsSearch(
-                hash.ts, hash.publicKey, hash.getKey(),
-                "%$starString%"
-            ).data.results)
-
-            val series = setApiObject("series",service.getSeriesSearch(
-                hash.ts, hash.publicKey, hash.getKey(),
-                "%$starString%"
-            ).data.results)
-
-            result.addAll(chars)
-            result.addAll(comics)
-            result.addAll(series)
-
-            listSearch.value = result
-
-            loading.value = 0
+            when (listSearch.value?.status) {
+                ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                else -> {
+                    marvelRepo
+                        .getSearch(starString)
+                        // em caso  de erro
+                        .catch { error ->
+                            listSearch.value = ResponseWrapper<ArrayList<GenericResults>>(
+                                ResponseWrapper.Status.ERROR,
+                                null,
+                                error.message
+                            )
+                            loading.value = View.INVISIBLE
+                        }
+                        // assim q vier uma resposta ele cai no collect
+                        .collect { res ->
+                            when (res.status) {
+                                ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                                else -> {
+                                    listSearch.value = res
+                                }
+                            }
+                            loading.value = View.INVISIBLE
+                        }
+                }
+            }
         }
     }
 
-
-    fun setApiObject(
-        tipoid: String,
-        results: ArrayList<GenericResults>
-    ): ArrayList<GenericResults> {
-        results.forEach { res ->
-            res.apiObject = ApiObject(res.id, tipoid)
-        }
-        return results
-    }
 }

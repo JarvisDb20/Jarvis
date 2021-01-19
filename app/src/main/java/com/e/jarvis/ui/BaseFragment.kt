@@ -1,11 +1,16 @@
 package com.e.jarvis.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.SearchView
+import android.widget.Toast
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.e.jarvis.R
 import com.e.jarvis.models.utils.DrawerMenuItem
 import com.e.jarvis.models.utils.MenuAppBar
@@ -20,7 +25,8 @@ abstract class BaseFragment : Fragment() {
     protected open var menuItemVisibility =
         DrawerMenuItem(home = true, quiz = true, favorites = true, login = true, logout = true)
     open val sharedModel: SharedViewModel by sharedViewModel()
-    protected open var menuAppBar = MenuAppBar(share = false, favorite = false)
+    protected open var menuAppBar = MenuAppBar(share = false, favorite = false, search = false)
+    open val searchString = MutableLiveData<String>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -64,19 +70,34 @@ abstract class BaseFragment : Fragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        menu.forEach {item->
+        menu.forEach { item ->
             when (item.title.toString().toLowerCase()) {
                 "share" -> item.isVisible = menuAppBar.share
                 "favorite" -> item.isVisible = menuAppBar.favorite
+                "search" -> item.isVisible = menuAppBar.search
             }
         }
+        val menuItem = menu.findItem(R.id.sv_search)
+        val searchView = menuItem.actionView as SearchView
+        searchView.queryHint = "Search here!"
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchString.value = query
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searchString.value = newText
+                return false
+            }
+        })
         super.onCreateOptionsMenu(menu, inflater)
 
     }
+
     protected fun sendMessage(msg: String) {
-        activity?.let {
-            Snackbar.make(it.findViewById(R.id.container), "$msg", Snackbar.LENGTH_LONG).show()
-        }
+        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
     }
 
 }

@@ -1,10 +1,9 @@
-package com.e.jarvis.repository
+package com.e.jarvis.database.db
 
-import com.e.jarvis.dao.QuizDao
+import com.e.jarvis.database.dao.QuizDao
 import com.e.jarvis.models.modelsQuiz.Quiz
 
-//parte do room:
-class QuizRepository(val quizDao: QuizDao) {
+class QuizDb(val quizDao: QuizDao) {
 
     suspend fun getQuiz(id : Int) = quizDao.getQuiz(id)
 

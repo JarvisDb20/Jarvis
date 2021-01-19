@@ -8,15 +8,7 @@
     android:orientation="vertical"
     >
 
-    <EditText
-        android:background="@drawable/shape_search"
-        android:id="@+id/sv_search"
-        android:drawableLeft="@drawable/ic_search"
-        android:layout_height="48dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_width="match_parent" />
+
 
     <TextView
         style="@style/fonteSecundaria"
@@ -36,6 +28,7 @@
         android:layout_gravity="center"
         android:indeterminateTint="@color/vivid_burgundy"
         android:indeterminateTintMode="src_in"
+        android:visibility="invisible"
         />
 
     <androidx.recyclerview.widget.RecyclerView

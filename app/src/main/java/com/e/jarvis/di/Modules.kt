@@ -2,47 +2,26 @@ package com.e.jarvis.di
 
 import android.app.Application
 import androidx.room.Room
-import com.e.jarvis.dao.FavoritoDao
-import com.e.jarvis.dao.QuizDao
-import com.e.jarvis.dao.ResultsDao
 import com.e.jarvis.database.AppDatabase
-import com.e.jarvis.repository.QuizRepository
-import com.e.jarvis.repository.RepositoryDataBase
-import com.e.jarvis.repository.Service
+import com.e.jarvis.database.dao.*
+import com.e.jarvis.database.db.FavoritoDb
+import com.e.jarvis.database.db.MarvelDb
+import com.e.jarvis.database.db.QuizDb
+import com.e.jarvis.repository.MarvelRepository
+import com.e.jarvis.retrofit.MarvelService
 import com.e.jarvis.ui.SharedViewModel
 import com.e.jarvis.ui.exibe.ExibeViewModel
 import com.e.jarvis.ui.favorites.FavoritosViewModel
 import com.e.jarvis.ui.home.HomeViewModel
 import com.e.jarvis.ui.perguntas.QuestionViewModel
-import com.e.jarvis.ui.quiz.QuizViewModel
 import com.e.jarvis.ui.pesquisa.PesquisaViewModel
+import com.e.jarvis.ui.quiz.QuizViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-val roomRepositoryModule = module {
-
-    fun provideUserRepository(
-        dao: ResultsDao,
-        favoritoDao: FavoritoDao
-    ): RepositoryDataBase {
-        return RepositoryDataBase(dao, favoritoDao)
-    }
-
-    //devolve uma instancia unica para ser utilizada onde é dependencia
-    single { provideUserRepository(get(), get()) }
-
-
-    fun provideQuizRepository(
-        dao: QuizDao
-    ): QuizRepository {
-        return QuizRepository(dao)
-    }
-    single { provideQuizRepository(get()) }
-
-}
 
 val roomDataBaseModule = module {
 
@@ -53,36 +32,44 @@ val roomDataBaseModule = module {
             .build()
     }
 
-    fun provideDao(database: AppDatabase): ResultsDao {
-        return database.resultsDao()
-    }
+    fun provideMarvelDao(database: AppDatabase): MarvelDao = database.resultsDao()
+    fun provideMarvelDb(dao: MarvelDao): MarvelDb = MarvelDb(dao)
 
-    fun provideFavoritosDao(database: AppDatabase): FavoritoDao {
-        return database.favoritosDao()
-    }
+    fun provideFavoritosDao(database: AppDatabase): FavoritoDao = database.favoritosDao()
+    fun provideFavoritoDb(dao: FavoritoDao): FavoritoDb = FavoritoDb(dao)
 
-    fun provideQuizDao(database: AppDatabase): QuizDao {
-        return database.QuizDao()
-    }
+    fun provideQuizDao(database: AppDatabase): QuizDao = database.quizDao()
+    fun provideQuizDb(dao: QuizDao): QuizDb = QuizDb(dao)
 
-    //devolve uma instancia unica
+
     single { provideDataBase(androidApplication()) }
-    single { provideDao(get()) }
+
+    single { provideMarvelDao(get()) }
+    single { provideMarvelDb(get()) }
+
     single { provideFavoritosDao(get()) }
+    single { provideFavoritoDb(get()) }
+
     single { provideQuizDao(get()) }
+    single { provideQuizDb(get()) }
 
 
 }
 
+val repositoryModule = module {
+    single { MarvelRepository(get(), get()) }
+}
 
 val viewModelModule = module {
 
     viewModel {
-        ExibeViewModel(get(), get())
+        ExibeViewModel(
+           get()
+        )
     }
 
     viewModel {
-        HomeViewModel(get(), get())
+        HomeViewModel(get())
     }
 
     viewModel {
@@ -115,9 +102,7 @@ val retrofitModule = module {
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
-    fun provideAPI(retrofit: Retrofit): Service {
-        return retrofit.create(Service::class.java)
-    }
+    fun provideAPI(retrofit: Retrofit): MarvelService = retrofit.create(MarvelService::class.java)
 
     single { provideRetrofit() }
     single { provideAPI(get()) }
