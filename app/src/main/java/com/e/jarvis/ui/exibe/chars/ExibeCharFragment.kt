@@ -5,7 +5,6 @@ import com.e.jarvis.ui.exibe.ExibeBaseFragment
 
 class ExibeCharFragment : ExibeBaseFragment() {
     override var origin = "char"
-
     override fun resultClick(position: Int) {
         val directions =
             ExibeCharFragmentDirections.actionExibePersonagemFragmentToImageFullFragment(
@@ -13,7 +12,4 @@ class ExibeCharFragment : ExibeBaseFragment() {
             )
         findNavController().navigate(directions)
     }
-
-
-
 }

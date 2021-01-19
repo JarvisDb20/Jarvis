@@ -11,6 +11,7 @@ import com.e.jarvis.repository.RepositoryDataBase
 import com.e.jarvis.repository.Service
 import com.e.jarvis.ui.SharedViewModel
 import com.e.jarvis.ui.exibe.ExibeViewModel
+import com.e.jarvis.ui.favorites.FavoritosViewModel
 import com.e.jarvis.ui.home.HomeViewModel
 import com.e.jarvis.ui.perguntas.QuestionViewModel
 import com.e.jarvis.ui.quiz.QuizViewModel
@@ -98,6 +99,11 @@ val viewModelModule = module {
     viewModel {
         SharedViewModel()
     }
+
+    viewModel {
+        FavoritosViewModel(get())
+    }
+
 
 }
 

@@ -45,7 +45,7 @@ class PesquisaAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val picasso = Picasso.get()
         val currentItem = listSearches[position]
-        picasso.load(currentItem.thumbnail.path + "/landscape_incredible." + currentItem.thumbnail.extension)
+        picasso.load(currentItem.thumbnail?.path + "/landscape_incredible." + currentItem.thumbnail?.extension)
             .into(holder.ivExibe)
         if (currentItem.name == "" || currentItem.name == null)
             holder.tvNome.text = currentItem.title

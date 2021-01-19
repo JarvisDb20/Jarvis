@@ -44,6 +44,6 @@ data class GenericResults(
     @Embedded(prefix = "apiObject_")
     var apiObject: ApiObject?
 
-    ) : Serializable
+) : Serializable
 
 

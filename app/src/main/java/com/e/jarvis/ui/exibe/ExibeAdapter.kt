@@ -1,5 +1,6 @@
 package com.e.jarvis.ui.exibe
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,15 +39,14 @@ class ExibeAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var layoutItem = LayoutInflater.from(parent.context)
+        val layoutItem = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_exibe_image, parent, false)
         return ViewHolder(layoutItem)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var picasso = Picasso.get()
-        picasso.load(listImages[position].thumb.path + "/landscape_incredible." +listImages[position].thumb.extension).into(holder.ivExibe)
-
+        val picasso = Picasso.get()
+        picasso.load(listImages[position].thumb.path + "/portrait_uncanny." +listImages[position].thumb.extension).into(holder.ivExibe)
     }
 
     override fun getItemCount(): Int {

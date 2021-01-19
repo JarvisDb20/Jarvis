@@ -46,10 +46,5 @@ class HomeViewModel(val service: Service, val dataBase: RepositoryDataBase) : Vi
         }
         return results
     }
-
-
-
-
-
 }
 

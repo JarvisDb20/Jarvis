@@ -48,7 +48,7 @@ class HomeFragment : BaseFragment() , HomeAdapter.onClickListener {
         viewModel.chars.observe(viewLifecycleOwner, {
             chars = it
             adapter.updateChars(it)
-            Log.i("Inicio", it.toString())
+           // Log.i("Inicio", it.toString())
         })
 
 
@@ -68,8 +68,14 @@ class HomeFragment : BaseFragment() , HomeAdapter.onClickListener {
                     "1009268", // deadpool
                     "1009610"  // homem aranha
             ))
-            configuraProgressBar(view)
+
         }
+
+
+        configuraProgressBar(view)
+        //toda vez que muda de fragment tem que mudar a flag da progressbar
+        //chama o observer aqui
+
 
 
         //configurando a recyclerview
@@ -106,6 +112,9 @@ class HomeFragment : BaseFragment() , HomeAdapter.onClickListener {
         findNavController().navigate(R.id.action_nav_home_to_exibePersonagemFragment)
     }
 
+
+    //chamada da viewModel no oncreate
+    //e chama função do if else
     private fun configuraProgressBar(view: View) {
         viewModel.loading.observe(viewLifecycleOwner, {
             if (it == 1) {
