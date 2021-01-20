@@ -2,6 +2,7 @@ package com.e.jarvis.ui.exibe
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.ProgressBar
 import androidx.core.view.isEmpty
 import androidx.viewpager2.widget.ViewPager2
 import com.e.jarvis.R
+import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.generics.GenericImage
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
@@ -26,15 +28,15 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
 
     override var bottomNavigationViewVisibility = View.VISIBLE
     override var toolbarMenu = View.VISIBLE
-    override var menuAppBar: MenuAppBar = MenuAppBar(share = true, favorite = true)
+    override var menuAppBar: MenuAppBar = MenuAppBar(share = true, favorite = true,search = false)
 
     private lateinit var apiObject: ApiObject
     private var posicao = 0
-    private lateinit var listResults: ArrayList<GenericResults>
+    private lateinit var listResults: HashSet<GenericResults>
     private var layoutStarted = false
     private lateinit var listImages: ArrayList<ItemImage>
     private lateinit var adapter: ExibeAdapter
-    protected open var origin: String = ""
+    protected open var info: String = ""
     private lateinit var indicator: CircleIndicator3
     private lateinit var vp: ViewPager2
     private val viewModel: ExibeViewModel by viewModel()
@@ -62,24 +64,28 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
         indicator = view.findViewById<CircleIndicator3>(R.id.ci_images)
 
 
-        viewModel.getResult(sharedModel.getSelectedResult(), origin)
+        viewModel.getResult(sharedModel.getSelectedResult(), info)
 
-        viewModel.result.observe(viewLifecycleOwner, {
-            if (it.isNotEmpty()) {
-                exibeInfo(view, it[0], origin)
-                listResults = it as ArrayList<GenericResults>
-                it.forEach { linha ->
-                    viewModel.addResults(linha)
-                    geraListaImagem(linha)
+        viewModel.result.observe(viewLifecycleOwner, { res ->
+            when (res.status) {
+                ResponseWrapper.Status.ERROR -> {
+                    sendMessage(res.error.toString())
+                    (activity as MainActivity).supportActionBar?.title = "Not found..."
+                    view.tv_exibe_titulo.text = "Not found..."
+                    view.tv_exibe_descricao.text = "No description found..."
+                    view.vp_images.setBackgroundColor(Color.GRAY)
                 }
-                adapter.updateList(listImages)
-                if (indicator.isEmpty())
-                    indicator.setViewPager(vp)
-            } else {
-                (activity as MainActivity).supportActionBar?.title = "Not found..."
-                view.tv_exibe_titulo.text = "Not found..."
-                view.tv_exibe_descricao.text = "No description found..."
-                view.vp_images.setBackgroundColor(Color.GRAY)
+                ResponseWrapper.Status.SUCCESS -> {
+                    exibeInfo(view, res.data!!.first(), info)
+                    listResults = res.data
+                    res.data!!.forEach { linha ->
+                        geraListaImagem(linha)
+                    }
+                    adapter.updateList(listImages)
+                    if (indicator.isEmpty())
+                        indicator.setViewPager(vp)
+                }
+                else -> Log.i("teste", "onViewCreated: sei la")
             }
         })
 
@@ -93,7 +99,7 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
         vp.registerOnPageChangeCallback(
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    exibeInfo(view, listResults[position], origin)
+                    exibeInfo(view, listResults.elementAt(position), info)
                     posicao = position
                     super.onPageSelected(position)
                 }
@@ -101,9 +107,9 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
 
     }
 
-    open fun exibeInfo(view: View, res: GenericResults, origin: String) {
+    open fun exibeInfo(view: View, res: GenericResults, info: String) {
         (activity as MainActivity).supportActionBar?.title = res.name
-        if (origin == "char")
+        if (info == "char")
             view.tv_exibe_titulo.text = res.name
         else
             view.tv_exibe_titulo.text = res.title
@@ -130,7 +136,7 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
                 ItemImage(
                     linha.thumbnail,
                     ApiObject(
-                        origin,
+                        info,
                         linha.id
                     )
                 )
@@ -152,7 +158,7 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.menu_favoritar -> {
-            viewModel.addFavorito(listResults[posicao])
+            //viewModel.addFavorito(listResults[posicao])
             true
         }
         else -> super.onOptionsItemSelected(item)
@@ -160,7 +166,7 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
     open fun getImageFull(position: Int) = ItemImage(
         listImages[position].thumb,
         apiObject,
-        listResults[position].name!!
+        listResults.elementAt(position).name!!
     )
 
 }

@@ -4,7 +4,7 @@ import androidx.navigation.fragment.findNavController
 import com.e.jarvis.ui.exibe.ExibeBaseFragment
 
 class ExibeComicsFragment : ExibeBaseFragment() {
-    override var origin = "comic"
+    override var info = "comic"
 
     override fun resultClick(position: Int) {
         val directions =

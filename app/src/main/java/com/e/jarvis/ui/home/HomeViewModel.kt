@@ -1,50 +1,74 @@
 package com.e.jarvis.ui.home
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.generics.GenericResults
-import com.e.jarvis.models.utils.ApiObject
-import com.e.jarvis.models.utils.KeyHash
-import com.e.jarvis.repository.RepositoryDataBase
-import com.e.jarvis.repository.Service
+import com.e.jarvis.repository.MarvelRepository
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 
-class HomeViewModel(val service: Service, val dataBase: RepositoryDataBase) : ViewModel() {
+class HomeViewModel(val marvelRepo: MarvelRepository) : ViewModel() {
 
-    val hash = KeyHash(
-        "bacf6559c29f05132ea07020962d41a65dcd3304",
-        "f28a07f38dc7090aa24b3e50496e6ac6"
-    )
-
-    val chars = MutableLiveData<ArrayList<GenericResults>>()
-
+    val topChars = MutableLiveData<ResponseWrapper<HashSet<GenericResults>>>()
     val loading = MutableLiveData<Int>()
 
-    fun getChars(listCharId : ArrayList<String>){
-        loading.value = 1
+    // utilizar o analytics para pegar lista
+    private val topIds = arrayListOf(
+        "1009220", // capitao america
+        "1010338", // capita marvel
+        "1010743", // groot
+        "1010744", // rocket racoon
+        "1009496", // jean grey
+        "1009718", // wolverine
+        "1010860", // garota esquilo
+        "1009268", // deadpool
+        "1009610"  // homem aranha
+    )
 
-        viewModelScope.launch {
-            val resultado = arrayListOf<GenericResults>()
-            listCharId.forEach {
-                resultado.addAll(
-                    setApiObject("char",service.getCharRepo(it,hash.ts,hash.publicKey,hash.getKey()).data.results)
-                )
-            }
-            chars.value = resultado
-
-            loading.value = 0
-        }
+    init {
+        getChars()
     }
 
-    fun setApiObject(
-        tipoid: String,
-        results: ArrayList<GenericResults>
-    ): ArrayList<GenericResults> {
-        results.forEach { res ->
-            res.apiObject = ApiObject(res.id, tipoid)
+    fun getChars() {
+        val topLista = HashSet<GenericResults>()
+
+        viewModelScope.launch {
+            topIds.forEach {
+                when (topChars.value?.status) {
+                    ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                    else -> {
+                        marvelRepo.getById(it,"char","char")
+                            .catch { error ->
+                                topChars.value = ResponseWrapper<HashSet<GenericResults>>(
+                                    ResponseWrapper.Status.ERROR,
+                                    null,
+                                    error.message
+                                )
+                                loading.value = View.INVISIBLE
+                            }
+                            .onEach { res ->
+                                when (res.status) {
+                                    ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                                    else -> {
+                                        topLista.addAll(res.data!!)
+                                        topChars.value = ResponseWrapper(
+                                            ResponseWrapper.Status.SUCCESS,
+                                            topLista
+                                        )
+                                    }
+                                }
+                                loading.value = View.INVISIBLE
+                            }
+                            .launchIn(this)
+                    }
+                }
+            }
         }
-        return results
     }
 }
 

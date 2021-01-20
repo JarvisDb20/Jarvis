@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
+import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.utils.ApiObject
 import com.e.jarvis.ui.BaseFragment
@@ -45,10 +46,14 @@ class HomeFragment : BaseFragment() , HomeAdapter.onClickListener {
 
 
         //pega a lista que vem da API e passa para o metodo do adapter
-        viewModel.chars.observe(viewLifecycleOwner, {
-            chars = it
-            adapter.updateChars(it)
-           // Log.i("Inicio", it.toString())
+        viewModel.topChars.observe(viewLifecycleOwner, { res->
+            when (res.status){
+                ResponseWrapper.Status.ERROR -> sendMessage(res.error.toString())
+                ResponseWrapper.Status.SUCCESS ->{
+                    chars = ArrayList(res.data!!)
+                    adapter.updateChars(ArrayList(res.data!!))
+                }
+            }
         })
 
 
@@ -56,23 +61,12 @@ class HomeFragment : BaseFragment() , HomeAdapter.onClickListener {
         if (!layoutStarted) {
             chars = arrayListOf()
             adapter = HomeAdapter(chars, this)
-            layoutStarted = true
-            viewModel.getChars(arrayListOf(
-                    "1009220", // capitao america
-                    "1010338", // capita marvel
-                    "1010743", // groot
-                    "1010744", // rocket racoon
-                    "1009496", // jean grey
-                    "1009718", // wolverine
-                    "1010860", // garota esquilo
-                    "1009268", // deadpool
-                    "1009610"  // homem aranha
-            ))
-
         }
 
+        viewModel.loading.observe(viewLifecycleOwner, {
+            configuraProgressBar(it)
 
-        configuraProgressBar(view)
+        })
         //toda vez que muda de fragment tem que mudar a flag da progressbar
         //chama o observer aqui
 
@@ -85,43 +79,19 @@ class HomeFragment : BaseFragment() , HomeAdapter.onClickListener {
         rvHome.layoutManager = gManager
         rvHome.adapter = adapter
 
-
     }
 
     //clique no char, passa o id dele e o tipo para o Api Object
     override fun charsClick(position: Int) {
-
-        val apisSimulation : ApiObject
-
-        if (chars[position].id == "1010744"){
-            // simulando pegar uma comic quando clicar no rocket
-            apisSimulation = ApiObject(
-                "65123",
-                "comic"
-            )
-        }else {
-            apisSimulation = ApiObject(
-                chars[position].id,
-                "char"
-            )
-        }
         sharedModel.setSelectedResult(chars[position])
-        //quando clica em um item, vai para o fragment exibe personagem e passa o ApiObject
-        //vai ser sempre para o frag exibe char pois aqui só vai ter top 9 char
-
         findNavController().navigate(R.id.action_nav_home_to_exibePersonagemFragment)
     }
 
-
-    //chamada da viewModel no oncreate
-    //e chama função do if else
-    private fun configuraProgressBar(view: View) {
-        viewModel.loading.observe(viewLifecycleOwner, {
-            if (it == 1) {
-                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
-            } else {
-                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
-            }
-        })
+    private fun configuraProgressBar(visible : Int) {
+        if (visible == View.VISIBLE) {
+            view?.findViewById<ProgressBar>(R.id.progressBar)?.visibility = View.VISIBLE
+        } else {
+            view?.findViewById<ProgressBar>(R.id.progressBar)?.visibility = View.INVISIBLE
+        }
     }
 }

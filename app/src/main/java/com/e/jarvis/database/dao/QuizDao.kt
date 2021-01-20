@@ -1,8 +1,7 @@
-package com.e.jarvis.dao
+package com.e.jarvis.database.dao
 
 import androidx.room.*
 import com.e.jarvis.models.modelsQuiz.Quiz
-import com.e.jarvis.models.modelsfavoritos.Favorito
 
 @Dao
 interface QuizDao {
