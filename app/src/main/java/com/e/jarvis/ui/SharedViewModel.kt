@@ -9,6 +9,7 @@ import com.e.jarvis.models.generics.GenericResults
 class SharedViewModel : ViewModel() {
     private lateinit var result : GenericResults
     private val login = MutableLiveData<LoginModel>()
+    private lateinit var searchString :String
 
     fun getSelectedResult(): GenericResults {
         return result
@@ -24,6 +25,12 @@ class SharedViewModel : ViewModel() {
 
     fun getLoggedUser(): LiveData<LoginModel> {
         return login
+    }
+    fun setSeach(string: String){
+        searchString = string
+    }
+    fun getSeach(): String{
+        return searchString
     }
 
 }

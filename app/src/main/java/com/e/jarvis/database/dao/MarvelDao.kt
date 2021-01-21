@@ -3,6 +3,7 @@ package com.e.jarvis.database.dao
 import androidx.room.*
 import com.e.jarvis.models.generics.GenericResults
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Dao
 interface MarvelDao {
@@ -18,5 +19,7 @@ interface MarvelDao {
 
     @Delete
     suspend fun delete(results: GenericResults)
+
+    fun getByIdDistinct(id: String) = getById(id).distinctUntilChanged()
 
 }

@@ -2,25 +2,27 @@ package com.e.jarvis.database.dao
 
 import androidx.room.*
 import com.e.jarvis.models.modelsfavoritos.Favorito
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @Dao
 interface FavoritoDao {
 
     @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
-    suspend fun getAllCharsFavoritos(tipo : String): List<Favorito>
+    fun getAllCharsFavoritos(tipo : String): Flow<List<Favorito>>
 
     @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
-    suspend fun getAllComicsFavoritos(tipo : String): List<Favorito>
+    fun getAllComicsFavoritos(tipo : String): Flow<List<Favorito>>
 
     @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
-    suspend fun getAllSeriesFavoritos(tipo : String): List<Favorito>
+    fun getAllSeriesFavoritos(tipo : String): Flow<List<Favorito>>
 
     @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
-    suspend fun getAllStoriesFavoritos(tipo : String): List<Favorito>
+    fun getAllStoriesFavoritos(tipo : String): Flow<List<Favorito>>
 
 
     @Query("SELECT * FROM favoritos WHERE id= :id")
-    suspend fun getFavorito(id: String): Favorito
+    fun getFavorito(id: String): Flow<Favorito>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addFavorito(aChar: Favorito)
@@ -28,5 +30,6 @@ interface FavoritoDao {
     @Delete
     suspend fun deleteFavorito(favorito: Favorito)
 
+    fun getFavoritoDistinct(id: String) = getFavorito(id).distinctUntilChanged()
 
 }

@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import java.util.ArrayList
 
 class ExibeViewModel(
-    val marvelRepo: MarvelRepository
+    private val marvelRepo: MarvelRepository
 ) : ViewModel() {
 
     val result = MutableLiveData<ResponseWrapper<HashSet<GenericResults>>>()
