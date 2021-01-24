@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.MainActivity">
+
+            <EditText
+                android:id="@+id/et_login_email"
+                style="@style/fonteSecundaria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="@color/white"
+                android:ems="10"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="20sp"
+                />
+
+            <EditText
+                android:id="@+id/et_login_password"
+                style="@style/fonteSecundaria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="@color/white"
+                android:ems="10"
+                android:hint="@string/prompt_password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/white"
+                android:textColor="@color/white"
+                android:textSize="20sp"/>
+
+            <Button
+                android:id="@+id/btn_login"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#47525E"
+                android:hint="@string/button_login"
+                android:textColorHint="@color/white"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="5dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="@color/white" />
+
+                <TextView
+                    style="@style/fontePrincipal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/Or"
+                    android:textColor="@color/white" />
+                <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="5dp"
+                    android:background="@android:color/darker_gray"
+                    android:backgroundTint="@color/white" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_login_newUser"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#3D4858"
+                android:drawableLeft="@drawable/ic_new_user"
+                android:hint="@string/button_new_user"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:textColorHint="@color/white"
+                 />
+
+            <Button
+                android:id="@+id/btn_login_facebook"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#667080"
+                android:drawableLeft="@drawable/ic_facebook"
+                android:hint="@string/button_facebook"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:textColorHint="@color/white"
+                 />
+
+            <Button
+                android:id="@+id/btn_login_twitter"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#8492A6"
+                android:drawableLeft="@drawable/ic_twitter"
+                android:hint="@string/button_twitter"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:textColorHint="@color/white"
+                />
+
+            <Button
+                android:id="@+id/btn_login_google"
+                style="@style/fontePrincipal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="11dp"
+                android:backgroundTint="#C0CCDA"
+                android:drawableLeft="@drawable/ic_google"
+                android:hint="@string/button_google"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:textColorHint="@color/white"
+                 />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
