@@ -1,7 +1,7 @@
 package com.e.jarvis.models
 
-data class LoginModel (
-    val user : String,
+data class UserModel (
+    val email : String,
     val password : String? = null,
     val id : String? = null
 )

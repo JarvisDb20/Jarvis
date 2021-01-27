@@ -18,7 +18,11 @@ class MarvelRepository(private val marvelDb: MarvelDb,private  val marvelService
 
 
     fun getById(id:String, origin: String, info: String) : Flow<ResponseWrapper<ArrayList<GenericResults>>> = flow {
-        var saida = ResponseWrapper<ArrayList<GenericResults>>(ResponseWrapper.Status.LOADING, null)
+        //var saida = ResponseWrapper<ArrayList<GenericResults>>(ResponseWrapper.Status.LOADING, null)
+        var saida = ResponseWrapper.loading("",ArrayList<GenericResults>())
+
+            //ResponseWrapper<ArrayList<GenericResults>>(ResponseWrapper.Status.LOADING, null)
+
         emit(saida)
         // Tenta pegar do banco primeiro
         getDbById(id,origin,info).collect{ res->

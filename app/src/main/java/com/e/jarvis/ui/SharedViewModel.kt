@@ -3,12 +3,16 @@ package com.e.jarvis.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.e.jarvis.models.LoginModel
+import androidx.lifecycle.viewModelScope
+import com.e.jarvis.models.UserModel
 import com.e.jarvis.models.generics.GenericResults
+import com.e.jarvis.repository.FirebaseRepository
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class SharedViewModel : ViewModel() {
+class SharedViewModel(private val firebaseRepository: FirebaseRepository) : ViewModel( ) {
     private lateinit var result : GenericResults
-    private val login = MutableLiveData<LoginModel>()
+    private val login = MutableLiveData<UserModel>()
     private lateinit var searchString :String
 
     fun getSelectedResult(): GenericResults {
@@ -19,11 +23,11 @@ class SharedViewModel : ViewModel() {
         result = genericResults
     }
 
-    fun setLoggedUser(loginModel: LoginModel) {
-        login.value = loginModel
+    fun setLoggedUser(userModel: UserModel) {
+        login.value = userModel
     }
 
-    fun getLoggedUser(): LiveData<LoginModel> {
+    fun getLoggedUser(): LiveData<UserModel> {
         return login
     }
     fun setSeach(string: String){
@@ -31,6 +35,14 @@ class SharedViewModel : ViewModel() {
     }
     fun getSeach(): String{
         return searchString
+    }
+
+    fun getLogin() = MutableLiveData<Boolean>().apply  {
+        viewModelScope.launch {
+            firebaseRepository.getLogged().collect {
+                value = it
+            }
+        }
     }
 
 }

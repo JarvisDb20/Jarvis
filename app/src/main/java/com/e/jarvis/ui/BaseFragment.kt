@@ -36,7 +36,6 @@ abstract class BaseFragment : Fragment() {
             defaultLayout()
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.setToolbarVisibility(toolbarMenu)
-            mainActivity.setNavDrawerVisibility(menuItemVisibility)
             mainActivity.resizeFragment()
         }
     }
@@ -47,7 +46,6 @@ abstract class BaseFragment : Fragment() {
             defaultLayout()
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.setToolbarVisibility(toolbarMenu)
-            mainActivity.setNavDrawerVisibility(menuItemVisibility)
             mainActivity.resizeFragment()
         }
     }
@@ -55,15 +53,30 @@ abstract class BaseFragment : Fragment() {
     private fun defaultLayout() {
         mainActivity.setBottomNavigationVisibility(View.INVISIBLE)
         mainActivity.setToolbarVisibility(View.VISIBLE)
-        mainActivity.setNavDrawerVisibility(
-            DrawerMenuItem(
-                home = true,
-                quiz = true,
-                favorites = true,
-                login = true,
-                logout = true
-            )
-        )
+        sharedModel.getLogin().observe(viewLifecycleOwner,{
+            if(it){
+                mainActivity.setNavDrawerVisibility(
+                    DrawerMenuItem(
+                        home = true,
+                        quiz = true,
+                        favorites = true,
+                        login = false,
+                        logout = true
+                    )
+                )
+            }else{
+                mainActivity.setNavDrawerVisibility(
+                    DrawerMenuItem(
+                        home = true,
+                        quiz = false,
+                        favorites = false,
+                        login = true,
+                        logout = false
+                    )
+                )
+            }
+        })
+
         mainActivity.resizeFragment()
     }
 

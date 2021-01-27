@@ -43,10 +43,12 @@ class ExibeViewModel(
         return hash
     }
 
-//    //room tabela favoritos
-//    fun addFavorito(result: GenericResults) {
-//        viewModelScope.launch {
-//            dataBase.addFavorito(Favorito(result.id, result, "char"))
-//        }
-//    }
+
+
+
+    fun addFavorito(result: GenericResults) {
+        viewModelScope.launch {
+
+        }
+    }
 }
