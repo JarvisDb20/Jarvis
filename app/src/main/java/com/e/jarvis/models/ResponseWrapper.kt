@@ -8,6 +8,7 @@ data class ResponseWrapper<out T>(
     val error: String? = null,
     val msg: String? = null
 ) {
+
     enum class Status {
         SUCCESS,
         ERROR,
@@ -19,12 +20,14 @@ data class ResponseWrapper<out T>(
             return ResponseWrapper(Status.SUCCESS, data, null)
         }
 
+
         fun <T> error(msg: String): ResponseWrapper<T> {
             return ResponseWrapper(Status.ERROR, null, msg)
         }
 
         fun <T> loading(msg: String? = null, data: T?): ResponseWrapper<T> {
             return ResponseWrapper(Status.LOADING, data, msg = msg)
+
         }
     }
 }

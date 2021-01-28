@@ -6,13 +6,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.generics.GenericResults
+<<<<<<< HEAD
+=======
+import com.e.jarvis.models.modelsfavoritos.Favorito
+import com.e.jarvis.repository.FavoritesRepository
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
 import com.e.jarvis.repository.MarvelRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.ArrayList
 
 class ExibeViewModel(
+<<<<<<< HEAD
     private val marvelRepo: MarvelRepository
+=======
+    private val marvelRepo: MarvelRepository,
+    private val repoFavoritos : FavoritesRepository
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
 ) : ViewModel() {
 
     val result = MutableLiveData<ResponseWrapper<HashSet<GenericResults>>>()
@@ -21,7 +31,12 @@ class ExibeViewModel(
     fun getResult(genericResults: GenericResults, info: String) {
         viewModelScope.launch {
             genericResults.apiObject?.let {
+<<<<<<< HEAD
                 marvelRepo.getById(genericResults.id, it.tipoId, info).collect {  res ->
+=======
+                marvelRepo.getById(genericResults.id, it.tipoId, info)
+                    .collect {  res ->
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
                     when (res.status){
                         ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
                         ResponseWrapper.Status.ERROR ->  result.value = ResponseWrapper( res.status,null,res.error)
@@ -43,12 +58,19 @@ class ExibeViewModel(
         return hash
     }
 
+<<<<<<< HEAD
 
 
 
     fun addFavorito(result: GenericResults) {
         viewModelScope.launch {
 
+=======
+    //room tabela favoritos
+    fun addFavorito(result: GenericResults) {
+        viewModelScope.launch {
+            result.apiObject?.let { Favorito(result.id, result, it.tipoId) }?.let { repoFavoritos.addFavorito(it) }
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
         }
     }
 }

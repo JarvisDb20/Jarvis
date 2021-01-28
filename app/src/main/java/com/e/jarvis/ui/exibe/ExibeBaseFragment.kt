@@ -24,6 +24,11 @@ import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
 import org.koin.android.viewmodel.ext.android.viewModel
 
+<<<<<<< HEAD
+=======
+//tipo um resumo pros outros frag usarem
+
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
 abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener {
 
     override var bottomNavigationViewVisibility = View.VISIBLE
@@ -159,6 +164,10 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.menu_favoritar -> {
             viewModel.addFavorito(listResults.elementAt(posicao))
+<<<<<<< HEAD
+=======
+            Log.i("FAVORITAR", "clicou em ${listResults.elementAt(posicao)}")
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
             true
         }
         else -> super.onOptionsItemSelected(item)
@@ -166,7 +175,11 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
     open fun getImageFull(position: Int) = ItemImage(
         listImages[position].thumb,
         apiObject,
+<<<<<<< HEAD
         listResults.elementAt(position).name ?: listResults.elementAt(position).title!!
+=======
+        listResults.elementAt(position).name!!
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
     )
 
 }

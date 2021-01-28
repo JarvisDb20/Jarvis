@@ -7,9 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.e.jarvis.R
+
 import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_top_heroi.view.*
+
 
 class FavoritosAdapter( val listener : FavoritosOnClickListener, val origin : String) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHolder>() {
 

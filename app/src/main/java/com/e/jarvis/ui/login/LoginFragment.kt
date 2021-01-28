@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+<<<<<<< HEAD
 import androidx.navigation.fragment.findNavController
 import com.e.jarvis.R
 import com.e.jarvis.models.ResponseWrapper
@@ -17,12 +18,21 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class LoginFragment : BaseFragment() {
 
     private val vm : LoginViewModel by viewModel()
+=======
+import com.e.jarvis.R
+import com.e.jarvis.ui.BaseFragment
+import kotlinx.android.synthetic.main.fragment_login.view.*
+
+class LoginFragment : BaseFragment() {
+
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+<<<<<<< HEAD
         return inflater.inflate(R.layout.fragment_login, container, false)
 
     }
@@ -47,6 +57,13 @@ class LoginFragment : BaseFragment() {
             })
         }
 
+=======
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        view.btn_login_newUser.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_cadastroFragment)
+        }
+        return view
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
     }
 
 }

@@ -6,12 +6,14 @@ import java.net.SocketTimeoutException
 
 open class ResponseHandler {
     enum class ErrorCodes(val code: Int) {
+
         SocketTimeOut(-1)
     }
 
     fun <T : Any> handleSuccess(data: T): ResponseWrapper<T> {
         return ResponseWrapper.success(data)
     }
+
 
     fun <T : Any> handleLoading(msg: String, data: T? = null): ResponseWrapper<T> {
         return ResponseWrapper.loading(msg, data)
@@ -32,6 +34,7 @@ open class ResponseHandler {
     fun <T : Any> handleException(msg: String): ResponseWrapper<T> {
         return ResponseWrapper.error(msg)
     }
+
 
     private fun getErrorMessage(code: Int): String {
         return when (code) {

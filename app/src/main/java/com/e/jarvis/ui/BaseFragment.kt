@@ -36,6 +36,10 @@ abstract class BaseFragment : Fragment() {
             defaultLayout()
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.setToolbarVisibility(toolbarMenu)
+<<<<<<< HEAD
+=======
+            mainActivity.setNavDrawerVisibility(menuItemVisibility)
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
             mainActivity.resizeFragment()
         }
     }
@@ -46,6 +50,10 @@ abstract class BaseFragment : Fragment() {
             defaultLayout()
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.setToolbarVisibility(toolbarMenu)
+<<<<<<< HEAD
+=======
+            mainActivity.setNavDrawerVisibility(menuItemVisibility)
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
             mainActivity.resizeFragment()
         }
     }
@@ -53,6 +61,7 @@ abstract class BaseFragment : Fragment() {
     private fun defaultLayout() {
         mainActivity.setBottomNavigationVisibility(View.INVISIBLE)
         mainActivity.setToolbarVisibility(View.VISIBLE)
+<<<<<<< HEAD
         sharedModel.getLogin().observe(viewLifecycleOwner,{
             if(it){
                 mainActivity.setNavDrawerVisibility(
@@ -77,6 +86,17 @@ abstract class BaseFragment : Fragment() {
             }
         })
 
+=======
+        mainActivity.setNavDrawerVisibility(
+            DrawerMenuItem(
+                home = true,
+                quiz = true,
+                favorites = true,
+                login = true,
+                logout = true
+            )
+        )
+>>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
         mainActivity.resizeFragment()
     }
 
