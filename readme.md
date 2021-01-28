@@ -1,3 +1,5 @@
+<h1>Jarvis DB</h1>
+
 <p>Projeto desenvolvido para o curso de Android Mobile da Digital House - Santander</p>
 
 <p>Recursos utilizados no projeto:</p>
@@ -8,6 +10,7 @@
   <li>Firebase Authentication</li>
   <li>Coroutines/flow</li>
   <li>MVVM design Pattern</li>
+  <li>Jetpack Compose</li>
 </ul>
 
 <p>Para utilizar o app é necessário gerar um arquivo do firebase para que possibilite o uso dos recursos de acesso a banco de dados e autenticação. Neste <a href="https://firebase.google.com/docs/android/setup?hl=pt-br">link</a> é possivel encontrar a documentação oficial do mesmo.</p>
