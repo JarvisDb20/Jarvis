@@ -6,13 +6,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.generics.GenericResults
+import com.e.jarvis.models.modelsfavoritos.Favorito
+import com.e.jarvis.repository.FavoritesRepository
 import com.e.jarvis.repository.MarvelRepository
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.util.ArrayList
 
 class ExibeViewModel(
-    private val marvelRepo: MarvelRepository
+    private val marvelRepo: MarvelRepository,
+    private val repoFavoritos : FavoritesRepository
 ) : ViewModel() {
 
     val result = MutableLiveData<ResponseWrapper<HashSet<GenericResults>>>()
@@ -44,10 +47,10 @@ class ExibeViewModel(
         return hash
     }
 
-//    //room tabela favoritos
-//    fun addFavorito(result: GenericResults) {
-//        viewModelScope.launch {
-//            dataBase.addFavorito(Favorito(result.id, result, "char"))
-//        }
-//    }
+    //room tabela favoritos
+    fun addFavorito(result: GenericResults) {
+        viewModelScope.launch {
+            result.apiObject?.let { Favorito(result.id, result, it.tipoId) }?.let { repoFavoritos.addFavorito(it) }
+        }
+    }
 }

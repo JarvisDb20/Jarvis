@@ -8,6 +8,7 @@ import com.e.jarvis.database.dao.*
 import com.e.jarvis.database.db.FavoritoDb
 import com.e.jarvis.database.db.MarvelDb
 import com.e.jarvis.database.db.QuizDb
+import com.e.jarvis.repository.FavoritesRepository
 import com.e.jarvis.repository.MarvelRepository
 import com.e.jarvis.retrofit.MarvelService
 import com.e.jarvis.ui.SharedViewModel
@@ -61,11 +62,15 @@ val repositoryModule = module {
     single { MarvelRepository(get(), get()) }
 }
 
+val favoritosModule = module {
+    single { FavoritesRepository(get()) }
+}
+
 val viewModelModule = module {
 
     viewModel {
         ExibeViewModel(
-           get()
+           get(), get()
         )
     }
 

@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.flowOn
 
 //repo ele traz informações e toda lógica fica nele
+
 //parte de banco e api
 
 class MarvelRepository(private val marvelDb: MarvelDb,private  val marvelService: MarvelService) {
