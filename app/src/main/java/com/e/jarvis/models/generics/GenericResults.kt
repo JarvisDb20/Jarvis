@@ -22,7 +22,7 @@ data class GenericResults(
     val series: GenericList?,
 
     @Embedded(prefix = "thumb_")
-    val thumbnail: GenericImage,
+    val thumbnail: GenericImage?,
 
     @Embedded(prefix = "creators_")
     val creators: GenericList?,

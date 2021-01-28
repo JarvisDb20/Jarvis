@@ -161,7 +161,7 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.menu_favoritar -> {
             viewModel.addFavorito(listResults.elementAt(posicao))
-           // Log.i("EXIBEBASEFRAGMENT", "clicou em ${listResults.elementAt(posicao)}")
+            Log.i("FAVORITAR", "clicou em ${listResults.elementAt(posicao)}")
             true
         }
         else -> super.onOptionsItemSelected(item)

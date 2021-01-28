@@ -16,13 +16,12 @@ import java.util.concurrent.Flow
 
 class FavoritosViewModel(private val repoFavoritos: FavoritesRepository) : ViewModel() {
 
+    val loading = MutableLiveData<Int>()
+
     val listCharsFavoritos = MutableLiveData<ResponseWrapper<List<Favorito>>>()
     val listComicsFavoritos = MutableLiveData<ResponseWrapper<List<Favorito>>>()
     val listSeriesFavoritos = MutableLiveData<ResponseWrapper<List<Favorito>>>()
     val listStoriesFavoritos = MutableLiveData<ResponseWrapper<List<Favorito>>>()
-
-
-    val loading = MutableLiveData<Int>()
 
     fun getAllCharsFavoritos() {
         viewModelScope.launch {
@@ -33,6 +32,54 @@ class FavoritosViewModel(private val repoFavoritos: FavoritesRepository) : ViewM
                             ResponseWrapper.Status.ERROR -> listCharsFavoritos.value = ResponseWrapper(it.status, null, it.error)
                             else -> {
                                 listCharsFavoritos.value = ResponseWrapper(it.status, it.data)
+                            }
+                        }
+                        loading.value = View.INVISIBLE
+                    }
+        }
+    }
+
+    fun getAllComicsFavoritos() {
+        viewModelScope.launch {
+            repoFavoritos.getAllComicsFavoritos()
+                    .collect {
+                        when (it.status) {
+                            ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                            ResponseWrapper.Status.ERROR -> listComicsFavoritos.value = ResponseWrapper(it.status, null, it.error)
+                            else -> {
+                                listComicsFavoritos.value = ResponseWrapper(it.status, it.data)
+                            }
+                        }
+                        loading.value = View.INVISIBLE
+                    }
+        }
+    }
+
+    fun getAllSeriesFavoritos() {
+        viewModelScope.launch {
+            repoFavoritos.getAllSeriesFavoritos()
+                    .collect {
+                        when (it.status) {
+                            ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                            ResponseWrapper.Status.ERROR -> listSeriesFavoritos.value = ResponseWrapper(it.status, null, it.error)
+                            else -> {
+                                listSeriesFavoritos.value = ResponseWrapper(it.status, it.data)
+                            }
+                        }
+                        loading.value = View.INVISIBLE
+                    }
+        }
+    }
+
+    fun getAllStoriesFavoritos() {
+        viewModelScope.launch {
+            repoFavoritos.getAllStoriesFavoritos()
+                    .collect {
+                        when (it.status) {
+                            ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                            ResponseWrapper.Status.ERROR -> listStoriesFavoritos.value = ResponseWrapper(it.status, null, it.error)
+                            else -> {
+                                listStoriesFavoritos.value = ResponseWrapper(it.status, it.data)
                             }
                         }
                         loading.value = View.INVISIBLE

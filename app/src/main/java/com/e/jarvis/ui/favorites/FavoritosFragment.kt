@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.jarvis.R
+import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.ui.BaseFragment
 import kotlinx.android.synthetic.main.fragment_favoritos.*
@@ -17,6 +19,7 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
 
 
     private val viewModel: FavoritosViewModel by viewModel()
+
     lateinit var adapChar: FavoritosAdapter
     lateinit var adapComic: FavoritosAdapter
     lateinit var adapSerie: FavoritosAdapter
@@ -33,8 +36,11 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("FAVORITOSFRAG", "chegou nos favoritos")
 
+        val listaAdapChar = arrayListOf<Favorito>()
+        val listaAdapComic = arrayListOf<Favorito>()
+        val listaAdapSerie = arrayListOf<Favorito>()
+        val listaAdapStorie = arrayListOf<Favorito>()
 
         //recyclerview dos chars favoritos
         adapChar = FavoritosAdapter(this, "char")
@@ -43,58 +49,65 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
                 LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rcv_favoritos_char.setHasFixedSize(true)
 
-      //  val listaParaAdap = arrayListOf<Favorito>()
-
-
         viewModel.listCharsFavoritos.observe(viewLifecycleOwner, {
-            Log.i("FAVORITOSFRAG", "chamou o observe")
-            Log.i("FAVORITOSFRAG", it.data.toString())
-           // it.data?.let { it1 -> listaParaAdap.addAll(it1) }
-          //  Log.i("FAVORITOSFRAG", it.toString())
-          //  adapChar.setData( it.data.toString())
-
-           // Log.i("FAVORITOSFRAG", listaParaAdap.toString())
+            it.data?.forEach {
+                listaAdapChar.add(it)
+            }
+            adapChar.setData(listaAdapChar)
         })
         viewModel.getAllCharsFavoritos()
 
 
+        //recyclerview dos comics favoritos
+        adapComic = FavoritosAdapter(this, "comic")
+        rcv_favoritos_comics.adapter = adapComic
+        rcv_favoritos_comics.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rcv_favoritos_comics.setHasFixedSize(true)
 
-//        //recyclerview dos comics favoritos
-//        adapComic = FavoritosAdapter(this, "comic")
-//        rcv_favoritos_comics.adapter = adapComic
-//        rcv_favoritos_comics.layoutManager =
-//            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        rcv_favoritos_comics.setHasFixedSize(true)
-//
-//        viewModel.listComicsFavoritos.observe(viewLifecycleOwner, {
-//            adapComic.setData((it))
-//        })
-//        viewModel.getAllComicsFavoritos()
-//
-//        //recyclerview dos series favoritos
-//        adapSerie = FavoritosAdapter(this, "serie")
-//        rcv_favoritos_series.adapter = adapSerie
-//        rcv_favoritos_series.layoutManager =
-//            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        rcv_favoritos_series.setHasFixedSize(true)
-//
-//        viewModel.listSeriesFavoritos.observe(viewLifecycleOwner, {
-//            adapSerie.setData((it))
-//        })
-//        viewModel.getAllSeriesFavoritos()
-//
-//        //recyclerview dos stories favoritos
-//        adapStorie = FavoritosAdapter(this, "storie")
-//        rcv_favoritos_stories.adapter = adapStorie
-//        rcv_favoritos_stories.layoutManager =
-//            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        rcv_favoritos_stories.setHasFixedSize(true)
-//
-//        viewModel.listStoriesFavoritos.observe(viewLifecycleOwner, {
-//            adapStorie.setData((it))
-//        })
-//        viewModel.getAllStoriesFavoritos()
-//
+        viewModel.listComicsFavoritos.observe(viewLifecycleOwner, {
+            it.data?.forEach {
+                listaAdapComic.add(it)
+                Log.i("FAVORITOS COMICS", listaAdapComic.toString())
+            }
+            adapComic.setData(listaAdapComic)
+        })
+        viewModel.getAllComicsFavoritos()
+
+        //recyclerview dos series favoritos
+        adapSerie = FavoritosAdapter(this, "serie")
+        rcv_favoritos_series.adapter = adapSerie
+        rcv_favoritos_series.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rcv_favoritos_series.setHasFixedSize(true)
+
+        viewModel.listSeriesFavoritos.observe(viewLifecycleOwner, {
+            it.data?.forEach {
+                listaAdapSerie.add(it)
+                Log.i("FAVORITOS SERIES", listaAdapSerie.toString())
+            }
+            adapSerie.setData(listaAdapSerie)
+        })
+        viewModel.getAllSeriesFavoritos()
+
+        //recyclerview dos stories favoritos
+        adapStorie = FavoritosAdapter(this, "storie")
+        rcv_favoritos_stories.adapter = adapStorie
+        rcv_favoritos_stories.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rcv_favoritos_stories.setHasFixedSize(true)
+
+        viewModel.listStoriesFavoritos.observe(viewLifecycleOwner, {
+            it.data?.forEach {
+                listaAdapStorie.add(it)
+                Log.i("FAVORITOS STORIES", listaAdapStorie.toString())
+            }
+            adapStorie.setData(listaAdapStorie)
+        })
+        viewModel.getAllStoriesFavoritos()
+
+
+
     }
 
     override fun selectFavorito(position: Int, origin: String) {
