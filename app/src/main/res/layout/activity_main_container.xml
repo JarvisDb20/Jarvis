@@ -32,11 +32,9 @@
         app:defaultNavHost="true"
         android:layout_above="@id/nav_bottom_view"
         android:layout_below="@id/toolbar_layout"
-<<<<<<< HEAD
+
         app:navGraph="@navigation/nav_graph" />
-=======
-        app:navGraph="@navigation/mobile_navigation" />
->>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
+
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -45,10 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-<<<<<<< HEAD
-=======
+
         android:background="@color/black"
->>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
+
         app:menu="@menu/menu_bottom" />
 
 </RelativeLayout>

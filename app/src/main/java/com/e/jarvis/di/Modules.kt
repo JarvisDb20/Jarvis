@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
+
+
 package com.e.jarvis.di
 
 import android.app.Application
@@ -11,7 +10,7 @@ import com.e.jarvis.database.dao.*
 import com.e.jarvis.database.db.FavoritoDb
 import com.e.jarvis.database.db.MarvelDb
 import com.e.jarvis.database.db.QuizDb
-<<<<<<< HEAD
+
 import com.e.jarvis.models.ResponseHandler
 import com.e.jarvis.repository.FirebaseRepository
 import com.e.jarvis.repository.MarvelRepository
@@ -30,18 +29,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-=======
+
 import com.e.jarvis.repository.FavoritesRepository
-import com.e.jarvis.repository.MarvelRepository
-import com.e.jarvis.retrofit.MarvelService
-import com.e.jarvis.ui.SharedViewModel
-import com.e.jarvis.ui.exibe.ExibeViewModel
-import com.e.jarvis.ui.favorites.FavoritosViewModel
-import com.e.jarvis.ui.home.HomeViewModel
-import com.e.jarvis.ui.perguntas.QuestionViewModel
-import com.e.jarvis.ui.pesquisa.PesquisaViewModel
-import com.e.jarvis.ui.quiz.QuizViewModel
->>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
+
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -84,12 +74,12 @@ val roomDataBaseModule = module {
 
 val repositoryModule = module {
     single { MarvelRepository(get(), get()) }
-<<<<<<< HEAD
+
     single { FirebaseRepository(get(), get(), get(), get()) }
 }
 
 val viewModelModule = module {
-    viewModel { ExibeViewModel(get()) }
+    viewModel { ExibeViewModel(get(), get()) }
     viewModel { HomeViewModel(get()) }
     viewModel { PesquisaViewModel(get()) }
     viewModel { QuizViewModel(get()) }
@@ -109,49 +99,45 @@ val appModule = module {
     single { Firebase.firestore }
 }
 
-=======
-}
+
 
 val favoritosModule = module {
     single { FavoritesRepository(get()) }
 }
 
-val viewModelModule = module {
-
-    viewModel {
-        ExibeViewModel(
-           get(), get()
-        )
-    }
-
-    viewModel {
-        HomeViewModel(get())
-    }
-
-    viewModel {
-        PesquisaViewModel(get())
-    }
-
-    viewModel {
-        QuizViewModel(get())
-    }
-
-    viewModel {
-        QuestionViewModel(get())
-    }
-    viewModel {
-        SharedViewModel()
-    }
-
-    viewModel {
-        FavoritosViewModel(get())
-    }
+//val viewModelModule = module {
+//
+//    viewModel {
+//        ExibeViewModel( get(), get() )
+//    }
+//
+//    viewModel {
+//        HomeViewModel(get())
+//    }
+//
+//    viewModel {
+//        PesquisaViewModel(get())
+//    }
+//
+//    viewModel {
+//        QuizViewModel(get())
+//    }
+//
+//    viewModel {
+//        QuestionViewModel(get())
+//    }
+//    viewModel {
+//        SharedViewModel()
+//    }
+//
+//    viewModel {
+//        FavoritosViewModel(get())
+//    }
 
 
-}
 
 
->>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
+
 val retrofitModule = module {
 
     fun provideRetrofit(): Retrofit {

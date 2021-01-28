@@ -15,11 +15,11 @@ class App : Application() {
                 viewModelModule,
                 retrofitModule,
                 repositoryModule,
-<<<<<<< HEAD
+
                 appModule,
-=======
-                    favoritosModule
->>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
+
+                favoritosModule
+
             )
         }
     }

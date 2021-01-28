@@ -10,13 +10,11 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.flow.flowOn
 
-<<<<<<< HEAD
-=======
+
 //repo ele traz informações e toda lógica fica nele
 
 //parte de banco e api
 
->>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
 class MarvelRepository(private val marvelDb: MarvelDb,private  val marvelService: MarvelService) {
     val hash = KeyHash(
         "bacf6559c29f05132ea07020962d41a65dcd3304",
@@ -25,15 +23,12 @@ class MarvelRepository(private val marvelDb: MarvelDb,private  val marvelService
 
 
     fun getById(id:String, origin: String, info: String) : Flow<ResponseWrapper<ArrayList<GenericResults>>> = flow {
-<<<<<<< HEAD
+
         //var saida = ResponseWrapper<ArrayList<GenericResults>>(ResponseWrapper.Status.LOADING, null)
         var saida = ResponseWrapper.loading("",ArrayList<GenericResults>())
 
             //ResponseWrapper<ArrayList<GenericResults>>(ResponseWrapper.Status.LOADING, null)
 
-=======
-        var saida = ResponseWrapper<ArrayList<GenericResults>>(ResponseWrapper.Status.LOADING, null)
->>>>>>> 69e1fe294b9ed5d434c17e1eb0f2afdc84073051
         emit(saida)
         // Tenta pegar do banco primeiro
         getDbById(id,origin,info).collect{ res->
