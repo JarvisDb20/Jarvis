@@ -125,20 +125,20 @@
                 android:textColorHint="@color/white"
                  />
 
-            <Button
-                android:id="@+id/btn_login_twitter"
-                style="@style/fontePrincipal"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="11dp"
-                android:layout_marginEnd="11dp"
-                android:backgroundTint="#8492A6"
-                android:drawableLeft="@drawable/ic_twitter"
-                android:hint="@string/button_twitter"
-                android:paddingEnd="20dp"
-                android:paddingStart="20dp"
-                android:textColorHint="@color/white"
-                />
+<!--            <Button-->
+<!--                android:id="@+id/btn_login_twitter"-->
+<!--                style="@style/fontePrincipal"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_marginStart="11dp"-->
+<!--                android:layout_marginEnd="11dp"-->
+<!--                android:backgroundTint="#8492A6"-->
+<!--                android:drawableLeft="@drawable/ic_twitter"-->
+<!--                android:hint="@string/button_twitter"-->
+<!--                android:paddingEnd="20dp"-->
+<!--                android:paddingStart="20dp"-->
+<!--                android:textColorHint="@color/white"-->
+<!--                />-->
 
             <Button
                 android:id="@+id/btn_login_google"
