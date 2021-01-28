@@ -18,14 +18,14 @@ class FavoritosViewModel(private val dataBase: FavoritoDb) : ViewModel() {
     //chars da tabela favoritos
     fun getAllCharsFavoritos(){
         viewModelScope.launch {
-            listCharsFavoritos.value = dataBase.getAllCharsFavoritos()
+//            listCharsFavoritos.value = dataBase.getAllCharsFavoritos()
         }
     }
 
     //comics da tabela favoritos
     fun getAllComicsFavoritos(){
         viewModelScope.launch {
-            listComicsFavoritos.value = dataBase.getAllComicsFavoritos()
+//            listComicsFavoritos.value = dataBase.getAllComicsFavoritos()
         }
 
     }
@@ -33,7 +33,7 @@ class FavoritosViewModel(private val dataBase: FavoritoDb) : ViewModel() {
     //series da tabela favoritos
     fun getAllSeriesFavoritos(){
         viewModelScope.launch {
-            listSeriesFavoritos.value = dataBase.getAllSeriesFavoritos()
+//            listSeriesFavoritos.value = dataBase.getAllSeriesFavoritos()
         }
 
     }
@@ -41,7 +41,7 @@ class FavoritosViewModel(private val dataBase: FavoritoDb) : ViewModel() {
     //stories da tabela favoritos
     fun getAllStoriesFavoritos(){
         viewModelScope.launch {
-            listStoriesFavoritos.value = dataBase.getAllStoriesFavoritos()
+            //listStoriesFavoritos.value = dataBase.getAllStoriesFavoritos()
         }
 
     }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -42,9 +43,12 @@ class PesquisaFragment : BaseFragment(), PesquisaAdapter.onClickListener {
             layoutStarted = true
         }
 
+
+
         searchString.observe(viewLifecycleOwner, {
             if (it != null) {
                 if (it.length > 3) {
+                    view.findViewById<TextView>(R.id.tv_search_result).text = "All results for: $it"
                     viewModel.getSearch(it.toString())
                 }
             }
@@ -70,6 +74,8 @@ class PesquisaFragment : BaseFragment(), PesquisaAdapter.onClickListener {
         viewModel.loading.observe(viewLifecycleOwner, {
             configuraProgressBar(it)
         })
+
+        searchString.value = sharedModel.getSeach()
     }
 
     override fun searchClick(position: Int, view: View) {

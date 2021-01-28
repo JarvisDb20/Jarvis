@@ -11,16 +11,16 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class PesquisaViewModel(val marvelRepo: MarvelRepository) : ViewModel() {
+class PesquisaViewModel(private val marvelRepo: MarvelRepository) : ViewModel() {
 
     val listSearch = MutableLiveData<ResponseWrapper<ArrayList<GenericResults>>>()
     val loading = MutableLiveData<Int>()
 
 
     fun getSearch(starString: String) {
+        loading.value = View.VISIBLE
         viewModelScope.launch {
             when (listSearch.value?.status) {
-                ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
                 else -> {
                     marvelRepo
                         .getSearch(starString)
@@ -39,9 +39,9 @@ class PesquisaViewModel(val marvelRepo: MarvelRepository) : ViewModel() {
                                 ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
                                 else -> {
                                     listSearch.value = res
+                                    loading.value = View.INVISIBLE
                                 }
                             }
-                            loading.value = View.INVISIBLE
                         }
                 }
             }

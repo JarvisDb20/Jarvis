@@ -1,7 +1,6 @@
 package com.e.jarvis.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
@@ -9,12 +8,11 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.view.forEach
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.e.jarvis.R
 import com.e.jarvis.models.utils.DrawerMenuItem
 import com.e.jarvis.models.utils.MenuAppBar
-import com.google.android.material.snackbar.Snackbar
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
@@ -27,6 +25,7 @@ abstract class BaseFragment : Fragment() {
     open val sharedModel: SharedViewModel by sharedViewModel()
     protected open var menuAppBar = MenuAppBar(share = false, favorite = false, search = false)
     open val searchString = MutableLiveData<String>()
+    open var searchNavigateSubmit: Int = 0
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -37,7 +36,6 @@ abstract class BaseFragment : Fragment() {
             defaultLayout()
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.setToolbarVisibility(toolbarMenu)
-            mainActivity.setNavDrawerVisibility(menuItemVisibility)
             mainActivity.resizeFragment()
         }
     }
@@ -48,7 +46,6 @@ abstract class BaseFragment : Fragment() {
             defaultLayout()
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.setToolbarVisibility(toolbarMenu)
-            mainActivity.setNavDrawerVisibility(menuItemVisibility)
             mainActivity.resizeFragment()
         }
     }
@@ -56,15 +53,30 @@ abstract class BaseFragment : Fragment() {
     private fun defaultLayout() {
         mainActivity.setBottomNavigationVisibility(View.INVISIBLE)
         mainActivity.setToolbarVisibility(View.VISIBLE)
-        mainActivity.setNavDrawerVisibility(
-            DrawerMenuItem(
-                home = true,
-                quiz = true,
-                favorites = true,
-                login = true,
-                logout = true
-            )
-        )
+        sharedModel.getLogin().observe(viewLifecycleOwner,{
+            if(it){
+                mainActivity.setNavDrawerVisibility(
+                    DrawerMenuItem(
+                        home = true,
+                        quiz = true,
+                        favorites = true,
+                        login = false,
+                        logout = true
+                    )
+                )
+            }else{
+                mainActivity.setNavDrawerVisibility(
+                    DrawerMenuItem(
+                        home = true,
+                        quiz = false,
+                        favorites = false,
+                        login = true,
+                        logout = false
+                    )
+                )
+            }
+        })
+
         mainActivity.resizeFragment()
     }
 
@@ -84,6 +96,8 @@ abstract class BaseFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchString.value = query
+                if(searchNavigateSubmit >0)
+                    findNavController().navigate(searchNavigateSubmit)
                 return false
             }
 

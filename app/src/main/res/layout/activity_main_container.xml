@@ -32,7 +32,7 @@
         app:defaultNavHost="true"
         android:layout_above="@id/nav_bottom_view"
         android:layout_below="@id/toolbar_layout"
-        app:navGraph="@navigation/mobile_navigation" />
+        app:navGraph="@navigation/nav_graph" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

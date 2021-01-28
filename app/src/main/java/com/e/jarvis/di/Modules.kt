@@ -7,15 +7,24 @@ import com.e.jarvis.database.dao.*
 import com.e.jarvis.database.db.FavoritoDb
 import com.e.jarvis.database.db.MarvelDb
 import com.e.jarvis.database.db.QuizDb
+import com.e.jarvis.models.ResponseHandler
+import com.e.jarvis.repository.FirebaseRepository
 import com.e.jarvis.repository.MarvelRepository
 import com.e.jarvis.retrofit.MarvelService
 import com.e.jarvis.ui.SharedViewModel
+import com.e.jarvis.ui.cadastro.CadastroViewModel
 import com.e.jarvis.ui.exibe.ExibeViewModel
 import com.e.jarvis.ui.favorites.FavoritosViewModel
 import com.e.jarvis.ui.home.HomeViewModel
+import com.e.jarvis.ui.login.LoginViewModel
+import com.e.jarvis.ui.logout.LogoutViewModel
 import com.e.jarvis.ui.perguntas.QuestionViewModel
 import com.e.jarvis.ui.pesquisa.PesquisaViewModel
 import com.e.jarvis.ui.quiz.QuizViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -58,42 +67,29 @@ val roomDataBaseModule = module {
 
 val repositoryModule = module {
     single { MarvelRepository(get(), get()) }
+    single { FirebaseRepository(get(), get(), get(), get()) }
 }
 
 val viewModelModule = module {
-
-    viewModel {
-        ExibeViewModel(
-           get()
-        )
-    }
-
-    viewModel {
-        HomeViewModel(get())
-    }
-
-    viewModel {
-        PesquisaViewModel(get())
-    }
-
-    viewModel {
-        QuizViewModel(get())
-    }
-
-    viewModel {
-        QuestionViewModel(get())
-    }
-    viewModel {
-        SharedViewModel()
-    }
-
-    viewModel {
-        FavoritosViewModel(get())
-    }
-
-
+    viewModel { ExibeViewModel(get()) }
+    viewModel { HomeViewModel(get()) }
+    viewModel { PesquisaViewModel(get()) }
+    viewModel { QuizViewModel(get()) }
+    viewModel { QuestionViewModel(get()) }
+    viewModel { SharedViewModel(get()) }
+    viewModel { FavoritosViewModel(get()) }
+    viewModel { CadastroViewModel(get()) }
+    viewModel { LoginViewModel(get()) }
+    viewModel { LogoutViewModel(get()) }
 }
 
+
+val appModule = module {
+    factory { ResponseHandler() }
+    single { Firebase.auth }
+    single { Firebase.storage }
+    single { Firebase.firestore }
+}
 
 val retrofitModule = module {
 

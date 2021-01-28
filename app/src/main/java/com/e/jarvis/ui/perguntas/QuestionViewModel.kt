@@ -16,18 +16,18 @@ class QuestionViewModel(private val quizDb: QuizDb) : ViewModel() {
         viewModelScope.launch {
             val ids = quizDb.getAllIds()
 
-            val questionId = Random.nextInt(0, ids.size)
-            val quest = quizDb.getQuiz(ids[questionId])
-            question.value = quest
-
-            if (quest.alternative1.correct)
-                answer.value = quest.alternative1
-            else if (quest.alternative2.correct)
-                answer.value = quest.alternative2
-            else if (quest.alternative3.correct)
-                answer.value = quest.alternative3
-            else if (quest.alternative4.correct)
-                answer.value = quest.alternative4
+//            val questionId = Random.nextInt(0, ids.size)
+//            val quest = quizDb.getQuiz(ids[questionId])
+//            question.value = quest
+//
+//            if (quest.alternative1.correct)
+//                answer.value = quest.alternative1
+//            else if (quest.alternative2.correct)
+//                answer.value = quest.alternative2
+//            else if (quest.alternative3.correct)
+//                answer.value = quest.alternative3
+//            else if (quest.alternative4.correct)
+//                answer.value = quest.alternative4
 
 
         }
