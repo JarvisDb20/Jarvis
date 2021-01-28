@@ -17,10 +17,10 @@ class FavoritoDb(val favoritoDao: FavoritoDao) {
     fun getAllComicsFavoritos() = favoritoDao.getAllComicsFavoritos("comic")
 
     //pega series favoritos
-    fun getAllSeriesFavoritos() = favoritoDao.getAllSeriesFavoritos("serie")
+    fun getAllSeriesFavoritos() = favoritoDao.getAllSeriesFavoritos("series")
 
     //pega stories favoritos
-    fun getAllStoriesFavoritos() = favoritoDao.getAllStoriesFavoritos("storie")
+    fun getAllStoriesFavoritos() = favoritoDao.getAllStoriesFavoritos("stories")
 
     //deleta favorito selecionado com o long click
     suspend fun deleteFavorito(favorito: Favorito) = favoritoDao.deleteFavorito(favorito)

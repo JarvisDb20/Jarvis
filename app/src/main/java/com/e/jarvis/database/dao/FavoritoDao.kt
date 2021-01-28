@@ -8,9 +8,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @Dao
 interface FavoritoDao {
 
-//    @Query("SELECT * FROM favoritos")
-//    fun getAllFavoritos(): Flow<List<Favorito>>
-
     @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
     fun getAllCharsFavoritos(tipo : String): Flow<List<Favorito>>
 
