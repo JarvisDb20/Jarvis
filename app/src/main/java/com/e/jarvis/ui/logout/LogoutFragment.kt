@@ -11,7 +11,7 @@ import com.e.jarvis.ui.BaseFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class logoutFragment : BaseFragment() {
+class LogoutFragment : BaseFragment() {
     private val vm: LogoutViewModel by viewModel()
 
 
@@ -27,9 +27,7 @@ class logoutFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm.logout()
-        val directions = logoutFragmentDirections.actionLogoutFragmentToLoginFragment()
-        findNavController().navigate(directions)
+        findNavController().popBackStack()
     }
-
 
 }

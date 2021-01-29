@@ -12,6 +12,8 @@ import com.e.jarvis.R
 import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.UserModel
 import com.e.jarvis.ui.BaseFragment
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -49,8 +51,6 @@ class LoginFragment : BaseFragment() {
                 }
             })
         }
-
-
     }
 
 }
