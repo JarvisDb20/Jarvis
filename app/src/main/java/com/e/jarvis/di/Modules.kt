@@ -1,6 +1,3 @@
-
-
-
 package com.e.jarvis.di
 
 import android.app.Application
@@ -31,6 +28,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 
 import com.e.jarvis.repository.FavoritesRepository
+import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.tasks.Task
 
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
@@ -75,7 +74,7 @@ val roomDataBaseModule = module {
 val repositoryModule = module {
     single { MarvelRepository(get(), get()) }
 
-    single { FirebaseRepository(get(), get(), get(), get()) }
+    single { FirebaseRepository(get(), get(), get(), get(), get()) }
 }
 
 val viewModelModule = module {
@@ -97,8 +96,8 @@ val appModule = module {
     single { Firebase.auth }
     single { Firebase.storage }
     single { Firebase.firestore }
+    single<Task<Void>> { AuthUI.getInstance().signOut(get()) }
 }
-
 
 
 val favoritosModule = module {
@@ -133,9 +132,6 @@ val favoritosModule = module {
 //    viewModel {
 //        FavoritosViewModel(get())
 //    }
-
-
-
 
 
 val retrofitModule = module {

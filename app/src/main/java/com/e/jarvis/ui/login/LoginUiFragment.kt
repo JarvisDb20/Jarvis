@@ -55,12 +55,13 @@ class LoginUiFragment : BaseFragment() {
         listener = FirebaseAuth.AuthStateListener { p0 ->
             if (p0.currentUser != null){
                 findNavController().popBackStack()
+
             }else{
                 startActivityForResult(AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers)
                     .setTheme(R.style.LoginTheme)
-                    .setIsSmartLockEnabled(false)
+                    .setIsSmartLockEnabled(false,true)
                     .build(),AUTHCODE
                 )
             }

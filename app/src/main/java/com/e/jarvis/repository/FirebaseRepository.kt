@@ -3,6 +3,7 @@ package com.e.jarvis.repository
 import com.e.jarvis.models.ResponseHandler
 import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.UserModel
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -16,6 +17,7 @@ class FirebaseRepository(
     private val store: FirebaseStorage,
     private val auth: FirebaseAuth,
     private val responseHandler: ResponseHandler,
+    private val logout : Task<Void>
 //    private val preferences: SharedPreferences
 ) {
     //    private val LOGGED = "logged"
@@ -39,8 +41,9 @@ class FirebaseRepository(
 
     fun getLogged(): Flow<Boolean> = flow { emit(auth.currentUser != null) }
 
-    fun logOut() {
+    suspend fun logOut() {
         auth.signOut()
+        logout.await()
     }
 
     fun logIn(userModel: UserModel): Flow<ResponseWrapper<UserModel>> = flow {
