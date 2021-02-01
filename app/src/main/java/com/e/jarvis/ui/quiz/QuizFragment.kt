@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_quiz.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class QuizFragment : BaseFragment() {
-
+    override var loginRequired = true
     private val viewModel: QuizViewModel by viewModel()
 
     override fun onCreateView(
@@ -27,8 +27,6 @@ class QuizFragment : BaseFragment() {
             Navigation.findNavController(view)
                 .navigate(R.id.action_quizFragment_to_questionFragment)
         }
-
         viewModel.initialQuestions();
-
     }
 }

@@ -19,7 +19,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListener {
 
-
+    override var loginRequired = true
     private val viewModel: FavoritosViewModel by viewModel()
 
     lateinit var adapChar: FavoritosAdapter
@@ -56,8 +56,8 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
         rcv_favoritos_char.setHasFixedSize(true)
 
         viewModel.listCharsFavoritos.observe(viewLifecycleOwner, {
-            it.data?.forEach {
-                listaAdapChar.add(it)
+            it.data?.forEach {fav->
+                listaAdapChar.add(fav)
             }
             adapChar.setData(listaAdapChar)
         })

@@ -20,7 +20,7 @@ class LoginUiFragment : BaseFragment() {
     private val firebaseAuth: FirebaseAuth by inject()
     private lateinit var providers: List<AuthUI.IdpConfig>
     private lateinit var listener: FirebaseAuth.AuthStateListener
-
+    private var inicio = true
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -30,7 +30,13 @@ class LoginUiFragment : BaseFragment() {
 
     override fun onStart() {
         super.onStart()
-        firebaseAuth.addAuthStateListener (listener)
+        if (inicio) {
+            firebaseAuth.addAuthStateListener (listener)
+            inicio = false
+        }else {
+            findNavController().popBackStack()
+        }
+
     }
 
     override fun onStop() {
@@ -39,9 +45,7 @@ class LoginUiFragment : BaseFragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initLogin()
-
     }
 
     private fun initLogin() {
@@ -50,12 +54,10 @@ class LoginUiFragment : BaseFragment() {
                 AuthUI.IdpConfig.GoogleBuilder().build(),
                 AuthUI.IdpConfig.GitHubBuilder().build(),
                 AuthUI.IdpConfig.TwitterBuilder().build(),
-//                AuthUI.IdpConfig.FacebookBuilder().build(),
         )
         listener = FirebaseAuth.AuthStateListener { p0 ->
             if (p0.currentUser != null){
                 findNavController().popBackStack()
-
             }else{
                 startActivityForResult(AuthUI.getInstance()
                     .createSignInIntentBuilder()
