@@ -1,6 +1,5 @@
 package com.e.jarvis.ui.exibe
 
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +19,6 @@ import com.e.jarvis.models.utils.MenuAppBar
 import com.e.jarvis.ui.BaseFragment
 import com.e.jarvis.ui.MainActivity
 import kotlinx.android.synthetic.main.fragment_exibe.view.*
-import kotlinx.android.synthetic.main.item_exibe_circle_viewpager.view.*
 import me.relex.circleindicator.CircleIndicator3
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -32,13 +30,14 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
 
     override var bottomNavigationViewVisibility = View.VISIBLE
     override var toolbarMenu = View.VISIBLE
-    override var menuAppBar: MenuAppBar = MenuAppBar(share = true, favorite = true,search = false)
+    override var menuAppBar: MenuAppBar = MenuAppBar(share = true, favorite = true, search = false)
 
     private lateinit var apiObject: ApiObject
     private var posicao = 0
-    private lateinit var listResults: HashSet<GenericResults>
+    private var listResults: HashSet<GenericResults> = hashSetOf(GenericResults(""))
     private var layoutStarted = false
-    private lateinit var listImages: ArrayList<ItemImage>
+    private var listImages: ArrayList<ItemImage> =
+        arrayListOf(ItemImage(GenericImage("", ""), ApiObject("", ""), "invalid"))
     private lateinit var adapter: ExibeAdapter
     protected open var info: String = ""
     private lateinit var indicator: CircleIndicator3
@@ -77,7 +76,6 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
                     (activity as MainActivity).supportActionBar?.title = "Not found..."
                     view.tv_exibe_titulo.text = "Not found..."
                     view.tv_exibe_descricao.text = "No description found..."
-                    view.vp_images.setBackgroundColor(Color.GRAY)
                 }
                 ResponseWrapper.Status.SUCCESS -> {
                     exibeInfo(view, res.data!!.first(), info)
@@ -112,18 +110,20 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
     }
 
     open fun exibeInfo(view: View, res: GenericResults, info: String) {
-        (activity as MainActivity).supportActionBar?.title = res.name
-        if (info == "char")
+
+        if (info == "char") {
             view.tv_exibe_titulo.text = res.name
-        else
+            (activity as MainActivity).supportActionBar?.title = res.name
+        } else {
             view.tv_exibe_titulo.text = res.title
+            (activity as MainActivity).supportActionBar?.title = res.title
+        }
 
         if (res.description == null || res.description == "")
             view.tv_exibe_descricao.text = "No description found..."
         else
             view.tv_exibe_descricao.text = res.description
     }
-
 
 
     open fun configProgressBar(view: View, ativo: Int) {
@@ -160,22 +160,19 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
             )
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.menu_favoritar -> {
             viewModel.addFavorito(listResults.elementAt(posicao))
-
-            Log.i("FAVORITAR", "clicou em ${listResults.elementAt(posicao)}")
-
             true
         }
         else -> super.onOptionsItemSelected(item)
     }
+
     open fun getImageFull(position: Int) = ItemImage(
         listImages[position].thumb,
         apiObject,
-
         listResults.elementAt(position).name ?: listResults.elementAt(position).title!!
-
     )
 
 }
