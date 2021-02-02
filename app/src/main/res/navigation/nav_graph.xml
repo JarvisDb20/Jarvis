@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@id/splashFragment">
-    <action android:id="@+id/action_global_mainFragment"
-        app:destination="@id/nav_home"/>
-    <action android:id="@+id/action_global_login"
-        app:destination="@id/loginUiFragment"/>
+    <action
+        android:id="@+id/action_global_mainFragment"
+        app:destination="@id/nav_home" />
+    <action
+        android:id="@+id/action_global_login"
+        app:destination="@id/loginUiFragment" />
     <fragment
         android:id="@+id/nav_home"
         android:name="com.e.jarvis.ui.home.HomeFragment"
@@ -89,8 +91,7 @@
         android:id="@+id/exibeSeriesFragement"
         android:name="com.e.jarvis.ui.exibe.series.ExibeSeriesFragement"
         android:label="NOME DO PERSONAGEM"
-        tools:layout="@layout/fragment_exibe"
-        >
+        tools:layout="@layout/fragment_exibe">
         <action
             android:id="@+id/navigate_series_to_personagem_fragment"
             app:destination="@id/exibePersonagemFragment" />
@@ -107,15 +108,6 @@
 
     </fragment>
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.e.jarvis.ui.login.LoginFragment"
-        android:label="Login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_cadastroFragment"
-            app:destination="@id/cadastroFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/quizFragment"
         android:name="com.e.jarvis.ui.quiz.QuizFragment"
         android:label="Quiz"
@@ -124,11 +116,6 @@
             android:id="@+id/action_quizFragment_to_questionFragment"
             app:destination="@id/questionFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/cadastroFragment"
-        android:name="com.e.jarvis.ui.cadastro.CadastroFragment"
-        android:label="New user"
-        tools:layout="@layout/fragment_cadastro" />
     <fragment
         android:id="@+id/questionFragment"
         android:name="com.e.jarvis.ui.perguntas.QuestionFragment"
@@ -163,12 +150,7 @@
         android:id="@+id/logoutFragment"
         android:name="com.e.jarvis.ui.logout.LogoutFragment"
         android:label="fragment_logout"
-        tools:layout="@layout/fragment_logout" >
-        <action
-            android:id="@+id/action_logoutFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/logoutFragment"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_logout">
     </fragment>
     <fragment
         android:id="@+id/loginUiFragment"
