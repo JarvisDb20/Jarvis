@@ -70,8 +70,8 @@ val roomDataBaseModule = module {
 
 val repositoryModule = module {
     single { MarvelRepository(get(), get()) }
-
-    single { FirebaseRepository(get(), get(), get(), get(), get()) }
+    single { FavoritesRepository(get(),get()) }
+    single { FirebaseRepository(get(), get(), get(), get()) }
 }
 
 val viewModelModule = module {
@@ -92,11 +92,6 @@ val appModule = module {
     single { Firebase.storage }
     single { Firebase.firestore }
     single<Task<Void>> { AuthUI.getInstance().signOut(get()) }
-}
-
-
-val favoritosModule = module {
-    single { FavoritesRepository(get()) }
 }
 
 val retrofitModule = module {

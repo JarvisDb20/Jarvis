@@ -1,5 +1,6 @@
 package com.e.jarvis.repository
 
+import android.util.Log
 import android.widget.Toast
 import com.e.jarvis.database.db.FavoritoDb
 import com.e.jarvis.models.ResponseWrapper
@@ -14,107 +15,120 @@ import kotlinx.coroutines.flow.*
 //tratamento de erro tem que ser feito aqui e não na viewmodel
 
 
-class FavoritesRepository(val favoritoDb: FavoritoDb) {
+class FavoritesRepository(
+    private val favoritoDb: FavoritoDb,
+    private val repository: FirebaseRepository
+) {
 
     fun getAllCharsFavoritos(): Flow<ResponseWrapper<List<Favorito>>> = flow {
         var retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.LOADING, null)
         emit(retorno)
         favoritoDb.getAllCharsFavoritos()
-                .catch { error ->
+            .catch { error ->
+                retorno = ResponseWrapper<List<Favorito>>(
+                    ResponseWrapper.Status.ERROR,
+                    null,
+                    error.message
+                )
+                emit(retorno)
+            }
+            .collect { res ->
+                if (res.isEmpty()) {
                     retorno = ResponseWrapper<List<Favorito>>(
-                            ResponseWrapper.Status.ERROR,
-                            null,
-                            error.message
+                        ResponseWrapper.Status.ERROR,
+                        null,
+                        "Not found - empty list"
                     )
-                    emit(retorno)
+                } else {
+                    retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
                 }
-                .collect { res ->
-                    if (res.isEmpty()) {
-                        retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.ERROR, null, "Not found - empty list")
-                    } else {
-                        retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
-                    }
-                    emit(retorno)
-                }
+                emit(retorno)
+            }
     }.flowOn(Dispatchers.Default)
 
     fun getAllComicsFavoritos(): Flow<ResponseWrapper<List<Favorito>>> = flow {
         var retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.LOADING, null)
         emit(retorno)
         favoritoDb.getAllComicsFavoritos()
-                .catch { error ->
+            .catch { error ->
+                retorno = ResponseWrapper<List<Favorito>>(
+                    ResponseWrapper.Status.ERROR,
+                    null,
+                    error.message
+                )
+                emit(retorno)
+            }
+            .collect { res ->
+                if (res.isEmpty()) {
                     retorno = ResponseWrapper<List<Favorito>>(
-                            ResponseWrapper.Status.ERROR,
-                            null,
-                            error.message
+                        ResponseWrapper.Status.ERROR,
+                        null,
+                        "Not found - empty list"
                     )
-                    emit(retorno)
+                } else {
+                    retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
                 }
-                .collect { res ->
-                    if (res.isEmpty()) {
-                        retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.ERROR, null, "Not found - empty list")
-                    } else {
-                        retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
-                    }
-                    emit(retorno)
-                }
+                emit(retorno)
+            }
     }.flowOn(Dispatchers.Default)
 
     fun getAllSeriesFavoritos(): Flow<ResponseWrapper<List<Favorito>>> = flow {
         var retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.LOADING, null)
         emit(retorno)
         favoritoDb.getAllSeriesFavoritos()
-                .catch { error ->
+            .catch { error ->
+                retorno = ResponseWrapper<List<Favorito>>(
+                    ResponseWrapper.Status.ERROR,
+                    null,
+                    error.message
+                )
+                emit(retorno)
+            }
+            .collect { res ->
+                if (res.isEmpty()) {
                     retorno = ResponseWrapper<List<Favorito>>(
-                            ResponseWrapper.Status.ERROR,
-                            null,
-                            error.message
+                        ResponseWrapper.Status.ERROR,
+                        null,
+                        "Not found - empty list"
                     )
-                    emit(retorno)
+                } else {
+                    retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
                 }
-                .collect { res ->
-                    if (res.isEmpty()) {
-                        retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.ERROR, null, "Not found - empty list")
-                    } else {
-                        retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
-                    }
-                    emit(retorno)
-                }
+                emit(retorno)
+            }
     }.flowOn(Dispatchers.Default)
 
     fun getAllStoriesFavoritos(): Flow<ResponseWrapper<List<Favorito>>> = flow {
         var retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.LOADING, null)
         emit(retorno)
         favoritoDb.getAllStoriesFavoritos()
-                .catch { error ->
+            .catch { error ->
+                retorno = ResponseWrapper<List<Favorito>>(
+                    ResponseWrapper.Status.ERROR,
+                    null,
+                    error.message
+                )
+                emit(retorno)
+            }
+            .collect { res ->
+                if (res.isEmpty()) {
                     retorno = ResponseWrapper<List<Favorito>>(
-                            ResponseWrapper.Status.ERROR,
-                            null,
-                            error.message
+                        ResponseWrapper.Status.ERROR,
+                        null,
+                        "Not found - empty list"
                     )
-                    emit(retorno)
+                } else {
+                    retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
                 }
-                .collect { res ->
-                    if (res.isEmpty()) {
-                        retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.ERROR, null, "Not found - empty list")
-                    } else {
-                        retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
-                    }
-                    emit(retorno)
-                }
+                emit(retorno)
+            }
     }.flowOn(Dispatchers.Default)
-
-
-
-
-
-
-
-
-
 
     suspend fun addFavorito(favorito: Favorito) {
         favoritoDb.addFavorito(favorito)
+        repository.addFavorite(favorito).collect {
+
+        }
     }
 
     suspend fun deleteFavorito(favorito: Favorito) = favoritoDb.deleteFavorito(favorito)

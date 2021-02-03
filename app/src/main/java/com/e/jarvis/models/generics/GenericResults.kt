@@ -36,7 +36,7 @@ data class GenericResults(
     @Embedded(prefix = "events_")
     val events: GenericList?=null,
 
-    val name: String?=null,
+    val name: String="",
 
     @Embedded(prefix = "comics_")
     val comics: GenericList?=null,

@@ -30,26 +30,26 @@ class FavoritosAdapter( val listener : FavoritosOnClickListener, val origin : St
 
         if (favorito.tipoDoResult == "char") {
             //para char
-            picasso.load(favorito.results.thumbnail?.path + "." + favorito.results.thumbnail?.extension)
+            picasso.load(favorito.results?.thumbnail?.path + "." + favorito.results?.thumbnail?.extension)
                 .into(holder.imagemFav)
-            holder.nomeFav.text = favorito.results.name
+            holder.nomeFav.text = favorito.results?.name
 
         } else if (favorito.tipoDoResult == "comic" || favorito.tipoDoResult == "serie") {
             //para comic e series
-            picasso.load(favorito.results.thumbnail?.path + "." + favorito.results.thumbnail?.extension)
+            picasso.load(favorito.results?.thumbnail?.path + "." + favorito.results?.thumbnail?.extension)
                 .into(holder.imagemFav)
-            holder.nomeFav.text = favorito.results.title
+            holder.nomeFav.text = favorito.results?.title
 
         } else {
             //storie tem thumbnail null fica dando erro, por isso teve que fazer verificação
-            if (favorito.results.thumbnail != null) {
-                picasso.load(favorito.results.thumbnail.path + "." + favorito.results.thumbnail.extension)
+            if (favorito.results?.thumbnail != null) {
+                picasso.load(favorito.results?.thumbnail.path + "." + favorito.results?.thumbnail.extension)
                     .into(holder.imagemFav)
-                holder.nomeFav.text = favorito.results.title
+                holder.nomeFav.text = favorito.results?.title
             } else {
                 picasso.load("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" + "." + "jpg")
                     .into(holder.imagemFav)
-                holder.nomeFav.text = favorito.results.title
+                holder.nomeFav.text = favorito.results?.title
             }
         }
 
