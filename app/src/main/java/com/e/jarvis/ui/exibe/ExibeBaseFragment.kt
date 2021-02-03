@@ -1,5 +1,6 @@
 package com.e.jarvis.ui.exibe
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -32,7 +33,7 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
 
     override var bottomNavigationViewVisibility = View.VISIBLE
     override var toolbarMenu = View.VISIBLE
-    override var menuAppBar: MenuAppBar = MenuAppBar(share = true, favorite = true,search = false)
+    override var menuAppBar: MenuAppBar = MenuAppBar(share = true, favorite = true, search = false)
 
     private lateinit var apiObject: ApiObject
     private var posicao = 0
@@ -125,7 +126,6 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
     }
 
 
-
     open fun configProgressBar(view: View, ativo: Int) {
         if (ativo == 1) {
             view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
@@ -160,16 +160,27 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
             )
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         R.id.menu_favoritar -> {
             viewModel.addFavorito(listResults.elementAt(posicao))
-
-            Log.i("FAVORITAR", "clicou em ${listResults.elementAt(posicao)}")
+            true
+        }
+        R.id.menu_share -> {
+            viewModel.addFavorito(listResults.elementAt(posicao))
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, listResults.elementAt(posicao).description)
+                type = "text/plain"
+            }
+            val shareIntent = Intent.createChooser(sendIntent, null)
+            startActivity(shareIntent)
 
             true
         }
         else -> super.onOptionsItemSelected(item)
     }
+
     open fun getImageFull(position: Int) = ItemImage(
         listImages[position].thumb,
         apiObject,

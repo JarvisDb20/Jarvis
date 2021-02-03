@@ -57,7 +57,7 @@ class PesquisaFragment : BaseFragment(), PesquisaAdapter.onClickListener {
         //configurando recyclerview que exibe os resultados da chamada da api
         val rvSearch = view.findViewById<RecyclerView>(R.id.rv_search)
         rvSearch.adapter = adapter
-        rvSearch.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rvSearch.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
 
         //passa a lista que recebeu a API para o adapter

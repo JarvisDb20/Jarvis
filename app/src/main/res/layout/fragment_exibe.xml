@@ -26,7 +26,9 @@
                 android:id="@+id/cv_exibe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="10dp"
                 app:cardBackgroundColor="#C5CFD1"
                 app:cardCornerRadius="20dp"
                 app:strokeColor="@color/black"
@@ -60,6 +62,18 @@
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:id="@+id/atribuiçao"
+                style="@style/fonteLeitura"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#C5CFD1"
+                android:textSize="10sp"
+                android:textAlignment="textEnd"
+                android:layout_marginEnd="10dp"
+                android:text="@string/atribuicao_Marvel"/>
 
         </LinearLayout>
 

@@ -45,6 +45,7 @@
     <string name="comics_fav">Comics</string>
     <string name="personagens_fav">Characters</string>
     <string name="Logout">Logout</string>
+    <string name="atribuicao_Marvel">Data provided by Marvel. © 2014 Marvel</string>
 
 
 </resources>

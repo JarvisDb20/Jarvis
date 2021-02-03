@@ -105,38 +105,6 @@ val favoritosModule = module {
     single { FavoritesRepository(get()) }
 }
 
-//val viewModelModule = module {
-//
-//    viewModel {
-//        ExibeViewModel( get(), get() )
-//    }
-//
-//    viewModel {
-//        HomeViewModel(get())
-//    }
-//
-//    viewModel {
-//        PesquisaViewModel(get())
-//    }
-//
-//    viewModel {
-//        QuizViewModel(get())
-//    }
-//
-//    viewModel {
-//        QuestionViewModel(get())
-//    }
-//    viewModel {
-//        SharedViewModel()
-//    }
-//
-//    viewModel {
-//        FavoritosViewModel(get())
-//    }
-
-
-
-
 
 val retrofitModule = module {
 

@@ -1,62 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
-    app:cardCornerRadius="15dp"
-    android:layout_marginBottom="15dp"
-    android:layout_marginTop="15dp"
-    android:layout_marginLeft="25dp"
     android:id="@+id/cv_personagem"
-    android:gravity="center_vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:layout_marginBottom="15dp"
+    android:gravity="center_vertical"
+    app:cardBackgroundColor="#C5CFD1"
+    app:cardCornerRadius="16dp"
+    app:strokeColor="@color/black"
+    app:strokeWidth="3dp">
 
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="10dp">
+        android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/iv_personagem"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_margin="10sp"
+            app:civ_border_color="@color/titleColor"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/tv_nome_personagem"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            >
+            android:layout_height="wrap_content"
+             android:layout_margin="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/titleColor"
+            android:textSize="15sp" />
+    </LinearLayout>
 
-            <ImageView
-                android:id="@+id/iv_personagem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/tv_nome_personagem"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:layout_marginVertical="8dp"
-                android:background="@color/white"
-                android:fontFamily="sans-serif-medium"
-                android:text="@string/nome_personagem"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.999" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 

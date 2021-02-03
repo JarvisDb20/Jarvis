@@ -6,18 +6,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.e.jarvis.R
-import com.e.jarvis.models.ResponseWrapper
 
 import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.ui.BaseFragment
+import com.e.jarvis.ui.dialog.DialogFragmentDelete
+import kotlinx.android.synthetic.main.favoritos_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_favoritos.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListener {
+class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListener,
+        DialogFragmentDelete.NoticeDialogListener {
 
 
     private val viewModel: FavoritosViewModel by viewModel()
@@ -30,8 +33,8 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
 
     override fun onCreateView(
 
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
 
     ): View? {
         // Inflate the layout for this fragment
@@ -52,7 +55,7 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
         rcv_favoritos_char.adapter = adapChar
         rcv_favoritos_char.layoutManager =
 
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rcv_favoritos_char.setHasFixedSize(true)
 
         viewModel.listCharsFavoritos.observe(viewLifecycleOwner, {
@@ -69,13 +72,12 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
         rcv_favoritos_comics.adapter = adapComic
         rcv_favoritos_comics.layoutManager =
 
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rcv_favoritos_comics.setHasFixedSize(true)
 
         viewModel.listComicsFavoritos.observe(viewLifecycleOwner, {
             it.data?.forEach {
                 listaAdapComic.add(it)
-                Log.i("FAVORITOS COMICS", listaAdapComic.toString())
             }
             adapComic.setData(listaAdapComic)
 
@@ -87,7 +89,7 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
         rcv_favoritos_series.adapter = adapSerie
         rcv_favoritos_series.layoutManager =
 
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rcv_favoritos_series.setHasFixedSize(true)
 
         viewModel.listSeriesFavoritos.observe(viewLifecycleOwner, {
@@ -105,7 +107,7 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
         rcv_favoritos_stories.adapter = adapStorie
         rcv_favoritos_stories.layoutManager =
 
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rcv_favoritos_stories.setHasFixedSize(true)
 
         viewModel.listStoriesFavoritos.observe(viewLifecycleOwner, {
@@ -116,9 +118,6 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
             adapStorie.setData(listaAdapStorie)
         })
         viewModel.getAllStoriesFavoritos()
-
-
-
     }
 
     override fun selectFavorito(position: Int, origin: String) {
@@ -134,60 +133,29 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
             }
             else -> adapStorie.listFavoritos[position]
         }
-//
-//        //criando o alert dialog
-//        val builder = AlertDialog.Builder(requireContext())
-//        builder.setPositiveButton("Sim") { _, _ ->
-//            deletar(favorito)
-//        }
-//        builder.setNegativeButton("Não") { _, _ -> }
-//        builder.setTitle("Deletar Favorito?")
-//        if (origin == "char") {
-//            builder.setMessage("Deseja deletar o favorito ${favorito.results.name}?")
-//        } else {
-//            builder.setMessage("Deseja deletar o favorito ${favorito.results.title}?")
-//        }
-//        builder.create().show()
-//
-//
-//    }
-//
-//    fun deletar(favorito: Favorito) {
-//        when (favorito.tipoDoResult) {
-//            "char" -> {
-//                viewModel.deleteFavoritoChar(favorito)
-//            }
-//            "comic" -> {
-//                viewModel.deleteFavoritoComic(favorito)
-//            }
-//            "serie" -> {
-//                viewModel.deleteFavoritoSerie(favorito)
-//            }
-//            "storie" -> {
-//                viewModel.deleteFavoritoStorie(favorito)
-//            }
-//        }
-//
-//        Toast.makeText(context, "Excluído de favoritos com sucesso", Toast.LENGTH_SHORT)
-//            .show()
-//
-//
-////        if (favorito.tipoDoResult == "char") {
-////            viewModel.deleteFavoritoChar(favorito)
-////        }
-////
-////        if (favorito.tipoDoResult == "comic") {
-////            viewModel.deleteFavoritoComic(favorito)
-////        }
-////
-////        if (favorito.tipoDoResult == "comic") {
-////            viewModel.deleteFavoritoComic(favorito)
-////        }
-//
-//    }
+
+        val dialogFrag = DialogFragmentDelete(this)
+        val bundle = Bundle()
+        bundle.putSerializable("key", favorito)
+        dialogFrag.arguments = bundle
+        dialogFrag.show(childFragmentManager, "dialog")
+    }
+
+
+    override fun onDialogDeleteClick(dialog: DialogFragment, favorito: Favorito) {
+        Log.i("NO FRAGMENTE FAVORITOS", favorito.toString())
+        viewModel.deleteFavorito(favorito)
+        Toast.makeText(context, "Favorito deletado com sucesso", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDialogVerInfo(dialog: DialogFragment, objFavorito: Favorito) {
+        Log.i("NO FRAGMENTE FAVORITOS", "vai chamar exibe pra mostrar info ")
 
     }
 }
+
+
+
 
 
 

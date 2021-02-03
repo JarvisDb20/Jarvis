@@ -27,8 +27,8 @@ class logoutFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         vm.logout()
-        val directions = logoutFragmentDirections.actionLogoutFragmentToLoginFragment()
-        findNavController().navigate(directions)
+      //  val directions = logoutFragmentDirections.actionLogoutFragmentToLoginFragment()
+      //  findNavController().navigate(directions)
     }
 
 

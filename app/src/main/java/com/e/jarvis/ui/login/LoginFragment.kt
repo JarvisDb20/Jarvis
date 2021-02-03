@@ -42,8 +42,8 @@ class LoginFragment : BaseFragment() {
                 when (it.status) {
                     ResponseWrapper.Status.ERROR -> sendMessage(it.error!!)
                     ResponseWrapper.Status.SUCCESS -> {
-                        val directions = LoginFragmentDirections.actionGlobalMainFragment()
-                        findNavController().navigate(directions)
+                      //  val directions = LoginFragmentDirections.actionGlobalMainFragment()
+                     //   findNavController().navigate(directions)
                     }
 
                 }

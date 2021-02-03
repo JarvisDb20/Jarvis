@@ -13,10 +13,14 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/navigate_to_pesquisa_fragment"
-            app:destination="@id/pesquisaFragment" />
+            app:destination="@id/pesquisaFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:exitAnim="@anim/to_top" />
         <action
             android:id="@+id/action_nav_home_to_exibePersonagemFragment"
-            app:destination="@id/exibePersonagemFragment" />
+            app:destination="@id/exibePersonagemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
 
     <fragment
@@ -81,7 +85,9 @@
         tools:layout="@layout/fragment_pesquisa">
         <action
             android:id="@+id/navigate_to_exibe_personagem_fragment"
-            app:destination="@id/exibePersonagemFragment" />
+            app:destination="@id/exibePersonagemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/exibeSeriesFragement"
@@ -136,7 +142,11 @@
         android:id="@+id/favoritosFragment"
         android:name="com.e.jarvis.ui.favorites.FavoritosFragment"
         android:label="My favorites"
-        tools:layout="@layout/fragment_favoritos" />
+        tools:layout="@layout/fragment_favoritos" >
+        <action
+            android:id="@+id/action_favoritosFragment_to_dialogFragmentDelete2"
+            app:destination="@id/dialogFragmentDelete2" />
+    </fragment>
     <fragment
         android:id="@+id/imageFullFragment"
         android:name="com.e.jarvis.ui.exibe.ImageFullFragment"
@@ -154,6 +164,8 @@
         <action
             android:id="@+id/action_splashFragment_to_nav_home"
             app:destination="@id/nav_home"
+            app:enterAnim="@anim/from_bottom"
+            app:exitAnim="@anim/to_top"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -168,4 +180,8 @@
             app:popUpTo="@id/logoutFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <dialog
+        android:id="@+id/dialogFragmentDelete2"
+        android:name="com.e.jarvis.ui.dialog.DialogFragmentDelete"
+        android:label="DialogFragmentDelete" />
 </navigation>
