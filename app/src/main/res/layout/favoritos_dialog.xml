@@ -26,12 +26,18 @@
                 android:id="@+id/tv_dialog_favorito"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20sp"
-                android:text="Deseja deletar seu favorito?"
-                style="@style/fonteSecundaria"
+                android:layout_margin="24sp"
+                android:text="Escolha uma opção: "
+                style="@style/fontePrincipal"
                 android:textAlignment="center"
-                android:textColor="@color/white"
+                android:textColor="@color/chinese_silver"
                 android:textSize="22sp" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/chinese_silver"/>
 
 
 
@@ -47,14 +53,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@color/white"
                 android:padding="10dp"
                 android:text="Ver sobre"
                 style="@style/fonteSecundaria"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textColor="@color/chinese_silver"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/btn_deletar_dialog"
@@ -65,9 +69,8 @@
                 android:text="Deletar favorito"
                 style="@style/fonteSecundaria"
                 android:textAlignment="center"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textColor="@color/chinese_silver"
+                android:textSize="20sp" />
         </LinearLayout>
 
     </LinearLayout>

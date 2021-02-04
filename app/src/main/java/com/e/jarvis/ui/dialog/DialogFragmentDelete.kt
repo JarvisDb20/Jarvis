@@ -27,6 +27,11 @@ class DialogFragmentDelete(var listener: NoticeDialogListener) : DialogFragment(
                 .into(dialogLayout.image_dialog)
             dialogLayout.tv_dialog_favorito
 
+            if(objFavorito.results?.thumbnail == null){
+            picasso.load("http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" + ".jpg")
+                .into(dialogLayout.image_dialog)
+        }
+
             if (objFavorito.tipoDoResult == "char") {
                 dialogLayout.tv_dialog_favorito.text = objFavorito.results?.name
             } else {

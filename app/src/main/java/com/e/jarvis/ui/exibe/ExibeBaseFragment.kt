@@ -169,10 +169,16 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
             true
         }
         R.id.menu_share -> {
-            viewModel.addFavorito(listResults.elementAt(posicao))
+            var descricao = listResults.elementAt(posicao).description.toString()
+            if (descricao.isNullOrBlank()){
+                descricao = "Descrição não encontrada"
+            }
+
+
+
             val sendIntent: Intent = Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, listResults.elementAt(posicao).description)
+                putExtra(Intent.EXTRA_TEXT, descricao)
                 type = "text/plain"
             }
             val shareIntent = Intent.createChooser(sendIntent, null)
