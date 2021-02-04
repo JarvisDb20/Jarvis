@@ -61,4 +61,7 @@ class QuizRepository(
             emit(userQuiz)
         }
     }
+    fun addPointsQuiz() = flow<ResponseWrapper<ArrayList<UserQuiz>>> {
+        firebaseRepository.addPointsQuiz().collect()
+    }
 }

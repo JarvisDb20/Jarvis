@@ -125,7 +125,7 @@
                         android:outlineSpotShadowColor="@color/white"
                         android:outlineAmbientShadowColor="@color/white"
                         android:progressBackgroundTint="@color/white"
-                        android:progress="80"
+                        android:progress="0"
                         android:progressTint="#33ff99" />
 
                     <TextView
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
                         style="@style/fonteLeitura"
-                        android:text="(80/100)" />
+                        android:text="(0/100)" />
                 </LinearLayout>
                 <LinearLayout
                     android:visibility="gone"

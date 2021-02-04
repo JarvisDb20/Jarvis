@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
@@ -133,6 +134,27 @@ class FirebaseRepository(
         }
     }
 
+    fun addPointsQuiz() = flow {
+        emit (false)
+        val saida: ResponseWrapper<Boolean> = responseHandler.handleLoading("Sending info...")
+        try {
+            emit(saida)
+            getAllUserQuiz().collect {
+                if(it.status == ResponseWrapper.Status.SUCCESS){
+                    val user = it.data?.first()!!
+                    user.pontuacao += 10
+                    db.collection(USER).document(auth.currentUser!!.uid).collection(QUIZ).document(auth.currentUser!!.uid)
+                        .set(user)
+                    emit(responseHandler.handleSuccess(true))
+                }
+            }
+
+
+        } catch (e: Exception) {
+            emit(responseHandler.handleException<Boolean>(e))
+        }
+
+    }
     private fun getUniqueKey() = db.collection("key").document().id
 
 }

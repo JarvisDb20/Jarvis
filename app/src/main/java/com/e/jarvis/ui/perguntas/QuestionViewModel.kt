@@ -33,4 +33,10 @@ class QuestionViewModel(private val repository: QuizRepository) : ViewModel() {
             }
         }
     }
+
+    fun addPointsQuiz(){
+        viewModelScope.launch {
+            repository.addPointsQuiz().collect ()
+        }
+    }
 }
