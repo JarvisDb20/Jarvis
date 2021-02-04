@@ -34,7 +34,7 @@ class FavoritosAdapter( val listener : FavoritosOnClickListener, val origin : St
                 .into(holder.imagemFav)
             holder.nomeFav.text = favorito.results?.name
 
-        } else if (favorito.tipoDoResult == "comic" || favorito.tipoDoResult == "serie") {
+        } else if (favorito.tipoDoResult == "comic" || favorito.tipoDoResult == "series") {
             //para comic e series
             picasso.load(favorito.results?.thumbnail?.path + "." + favorito.results?.thumbnail?.extension)
                 .into(holder.imagemFav)

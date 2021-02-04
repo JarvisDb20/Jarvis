@@ -8,18 +8,8 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @Dao
 interface FavoritoDao {
 
-    @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
-    fun getAllCharsFavoritos(tipo : String): Flow<List<Favorito>>
-
-    @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
-    fun getAllComicsFavoritos(tipo : String): Flow<List<Favorito>>
-
-    @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
-    fun getAllSeriesFavoritos(tipo : String): Flow<List<Favorito>>
-
-    @Query("SELECT * FROM favoritos WHERE tipoDoResult= :tipo ")
-    fun getAllStoriesFavoritos(tipo : String): Flow<List<Favorito>>
-
+    @Query("SELECT * FROM favoritos")
+    fun getAll(): Flow<List<Favorito>>
 
     @Query("SELECT * FROM favoritos WHERE id= :id")
     fun getFavorito(id: String): Flow<Favorito>
@@ -29,6 +19,9 @@ interface FavoritoDao {
 
     @Delete
     suspend fun deleteFavorito(favorito: Favorito)
+
+    @Query("DELETE FROM favoritos")
+    suspend fun deleteAllFavorito()
 
     fun getFavoritoDistinct(id: String) = getFavorito(id).distinctUntilChanged()
 

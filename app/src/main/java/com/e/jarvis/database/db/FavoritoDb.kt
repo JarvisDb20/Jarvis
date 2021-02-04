@@ -8,22 +8,14 @@ import com.e.jarvis.models.modelsfavoritos.Favorito
 class FavoritoDb(val favoritoDao: FavoritoDao) {
 
     //tabela favoritos:
-    suspend fun addFavorito(favorito: Favorito) =
-            favoritoDao.addFavorito(favorito)
-
-    //pega chars favoritos
-    fun getAllCharsFavoritos() = favoritoDao.getAllCharsFavoritos("char")
-
-    //pega comics favoritos
-    fun getAllComicsFavoritos() = favoritoDao.getAllComicsFavoritos("comic")
-
-    //pega series favoritos
-    fun getAllSeriesFavoritos() = favoritoDao.getAllSeriesFavoritos("series")
+    suspend fun addFavorito(favorito: Favorito) = favoritoDao.addFavorito(favorito)
 
     //pega stories favoritos
-    fun getAllStoriesFavoritos() = favoritoDao.getAllStoriesFavoritos("stories")
-
+    fun getAll() = favoritoDao.getAll()
 
     //deleta favorito selecionado com o long click
     suspend fun deleteFavorito(favorito: Favorito) = favoritoDao.deleteFavorito(favorito)
+
+    suspend fun deleteAllFavorito() = favoritoDao.deleteAllFavorito()
+
 }

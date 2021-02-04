@@ -1,110 +1,66 @@
 package com.e.jarvis.ui.favorites
 
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.e.jarvis.database.db.FavoritoDb
-
 import com.e.jarvis.models.ResponseWrapper
-import com.e.jarvis.models.generics.GenericResults
 import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.e.jarvis.repository.FavoritesRepository
 import kotlinx.coroutines.flow.collect
-
 import kotlinx.coroutines.launch
-import java.util.concurrent.Flow
 
 class FavoritosViewModel(private val repoFavoritos: FavoritesRepository) : ViewModel() {
 
     val loading = MutableLiveData<Int>()
 
-    val listCharsFavoritos = MutableLiveData<ResponseWrapper<List<Favorito>>>()
-    val listComicsFavoritos = MutableLiveData<ResponseWrapper<List<Favorito>>>()
-    val listSeriesFavoritos = MutableLiveData<ResponseWrapper<List<Favorito>>>()
-    val listStoriesFavoritos = MutableLiveData<ResponseWrapper<List<Favorito>>>()
-
-    fun getAllCharsFavoritos() {
-        viewModelScope.launch {
-            repoFavoritos.getAllCharsFavoritos()
-                .collect {
-                    when (it.status) {
-                        ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
-                        ResponseWrapper.Status.ERROR -> listCharsFavoritos.value =
-                            ResponseWrapper(it.status, null, it.error)
-                        else -> {
-                            listCharsFavoritos.value = ResponseWrapper(it.status, it.data)
-                            Log.i("VIEWMODELFAV", it.data.toString())
-                        }
-                    }
-                    loading.value = View.INVISIBLE
-                }
-        }
-    }
-
-    fun getAllComicsFavoritos() {
-        viewModelScope.launch {
-            repoFavoritos.getAllComicsFavoritos()
-                .collect {
-                    when (it.status) {
-                        ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
-                        ResponseWrapper.Status.ERROR -> listComicsFavoritos.value =
-                            ResponseWrapper(it.status, null, it.error)
-                        else -> {
-                            listComicsFavoritos.value = ResponseWrapper(it.status, it.data)
-                        }
-                    }
-                    loading.value = View.INVISIBLE
-                }
-        }
-    }
-
-    fun getAllSeriesFavoritos() {
-        viewModelScope.launch {
-            repoFavoritos.getAllSeriesFavoritos()
-                .collect {
-                    when (it.status) {
-                        ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
-                        ResponseWrapper.Status.ERROR -> listSeriesFavoritos.value =
-                            ResponseWrapper(it.status, null, it.error)
-                        else -> {
-                            listSeriesFavoritos.value = ResponseWrapper(it.status, it.data)
-                        }
-                    }
-                    loading.value = View.INVISIBLE
-                }
-        }
-    }
-
-    fun getAllStoriesFavoritos() {
-        viewModelScope.launch {
-            repoFavoritos.getAllStoriesFavoritos()
-                .collect {
-                    when (it.status) {
-                        ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
-                        ResponseWrapper.Status.ERROR -> listStoriesFavoritos.value =
-                            ResponseWrapper(it.status, null, it.error)
-                        else -> {
-                            listStoriesFavoritos.value = ResponseWrapper(it.status, it.data)
-
-                        }
-                    }
-                    loading.value = View.INVISIBLE
-                }
-        }
-    }
+    val listCharsFavoritos = MutableLiveData<List<Favorito>>()
+    val listComicsFavoritos = MutableLiveData<List<Favorito>>()
+    val listSeriesFavoritos = MutableLiveData<List<Favorito>>()
+    val listStoriesFavoritos = MutableLiveData<List<Favorito>>()
 
     fun deleteFavorito(favorito: Favorito) {
         viewModelScope.launch {
             repoFavoritos.deleteFavorito(favorito)
         }
-
-
     }
 
+    fun getAll() {
+        viewModelScope.launch {
+            repoFavoritos.getAll()
+                .collect { fav ->
+                    when (fav.status) {
+                        ResponseWrapper.Status.LOADING -> loading.value = View.VISIBLE
+                        else -> {
+                            val char: ArrayList<Favorito> = arrayListOf()
+                            val stories: ArrayList<Favorito> = arrayListOf()
+                            val comics: ArrayList<Favorito> = arrayListOf()
+                            val series: ArrayList<Favorito> = arrayListOf()
+                            fav.data?.forEach {
+                                when (it.tipoDoResult) {
+                                    "char" -> char.add(it)
+                                    "comic" -> comics.add(it)
+                                    "series" -> series.add(it)
+                                    "stories" -> stories.add(it)
+                                }
+                            }
+                            listCharsFavoritos.value = char
+                            listComicsFavoritos.value = comics
+                            listSeriesFavoritos.value = series
+                            listStoriesFavoritos.value = stories
+                        }
+                    }
+                    loading.value = View.INVISIBLE
+                }
+        }
+    }
 
+    fun syncDb() {
+        viewModelScope.launch {
+            repoFavoritos.syncDb()
+        }
+    }
 }
 
 

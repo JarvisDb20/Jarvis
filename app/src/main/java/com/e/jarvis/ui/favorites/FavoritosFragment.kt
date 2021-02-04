@@ -38,38 +38,27 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
 
 
     override fun onCreateView(
-
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+    ): View? = inflater.inflate(R.layout.fragment_favoritos, container, false)
 
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favoritos, container, false)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        viewModel.syncDb()
+        viewModel.getAll()
 
         //recyclerview dos chars favoritos
         adapChar = FavoritosAdapter(this, "char")
         rcv_favoritos_char.adapter = adapChar
         rcv_favoritos_char.layoutManager =
-
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rcv_favoritos_char.setHasFixedSize(true)
 
 
-        viewModel.getAllCharsFavoritos()
-        viewModel.getAllComicsFavoritos()
-        viewModel.getAllSeriesFavoritos()
-        viewModel.getAllStoriesFavoritos()
-
-
-
         viewModel.listCharsFavoritos.observe(viewLifecycleOwner, {
-            adapChar.setData(it.data)
-            listaAdapChar = it.data
+            adapChar.setData(it)
+            listaAdapChar = it
         })
 
 
@@ -82,13 +71,13 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
         rcv_favoritos_comics.setHasFixedSize(true)
 
         viewModel.listComicsFavoritos.observe(viewLifecycleOwner, {
-            adapComic.setData(it.data)
-            listaAdapComic = it.data
+            adapComic.setData(it)
+            listaAdapComic = it
         })
 
 
         //recyclerview dos series favoritos
-        adapSerie = FavoritosAdapter(this, "serie")
+        adapSerie = FavoritosAdapter(this, "series")
         rcv_favoritos_series.adapter = adapSerie
         rcv_favoritos_series.layoutManager =
 
@@ -96,13 +85,13 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
         rcv_favoritos_series.setHasFixedSize(true)
 
         viewModel.listSeriesFavoritos.observe(viewLifecycleOwner, {
-            adapSerie.setData(it.data)
-            listaAdapSerie = it.data
+            adapSerie.setData(it)
+            listaAdapSerie = it
         })
 
 
         //recyclerview dos stories favoritos
-        adapStorie = FavoritosAdapter(this, "storie")
+        adapStorie = FavoritosAdapter(this, "stories")
         rcv_favoritos_stories.adapter = adapStorie
         rcv_favoritos_stories.layoutManager =
 
@@ -110,23 +99,17 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
         rcv_favoritos_stories.setHasFixedSize(true)
 
         viewModel.listStoriesFavoritos.observe(viewLifecycleOwner, {
-            adapStorie.setData(it.data)
-            listaAdapStorie = it.data
+            adapStorie.setData(it)
+            listaAdapStorie = it
         })
 
     }
 
     override fun selectFavorito(position: Int, origin: String) {
         val favorito = when (origin) {
-            "char" -> {
-                adapChar.listFavoritos!![position]
-            }
-            "comic" -> {
-                adapComic.listFavoritos!![position]
-            }
-            "serie" -> {
-                adapSerie.listFavoritos!![position]
-            }
+            "char" -> adapChar.listFavoritos!![position]
+            "comic" -> adapComic.listFavoritos!![position]
+            "series" -> adapSerie.listFavoritos!![position]
             else -> adapStorie.listFavoritos!![position]
         }
 
@@ -139,42 +122,23 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
 
 
     override fun onDialogDeleteClick(dialog: DialogFragment, favorito: Favorito) {
-        Log.i("NO FRAGMENTE FAVORITOS", favorito.toString())
         viewModel.deleteFavorito(favorito)
         when (favorito.tipoDoResult) {
-            "char" -> {
-                adapChar.setData(listaAdapChar)
-            }
-            "comic" -> {
-                adapComic.setData(listaAdapComic)
-            }
-            "serie" -> {
-                adapSerie.setData(listaAdapSerie)
-            }
-            "storie" -> {
-                adapStorie.setData(listaAdapStorie)
-            }
+            "char" -> adapChar.setData(listaAdapChar)
+            "comic" -> adapComic.setData(listaAdapComic)
+            "series" -> adapSerie.setData(listaAdapSerie)
+            "stories" -> adapStorie.setData(listaAdapStorie)
         }
         Toast.makeText(context, "Favorito deletado com sucesso", Toast.LENGTH_LONG).show()
     }
 
     override fun onDialogVerInfo(dialog: DialogFragment, objFavorito: Favorito) {
-        Log.i("NO FRAGMENTE FAVORITOS", "vai chamar exibe pra mostrar info ")
         sharedModel.setSelectedResult(objFavorito.results!!)
-
         when (objFavorito.tipoDoResult) {
-            "char" -> {
-                findNavController().navigate(R.id.action_favoritosFragment_to_exibePersonagemFragment)
-            }
-            "comic" -> {
-                findNavController().navigate(R.id.action_favoritosFragment_to_exibeComicsFragment2)
-            }
-            "series" -> {
-                findNavController().navigate(R.id.action_favoritosFragment_to_exibeSeriesFragement)
-            }
-            "stories" -> {
-                findNavController().navigate(R.id.action_favoritosFragment_to_exibeStoriesFragment)
-            }
+            "char" -> findNavController().navigate(R.id.action_favoritosFragment_to_exibePersonagemFragment)
+            "comic" -> findNavController().navigate(R.id.action_favoritosFragment_to_exibeComicsFragment2)
+            "series" -> findNavController().navigate(R.id.action_favoritosFragment_to_exibeSeriesFragement)
+            "stories" -> findNavController().navigate(R.id.action_favoritosFragment_to_exibeStoriesFragment)
 
         }
     }
