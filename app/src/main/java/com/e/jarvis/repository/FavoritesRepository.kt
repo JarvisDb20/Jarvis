@@ -24,14 +24,14 @@ class FavoritesRepository(
                 emit(retorno)
             }
             .collect { res ->
-                if (res.isEmpty()) {
-                    retorno = ResponseWrapper<List<Favorito>>(
+                retorno = if (res.isEmpty()) {
+                    ResponseWrapper<List<Favorito>>(
                         ResponseWrapper.Status.ERROR,
                         null,
                         "Not found - empty list"
                     )
                 } else {
-                    retorno = ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
+                    ResponseWrapper<List<Favorito>>(ResponseWrapper.Status.SUCCESS, res)
                 }
                 emit(retorno)
             }
