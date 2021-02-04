@@ -144,8 +144,17 @@
         android:label="My favorites"
         tools:layout="@layout/fragment_favoritos" >
         <action
-            android:id="@+id/action_favoritosFragment_to_dialogFragmentDelete2"
-            app:destination="@id/dialogFragmentDelete2" />
+            android:id="@+id/action_favoritosFragment_to_exibeSeriesFragement"
+            app:destination="@id/exibeSeriesFragement" />
+        <action
+            android:id="@+id/action_favoritosFragment_to_exibeComicsFragment2"
+            app:destination="@id/exibeComicsFragment" />
+        <action
+            android:id="@+id/action_favoritosFragment_to_exibeStoriesFragment"
+            app:destination="@id/exibeStoriesFragment" />
+        <action
+            android:id="@+id/action_favoritosFragment_to_exibePersonagemFragment"
+            app:destination="@id/exibePersonagemFragment" />
     </fragment>
     <fragment
         android:id="@+id/imageFullFragment"

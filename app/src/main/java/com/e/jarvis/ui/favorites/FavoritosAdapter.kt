@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_top_heroi.view.*
 
 class FavoritosAdapter( val listener : FavoritosOnClickListener, val origin : String) : RecyclerView.Adapter<FavoritosAdapter.FavoritosViewHolder>() {
 
-    var listFavoritos = emptyList<Favorito>()
+    var listFavoritos : List<Favorito>? = listOf<Favorito>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritosViewHolder {
         return FavoritosViewHolder(
@@ -24,7 +24,7 @@ class FavoritosAdapter( val listener : FavoritosOnClickListener, val origin : St
     }
 
     override fun onBindViewHolder(holder: FavoritosViewHolder, position: Int) {
-        val favorito = listFavoritos[position]
+        val favorito = listFavoritos!![position]
 
         val picasso = Picasso.get()
 
@@ -56,7 +56,14 @@ class FavoritosAdapter( val listener : FavoritosOnClickListener, val origin : St
 
     }
 
-    override fun getItemCount() = listFavoritos.size
+    override fun getItemCount(): Int {
+        try{
+         return listFavoritos!!.size
+        } catch (e: Exception) {
+            return 0
+        }
+
+    }
 
 
     interface FavoritosOnClickListener {
@@ -64,11 +71,13 @@ class FavoritosAdapter( val listener : FavoritosOnClickListener, val origin : St
     }
 
     //passa as listas e avisa o adapter quando tem mudanças
-    fun setData(favorito: List<Favorito>) {
+    fun setData(favorito: List<Favorito>?) {
         this.listFavoritos = favorito
         notifyDataSetChanged()
 
     }
+
+
 
     inner class FavoritosViewHolder(item: View) : RecyclerView.ViewHolder(item),  View.OnClickListener {
 

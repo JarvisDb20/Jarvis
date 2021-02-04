@@ -16,6 +16,7 @@ class DialogFragmentDelete(var listener: NoticeDialogListener) : DialogFragment(
         return activity?.let {
             val objFavorito = getbundle()
 
+
             val picasso = Picasso.get()
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater;

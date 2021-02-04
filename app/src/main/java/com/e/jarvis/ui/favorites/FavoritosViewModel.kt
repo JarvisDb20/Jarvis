@@ -1,6 +1,7 @@
 package com.e.jarvis.ui.favorites
 
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,6 +36,7 @@ class FavoritosViewModel(private val repoFavoritos: FavoritesRepository) : ViewM
                             ResponseWrapper(it.status, null, it.error)
                         else -> {
                             listCharsFavoritos.value = ResponseWrapper(it.status, it.data)
+                            Log.i("VIEWMODELFAV", it.data.toString())
                         }
                     }
                     loading.value = View.INVISIBLE
@@ -86,6 +88,7 @@ class FavoritosViewModel(private val repoFavoritos: FavoritesRepository) : ViewM
                             ResponseWrapper(it.status, null, it.error)
                         else -> {
                             listStoriesFavoritos.value = ResponseWrapper(it.status, it.data)
+
                         }
                     }
                     loading.value = View.INVISIBLE
@@ -98,20 +101,6 @@ class FavoritosViewModel(private val repoFavoritos: FavoritesRepository) : ViewM
             repoFavoritos.deleteFavorito(favorito)
         }
 
-//        when (favorito.tipoDoResult) {
-//            "char" -> {
-//                getAllCharsFavoritos()
-//            }
-//            "comic" -> {
-//                getAllComicsFavoritos()
-//            }
-//            "serie" -> {
-//                getAllSeriesFavoritos()
-//            }
-//            "storie" -> {
-//                getAllStoriesFavoritos()
-//            }
-//        }
 
     }
 
