@@ -10,5 +10,6 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:background="@color/roman_silver"
+        android:src="@drawable/invalid_reference"
         android:scaleType="fitXY" />
 </LinearLayout>

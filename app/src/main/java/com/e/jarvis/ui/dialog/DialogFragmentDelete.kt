@@ -23,14 +23,14 @@ class DialogFragmentDelete(var listener: NoticeDialogListener) : DialogFragment(
 
             val dialogLayout = inflater.inflate(R.layout.favoritos_dialog, null)
 
-            picasso.load(objFavorito.results.thumbnail?.path + "/portrait_uncanny." + objFavorito.results.thumbnail?.extension)
+            picasso.load(objFavorito.results?.thumbnail?.path + "/portrait_uncanny." + objFavorito.results?.thumbnail?.extension)
                 .into(dialogLayout.image_dialog)
             dialogLayout.tv_dialog_favorito
 
             if (objFavorito.tipoDoResult == "char") {
-                dialogLayout.tv_dialog_favorito.text = objFavorito.results.name
+                dialogLayout.tv_dialog_favorito.text = objFavorito.results?.name
             } else {
-                dialogLayout.tv_dialog_favorito.text = objFavorito.results.title
+                dialogLayout.tv_dialog_favorito.text = objFavorito.results?.title
             }
 
             dialogLayout.btn_deletar_dialog.setOnClickListener {

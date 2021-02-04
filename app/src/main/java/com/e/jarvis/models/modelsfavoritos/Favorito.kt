@@ -10,9 +10,9 @@ import java.io.Serializable
 
 @Entity(tableName = "favoritos")
 data class Favorito(
-     @PrimaryKey(autoGenerate = false)
-    var id: String,
+    @PrimaryKey(autoGenerate = false)
+    var id: String = "",
     @Embedded(prefix = "favoritos_")
-    val results: GenericResults,
-    val tipoDoResult : String
-    ) :  Serializable
+    val results: GenericResults? = null,
+    val tipoDoResult: String = ""
+) : Serializable

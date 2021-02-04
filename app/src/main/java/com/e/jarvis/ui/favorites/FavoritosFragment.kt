@@ -23,7 +23,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListener,
         DialogFragmentDelete.NoticeDialogListener {
 
-
+    override var loginRequired = true
     private val viewModel: FavoritosViewModel by viewModel()
 
     lateinit var adapChar: FavoritosAdapter
@@ -160,7 +160,7 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
 
     override fun onDialogVerInfo(dialog: DialogFragment, objFavorito: Favorito) {
         Log.i("NO FRAGMENTE FAVORITOS", "vai chamar exibe pra mostrar info ")
-        sharedModel.setSelectedResult(objFavorito.results)
+        sharedModel.setSelectedResult(objFavorito.results!!)
 
         when (objFavorito.tipoDoResult) {
             "char" -> {
@@ -169,10 +169,10 @@ class FavoritosFragment : BaseFragment(), FavoritosAdapter.FavoritosOnClickListe
             "comic" -> {
                 findNavController().navigate(R.id.action_favoritosFragment_to_exibeComicsFragment2)
             }
-            "serie" -> {
+            "series" -> {
                 findNavController().navigate(R.id.action_favoritosFragment_to_exibeSeriesFragement)
             }
-            "storie" -> {
+            "stories" -> {
                 findNavController().navigate(R.id.action_favoritosFragment_to_exibeStoriesFragment)
             }
 

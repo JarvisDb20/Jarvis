@@ -1,75 +1,77 @@
 package com.e.jarvis.repository
 
+import android.util.Log
 import com.e.jarvis.models.ResponseHandler
 import com.e.jarvis.models.ResponseWrapper
-import com.e.jarvis.models.UserModel
-import com.google.firebase.auth.AuthResult
+import com.e.jarvis.models.modelsfavoritos.Favorito
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.firestore.ktx.toObject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
 class FirebaseRepository(
     private val db: FirebaseFirestore,
-    private val store: FirebaseStorage,
     private val auth: FirebaseAuth,
     private val responseHandler: ResponseHandler,
+    private val logout : Task<Void>
 //    private val preferences: SharedPreferences
 ) {
-    //    private val LOGGED = "logged"
-//    private val COLL = "Games"
-//
 
-
-    fun createUser(userModel: UserModel): Flow<ResponseWrapper<UserModel>> = flow {
-        var saida: ResponseWrapper<UserModel> = responseHandler.handleLoading("Creating user...")
-        try {
-            emit(saida)
-            val createTask =
-                auth.createUserWithEmailAndPassword(userModel.email, userModel.password!!).await()
-            saida = getLoggedUser(createTask)
-            emit(saida)
-        } catch (e: Exception) {
-            saida = responseHandler.handleException(e)
-            emit(saida)
-        }
-    }
+    private val COLL = "Favorites"
+    private val USER = "User"
 
     fun getLogged(): Flow<Boolean> = flow { emit(auth.currentUser != null) }
 
-    fun logOut() {
+    suspend fun logOut() {
         auth.signOut()
+        logout.await()
     }
 
-    fun logIn(userModel: UserModel): Flow<ResponseWrapper<UserModel>> = flow {
-        var saida: ResponseWrapper<UserModel> = responseHandler.handleLoading("Creating user...")
+    fun addFavorite(fav: Favorito): Flow<ResponseWrapper<Boolean>> = flow {
+        val saida: ResponseWrapper<Boolean> = responseHandler.handleLoading("Sending info...")
         try {
             emit(saida)
-            val logTask =
-                auth.signInWithEmailAndPassword(userModel.email, userModel.password!!).await()
-            saida = getLoggedUser(logTask)
-            emit(saida)
+            fav.id = fav.results!!.id
+            db.collection(USER).document(auth.currentUser!!.uid).collection(COLL).document(fav.id)
+                .set(fav)
+            emit(responseHandler.handleSuccess(true))
         } catch (e: Exception) {
-            saida = responseHandler.handleException(e)
+            emit(responseHandler.handleException<Boolean>(e))
+        }
+    }
+    fun removeFavorite(fav: Favorito): Flow<ResponseWrapper<Boolean>> = flow {
+        val saida: ResponseWrapper<Boolean> = responseHandler.handleLoading("Sending info...")
+        try {
             emit(saida)
+            fav.id = fav.results!!.id
+            db.collection(USER).document(auth.currentUser!!.uid).collection(COLL).document(fav.id)
+                .delete()
+            emit(responseHandler.handleSuccess(true))
+        } catch (e: Exception) {
+            emit(responseHandler.handleException<Boolean>(e))
+        }
+    }
+    fun getFavorite(): Flow<ResponseWrapper<ArrayList<Favorito>>> = flow {
+        val saida: ResponseWrapper<ArrayList<Favorito>> =
+            responseHandler.handleLoading("Retrieving games...")
+        try {
+            emit(saida)
+            val listGames = ArrayList<Favorito>()
+            val games = db.collection(USER).document(auth.currentUser!!.uid).collection(COLL).get().await()
+
+            games.forEach { doc ->
+                listGames.add(doc.toObject<Favorito>())
+            }
+            emit(responseHandler.handleSuccess(listGames))
+        } catch (e: Exception) {
+            emit(responseHandler.handleException<ArrayList<Favorito>>(e))
         }
 
     }
-
-    private fun getLoggedUser(
-        task: AuthResult
-    ): ResponseWrapper<UserModel> {
-        return responseHandler.handleSuccess(
-            UserModel(
-                task.user?.email!!,
-                "",
-                task.user?.uid
-            )
-        )
-    }
-
     private fun getUniqueKey() = db.collection("key").document().id
 
 }

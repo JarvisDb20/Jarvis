@@ -1,37 +1,33 @@
-
-
-
 package com.e.jarvis.di
 
 import android.app.Application
 import androidx.room.Room
 import com.e.jarvis.database.AppDatabase
-import com.e.jarvis.database.dao.*
+import com.e.jarvis.database.dao.FavoritoDao
+import com.e.jarvis.database.dao.MarvelDao
+import com.e.jarvis.database.dao.QuizDao
 import com.e.jarvis.database.db.FavoritoDb
 import com.e.jarvis.database.db.MarvelDb
 import com.e.jarvis.database.db.QuizDb
-
 import com.e.jarvis.models.ResponseHandler
+import com.e.jarvis.repository.FavoritesRepository
 import com.e.jarvis.repository.FirebaseRepository
 import com.e.jarvis.repository.MarvelRepository
 import com.e.jarvis.retrofit.MarvelService
 import com.e.jarvis.ui.SharedViewModel
-import com.e.jarvis.ui.cadastro.CadastroViewModel
 import com.e.jarvis.ui.exibe.ExibeViewModel
 import com.e.jarvis.ui.favorites.FavoritosViewModel
 import com.e.jarvis.ui.home.HomeViewModel
-import com.e.jarvis.ui.login.LoginViewModel
 import com.e.jarvis.ui.logout.LogoutViewModel
 import com.e.jarvis.ui.perguntas.QuestionViewModel
 import com.e.jarvis.ui.pesquisa.PesquisaViewModel
 import com.e.jarvis.ui.quiz.QuizViewModel
+import com.firebase.ui.auth.AuthUI
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
-
-import com.e.jarvis.repository.FavoritesRepository
-
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -74,7 +70,7 @@ val roomDataBaseModule = module {
 
 val repositoryModule = module {
     single { MarvelRepository(get(), get()) }
-
+    single { FavoritesRepository(get(),get()) }
     single { FirebaseRepository(get(), get(), get(), get()) }
 }
 
@@ -86,8 +82,6 @@ val viewModelModule = module {
     viewModel { QuestionViewModel(get()) }
     viewModel { SharedViewModel(get()) }
     viewModel { FavoritosViewModel(get()) }
-    viewModel { CadastroViewModel(get()) }
-    viewModel { LoginViewModel(get()) }
     viewModel { LogoutViewModel(get()) }
 }
 
@@ -97,14 +91,8 @@ val appModule = module {
     single { Firebase.auth }
     single { Firebase.storage }
     single { Firebase.firestore }
+    single<Task<Void>> { AuthUI.getInstance().signOut(get()) }
 }
-
-
-
-val favoritosModule = module {
-    single { FavoritesRepository(get()) }
-}
-
 
 val retrofitModule = module {
 

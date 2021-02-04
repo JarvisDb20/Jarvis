@@ -20,12 +20,14 @@ abstract class BaseFragment : Fragment() {
     private lateinit var mainActivity: MainActivity
     protected open var bottomNavigationViewVisibility = View.INVISIBLE
     protected open var toolbarMenu = View.VISIBLE
+    protected open var loginRequired = false
     protected open var menuItemVisibility =
         DrawerMenuItem(home = true, quiz = true, favorites = true, login = true, logout = true)
     open val sharedModel: SharedViewModel by sharedViewModel()
     protected open var menuAppBar = MenuAppBar(share = false, favorite = false, search = false)
     open val searchString = MutableLiveData<String>()
     open var searchNavigateSubmit: Int = 0
+    private var inicio = true
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -36,7 +38,6 @@ abstract class BaseFragment : Fragment() {
             defaultLayout()
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.setToolbarVisibility(toolbarMenu)
-
             mainActivity.resizeFragment()
         }
     }
@@ -47,15 +48,8 @@ abstract class BaseFragment : Fragment() {
             defaultLayout()
             mainActivity.setBottomNavigationVisibility(bottomNavigationViewVisibility)
             mainActivity.setToolbarVisibility(toolbarMenu)
-
             mainActivity.resizeFragment()
         }
-    }
-
-    private fun defaultLayout() {
-        mainActivity.setBottomNavigationVisibility(View.INVISIBLE)
-        mainActivity.setToolbarVisibility(View.VISIBLE)
-
         sharedModel.getLogin().observe(viewLifecycleOwner,{
             if(it){
                 mainActivity.setNavDrawerVisibility(
@@ -71,15 +65,27 @@ abstract class BaseFragment : Fragment() {
                 mainActivity.setNavDrawerVisibility(
                     DrawerMenuItem(
                         home = true,
-                        quiz = false,
-                        favorites = false,
+                        quiz = true,
+                        favorites = true,
                         login = true,
                         logout = false
                     )
                 )
+                if (loginRequired){
+                    if(inicio) {
+                        findNavController().navigate(R.id.action_global_login)
+                        inicio = false
+                    }else{
+                        findNavController().popBackStack()
+                    }
+                }
             }
         })
+    }
 
+    private fun defaultLayout() {
+        mainActivity.setBottomNavigationVisibility(View.INVISIBLE)
+        mainActivity.setToolbarVisibility(View.VISIBLE)
 
         mainActivity.resizeFragment()
     }

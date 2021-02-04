@@ -10,41 +10,39 @@ import java.io.Serializable
 @Entity(tableName = "results")
 data class GenericResults(
     @PrimaryKey(autoGenerate = false)
-    val id: String,
+    val id: String="",
 
-    val title: String?,
+    val title: String?=null,
 
-    val description: String?,
+    val description: String?=null,
 
-    val resourceURI: String? = " ",
+    val resourceURI: String?=null,
 
     @Embedded(prefix = "series_")
-    val series: GenericList?,
+    val series: GenericList?=null,
 
     @Embedded(prefix = "thumb_")
-
-    val thumbnail: GenericImage?,
-
+    val thumbnail: GenericImage?=null,
 
     @Embedded(prefix = "creators_")
-    val creators: GenericList?,
+    val creators: GenericList?=null,
 
     @Embedded(prefix = "chars_")
-    val characters: GenericList?,
+    val characters: GenericList?=null,
 
     @Embedded(prefix = "stories_")
-    val stories: GenericList?,
+    val stories: GenericList?=null,
 
     @Embedded(prefix = "events_")
-    val events: GenericList?,
+    val events: GenericList?=null,
 
-    val name: String?,
+    val name: String="",
 
     @Embedded(prefix = "comics_")
-    val comics: GenericList?,
+    val comics: GenericList?=null,
 
     @Embedded(prefix = "apiObject_")
-    var apiObject: ApiObject?
+    var apiObject: ApiObject?=null
 
 ) : Serializable
 
