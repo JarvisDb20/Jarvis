@@ -34,16 +34,24 @@
         tools:layout="@layout/fragment_exibe">
         <action
             android:id="@+id/navigate_personagem_to_exibe_series_fragment"
-            app:destination="@id/exibeSeriesFragement" />
+            app:destination="@id/exibeSeriesFragement"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/navigate_personagem_to_exibe_comics_fragment"
-            app:destination="@id/exibeComicsFragment" />
+            app:destination="@id/exibeComicsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/navigate_personagem_to_exibe_stories_fragment"
-            app:destination="@id/exibeStoriesFragment" />
+            app:destination="@id/exibeStoriesFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_exibePersonagemFragment_to_imageFullFragment"
-            app:destination="@id/imageFullFragment" />
+            app:destination="@id/imageFullFragment"
+            app:enterAnim="@anim/from_top"
+            app:exitAnim="@anim/to_bottom" />
     </fragment>
     <fragment
         android:id="@+id/exibeComicsFragment"
@@ -52,16 +60,24 @@
         tools:layout="@layout/fragment_exibe">
         <action
             android:id="@+id/navigate_comics_to_personagem"
-            app:destination="@id/exibePersonagemFragment" />
+            app:destination="@id/exibePersonagemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/navigate_comics_to_series"
-            app:destination="@id/exibeSeriesFragement" />
+            app:destination="@id/exibeSeriesFragement"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/navigate_comics_to_stories"
-            app:destination="@id/exibeStoriesFragment" />
+            app:destination="@id/exibeStoriesFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_exibeComicsFragment_to_imageFullFragment"
-            app:destination="@id/imageFullFragment" />
+            app:destination="@id/imageFullFragment"
+            app:enterAnim="@anim/from_top"
+            app:exitAnim="@anim/to_bottom" />
 
     </fragment>
     <fragment
@@ -74,13 +90,19 @@
             app:destination="@id/exibePersonagemFragment" />
         <action
             android:id="@+id/navigate_stories_to_series_fragment"
-            app:destination="@id/exibeSeriesFragement" />
+            app:destination="@id/exibeSeriesFragement"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/navigate_stories_to_comics_fragment"
-            app:destination="@id/exibeComicsFragment" />
+            app:destination="@id/exibeComicsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_exibeStoriesFragment_to_imageFullFragment"
-            app:destination="@id/imageFullFragment" />
+            app:destination="@id/imageFullFragment"
+            app:enterAnim="@anim/from_top"
+            app:exitAnim="@anim/to_bottom" />
     </fragment>
     <fragment
         android:id="@+id/pesquisaFragment"
@@ -100,17 +122,25 @@
         tools:layout="@layout/fragment_exibe">
         <action
             android:id="@+id/navigate_series_to_personagem_fragment"
-            app:destination="@id/exibePersonagemFragment" />
+            app:destination="@id/exibePersonagemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/navigate_series_to_comics_fragment"
-            app:destination="@id/exibeComicsFragment" />
+            app:destination="@id/exibeComicsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/navigate_series_to_stories_fragment"
-            app:destination="@id/exibeStoriesFragment" />
+            app:destination="@id/exibeStoriesFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
 
         <action
             android:id="@+id/action_exibeSeriesFragement_to_imageFullFragment"
-            app:destination="@id/imageFullFragment" />
+            app:destination="@id/imageFullFragment"
+            app:enterAnim="@anim/from_top"
+            app:exitAnim="@anim/to_bottom" />
 
     </fragment>
     <fragment
@@ -134,16 +164,24 @@
         tools:layout="@layout/fragment_favoritos" >
         <action
             android:id="@+id/action_favoritosFragment_to_exibeSeriesFragement"
-            app:destination="@id/exibeSeriesFragement" />
+            app:destination="@id/exibeSeriesFragement"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_favoritosFragment_to_exibeComicsFragment2"
-            app:destination="@id/exibeComicsFragment" />
+            app:destination="@id/exibeComicsFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_favoritosFragment_to_exibeStoriesFragment"
-            app:destination="@id/exibeStoriesFragment" />
+            app:destination="@id/exibeStoriesFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
         <action
             android:id="@+id/action_favoritosFragment_to_exibePersonagemFragment"
-            app:destination="@id/exibePersonagemFragment" />
+            app:destination="@id/exibePersonagemFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/imageFullFragment"
