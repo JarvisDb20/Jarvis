@@ -1,27 +1,32 @@
 package com.e.jarvis.ui.quiz
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.e.jarvis.database.db.QuizDb
+import com.e.jarvis.models.ResponseWrapper
 import com.e.jarvis.models.modelsQuiz.Alternatives
 import com.e.jarvis.models.modelsQuiz.Quiz
+import com.e.jarvis.models.modelsQuiz.UserQuiz
+import com.e.jarvis.repository.QuizRepository
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class QuizViewModel(private val quizDb: QuizDb) : ViewModel() {
+class QuizViewModel(
+    private val repository: QuizRepository
+) : ViewModel() {
     //Pegar instancia do usuario
-    fun initialQuestions() {
-//        viewModelScope.launch {
-//            if (quizDb.getAllIds().isEmpty())
-//                quizDb.addQuiz(
-//                    Quiz(
-//                        0,
-//                        "Born with super-human senses and the power to heal from almost any wound, _____ was captured by a secret Canadian organization and given an unbreakable skeleton and claws. Who is this character?",
-//                        Alternatives("Wolverine", true),
-//                        Alternatives("Scott Summers", false),
-//                        Alternatives("Groot", false),
-//                        Alternatives("Psylocke", false)
-//                    )
-//                )
-//        }
+
+    fun getUser() : LiveData<ResponseWrapper<ArrayList<UserQuiz>>> = MutableLiveData<ResponseWrapper<ArrayList<UserQuiz>>>().apply {
+        viewModelScope.launch {
+            repository.getAllUserQuiz().collect {
+                if (it.status == ResponseWrapper.Status.SUCCESS)
+                    if (it.data.isNullOrEmpty())
+                        repository.updateUserQuiz(UserQuiz(rank = "Rookie")).collect()
+                    else
+                        value = it
+            }
+        }
     }
 }

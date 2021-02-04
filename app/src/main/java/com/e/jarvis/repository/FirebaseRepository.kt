@@ -2,6 +2,8 @@ package com.e.jarvis.repository
 
 import com.e.jarvis.models.ResponseHandler
 import com.e.jarvis.models.ResponseWrapper
+import com.e.jarvis.models.modelsQuiz.Quiz
+import com.e.jarvis.models.modelsQuiz.UserQuiz
 import com.e.jarvis.models.modelsfavoritos.Favorito
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
@@ -19,7 +21,8 @@ class FirebaseRepository(
 //    private val preferences: SharedPreferences
 ) {
 
-    private val COLL = "Favorites"
+    private val FAVORITOS = "Favorites"
+    private val QUIZ = "Quiz"
     private val USER = "User"
 
     fun getLogged(): Flow<Boolean> = flow { emit(auth.currentUser != null) }
@@ -29,12 +32,12 @@ class FirebaseRepository(
         logout.await()
     }
 
-    fun addFavorite(fav: Favorito): Flow<ResponseWrapper<Boolean>> = flow {
+    fun addFavorite(fav: Favorito) = flow<ResponseWrapper<Boolean>> {
         val saida: ResponseWrapper<Boolean> = responseHandler.handleLoading("Sending info...")
         try {
             emit(saida)
             fav.id = fav.results!!.id
-            db.collection(USER).document(auth.currentUser!!.uid).collection(COLL).document(fav.id)
+            db.collection(USER).document(auth.currentUser!!.uid).collection(FAVORITOS).document(fav.id)
                 .set(fav)
             emit(responseHandler.handleSuccess(true))
         } catch (e: Exception) {
@@ -42,12 +45,12 @@ class FirebaseRepository(
         }
     }
 
-    fun removeFavorite(fav: Favorito): Flow<ResponseWrapper<Boolean>> = flow {
+    fun removeFavorite(fav: Favorito) = flow<ResponseWrapper<Boolean>> {
         val saida: ResponseWrapper<Boolean> = responseHandler.handleLoading("Sending info...")
         try {
             emit(saida)
             fav.id = fav.results!!.id
-            db.collection(USER).document(auth.currentUser!!.uid).collection(COLL).document(fav.id)
+            db.collection(USER).document(auth.currentUser!!.uid).collection(FAVORITOS).document(fav.id)
                 .delete()
             emit(responseHandler.handleSuccess(true))
         } catch (e: Exception) {
@@ -55,14 +58,14 @@ class FirebaseRepository(
         }
     }
 
-    fun getFavorite(): Flow<ResponseWrapper<ArrayList<Favorito>>> = flow {
+    fun getFavorite() = flow<ResponseWrapper<ArrayList<Favorito>>> {
         val saida: ResponseWrapper<ArrayList<Favorito>> =
             responseHandler.handleLoading("Retrieving games...")
         try {
             emit(saida)
             val listGames = ArrayList<Favorito>()
             val games =
-                db.collection(USER).document(auth.currentUser!!.uid).collection(COLL).get().await()
+                db.collection(USER).document(auth.currentUser!!.uid).collection(FAVORITOS).get().await()
 
             games.forEach { doc ->
                 listGames.add(doc.toObject<Favorito>())
@@ -71,7 +74,63 @@ class FirebaseRepository(
         } catch (e: Exception) {
             emit(responseHandler.handleException<ArrayList<Favorito>>(e))
         }
+    }
 
+    // add e update
+    fun updateUserQuiz(userQuiz: UserQuiz) = flow<ResponseWrapper<Boolean>> {
+        val saida: ResponseWrapper<Boolean> = responseHandler.handleLoading("Sending info...")
+        try {
+            emit(saida)
+            db.collection(USER).document(auth.currentUser!!.uid).collection(QUIZ).document(auth.currentUser!!.uid)
+                .set(userQuiz)
+            emit(responseHandler.handleSuccess(true))
+        } catch (e: Exception) {
+            emit(responseHandler.handleException<Boolean>(e))
+        }
+    }
+
+    fun addQuiz(quiz: Quiz) = flow<ResponseWrapper<Boolean>> {
+        val saida: ResponseWrapper<Boolean> = responseHandler.handleLoading("Sending info...")
+        try {
+            emit(saida)
+            quiz.id = 1
+            db.collection(QUIZ).document(quiz.id.toString()).set(quiz)
+            emit(responseHandler.handleSuccess(true))
+        } catch (e: Exception) {
+            emit(responseHandler.handleException<Boolean>(e))
+        }
+    }
+
+    fun getAllQuiz() = flow<ResponseWrapper<ArrayList<Quiz>>>{
+        val saida: ResponseWrapper<ArrayList<Quiz>> =
+            responseHandler.handleLoading("Retrieving games...")
+        try {
+            emit(saida)
+            val listGames = ArrayList<Quiz>()
+            val games = db.collection(QUIZ).get().await()
+            games.forEach { doc ->
+                listGames.add(doc.toObject<Quiz>())
+            }
+            emit(responseHandler.handleSuccess(listGames))
+        } catch (e: Exception) {
+            emit(responseHandler.handleException<ArrayList<Quiz>>(e))
+        }
+    }
+
+    fun getAllUserQuiz() = flow<ResponseWrapper<ArrayList<UserQuiz>>>{
+        val saida: ResponseWrapper<ArrayList<UserQuiz>> =
+            responseHandler.handleLoading("Retrieving games...")
+        try {
+            emit(saida)
+            val listGames = ArrayList<UserQuiz>()
+            val games = db.collection(USER).document(auth.currentUser!!.uid).collection(QUIZ).get().await()
+            games.forEach { doc ->
+                listGames.add(doc.toObject<UserQuiz>())
+            }
+            emit(responseHandler.handleSuccess(listGames))
+        } catch (e: Exception) {
+            emit(responseHandler.handleException<ArrayList<UserQuiz>>(e))
+        }
     }
 
     private fun getUniqueKey() = db.collection("key").document().id
