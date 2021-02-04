@@ -10,4 +10,7 @@ class QuizDb(val quizDao: QuizDao) {
     suspend fun addQuiz(quiz: Quiz) = quizDao.addQuiz(quiz)
 
     suspend fun getAllIds() = quizDao.getAllIds()
+
+    suspend fun delAllQuiz() = quizDao.delAllQuiz()
+
 }

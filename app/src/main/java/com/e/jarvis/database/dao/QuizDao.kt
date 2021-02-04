@@ -9,15 +9,17 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 interface QuizDao {
 
     @Query("SELECT * FROM Quiz WHERE id= :id")
-    fun getQuiz(id: Int): Flow<Quiz>
+    suspend fun getQuiz(id: Int): Quiz
 
     @Query("SELECT id FROM Quiz ")
-    fun getAllIds(): Flow<List<Int>>
+    suspend fun getAllIds(): List<Int>
 
+    @Query("DELETE FROM Quiz ")
+    suspend fun delAllQuiz()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addQuiz(quiz: Quiz)
 
-    fun getQuizDistinct(id: Int) = getQuiz(id).distinctUntilChanged()
+
 
 }

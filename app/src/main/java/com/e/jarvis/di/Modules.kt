@@ -13,6 +13,7 @@ import com.e.jarvis.models.ResponseHandler
 import com.e.jarvis.repository.FavoritesRepository
 import com.e.jarvis.repository.FirebaseRepository
 import com.e.jarvis.repository.MarvelRepository
+import com.e.jarvis.repository.QuizRepository
 import com.e.jarvis.retrofit.MarvelService
 import com.e.jarvis.ui.SharedViewModel
 import com.e.jarvis.ui.exibe.ExibeViewModel
@@ -70,8 +71,9 @@ val roomDataBaseModule = module {
 
 val repositoryModule = module {
     single { MarvelRepository(get(), get()) }
-    single { FavoritesRepository(get(),get()) }
+    single { FavoritesRepository(get(), get()) }
     single { FirebaseRepository(get(), get(), get(), get()) }
+    single { QuizRepository(get(), get(), get()) }
 }
 
 val viewModelModule = module {
