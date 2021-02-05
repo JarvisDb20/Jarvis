@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.navigation.fragment.findNavController
 import com.e.jarvis.R
 import com.e.jarvis.ui.BaseFragment
@@ -34,6 +35,7 @@ class LogoutFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         vm.logout()
         findNavController().popBackStack()
+        finishAffinity(this.requireActivity())
 
     }
 
