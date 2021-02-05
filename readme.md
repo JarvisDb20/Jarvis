@@ -9,6 +9,7 @@
   <li>Room</li>
   <li>Firebase Store</li>
   <li>Firebase Authentication</li>
+  <li>Firebase UI</li>
   <li>Coroutines/flow</li>
   <li>MVVM design Pattern</li>
   <li>Jetpack Compose</li>
