@@ -94,7 +94,7 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
         })
 
         viewModel.loading.observe(viewLifecycleOwner, {
-            configProgressBar(view, it)
+            configProgressBar(it)
         })
 
 
@@ -128,12 +128,8 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
     }
 
 
-    open fun configProgressBar(view: View, ativo: Int) {
-        if (ativo == 1) {
-            view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
-        } else {
-            view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.INVISIBLE
-        }
+    open fun configProgressBar(visible: Int) {
+        view?.findViewById<ProgressBar>(R.id.progressBar)?.visibility = visible
     }
 
     open fun geraListaImagem(linha: GenericResults) {
@@ -170,10 +166,9 @@ abstract class ExibeBaseFragment : BaseFragment(), ExibeAdapter.onClickListener 
         }
         R.id.menu_share -> {
             var descricao = listResults.elementAt(posicao).description.toString()
-            if (descricao.isNullOrBlank()){
+            if (descricao.isNullOrBlank()) {
                 descricao = "Descrição não encontrada"
             }
-
 
 
             val sendIntent: Intent = Intent().apply {

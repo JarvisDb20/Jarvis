@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.e.jarvis.R
 import com.e.jarvis.ui.BaseFragment
+import com.e.jarvis.ui.MainActivity
 import com.e.jarvis.ui.exibe.ExibeAdapter
 import com.firebase.ui.auth.AuthUI
 import com.google.android.gms.tasks.OnCompleteListener
@@ -34,7 +35,8 @@ class LogoutFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         vm.logout()
         findNavController().popBackStack()
-
+        val mainActivity = activity as MainActivity
+        mainActivity.finish()
     }
 
 }
